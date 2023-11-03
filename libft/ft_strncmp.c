@@ -31,8 +31,8 @@ int	ft_strncmp(char *dest, char *src, size_t n)
 
 int	main(void)
 {
-	char	dest [] = "Test3";
-	char	src [] = "Test3";
+	char	dest [] = "ezt3";
+	char	src [] = "est3";
 
 	printf("%d\n", ft_strncmp(dest, src, 5));
 	printf("%d", strncmp(dest, src, 5));
