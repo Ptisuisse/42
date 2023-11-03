@@ -1,37 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvan-slu <lvan-slu@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/03 08:46:31 by lvan-slu          #+#    #+#             */
-/*   Updated: 2023/11/03 10:49:03 by lvan-slu         ###   ########.fr       */
+/*   Created: 2023/11/03 10:00:49 by lvan-slu          #+#    #+#             */
+/*   Updated: 2023/11/03 10:48:36 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef libft_h
-#define libft_h
+#include <stdio.h>
+#include <string.h>
 
-# include <stdlib.h>
-# include <unistd.h>
+void	*memcpy(void *dst, const void *src, size_t n)
+{
+	
+}
 
-int	ft_isalpha(int c);
-
-int	ft_isdigit(int c);
-
-int	ft_isalnum(int c);
-
-
-
-int	ft_strlen(char *str);
-
-void	*ft_memset(void *s, int c, size_t n);
-
-void	ft_bzero(void *s, size_t n);
-
-void	*memcpy(void *dst, const void *src, size_t n);
-
-int	ft_toupper(int c);
-
-#endif
+int	main(void)
+{
+}
