@@ -6,7 +6,7 @@
 /*   By: lvan-slu <lvan-slu@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 12:19:49 by lvan-slu          #+#    #+#             */
-/*   Updated: 2023/11/03 12:28:32 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2023/11/04 14:24:49 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	ft_tolower(int c)
 		c += 32;
 	return (c);
 }
-
+/*
 int	main(void)
 {
 	char	c = 'A';
 	printf("%c", ft_tolower(c));
-}
+}*/

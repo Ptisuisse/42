@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isascii.c                                       :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvan-slu <lvan-slu@42angouleme.fr>         +#+  +:+       +#+        */
+/*   By: lvan-slu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/02 14:40:39 by lvan-slu          #+#    #+#             */
-/*   Updated: 2023/11/04 14:23:42 by lvan-slu         ###   ########.fr       */
+/*   Created: 2023/11/04 15:16:09 by lvan-slu          #+#    #+#             */
+/*   Updated: 2023/11/04 15:24:35 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <string.h>
 #include <stdio.h>
-#include <ctype.h>
 
-int	ft_isascii(int c)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	if (c >= 0 && c <= 127)
-		return (1);
-	else
-		return (0);
+
 }
-/*
+
 int	main(void)
 {
-	char	a = ' ';
-	printf("%d", ft_isascii(a));
-	printf("%d", isascii(a));
-}*/
+
+}

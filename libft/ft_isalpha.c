@@ -6,7 +6,7 @@
 /*   By: lvan-slu <lvan-slu@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 09:12:13 by lvan-slu          #+#    #+#             */
-/*   Updated: 2023/11/02 10:56:39 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2023/11/04 14:23:33 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ int	ft_isalpha(int	c)
 	else
 		return (0);
 }
-
+/*
 int	main(void)
 {
 	char	a = '1';
 	printf("%d\n", ft_isalpha(a));
 	printf("%d", isalpha(a));
 }
-
+*/

@@ -6,7 +6,7 @@
 /*   By: lvan-slu <lvan-slu@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 17:50:32 by lvan-slu          #+#    #+#             */
-/*   Updated: 2023/10/17 13:03:10 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2023/11/04 14:22:56 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ int	ft_atoi(char *str)
 	}
 	return (0);
 }
-
+/*
 int	main(int argc, char **argv)
 {
-	(void)argv;
+	(void)argc;
 	printf("%d", ft_atoi(argv[1]));
 	printf("%d", atoi(argv[1]));
-}
+}*/

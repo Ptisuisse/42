@@ -6,7 +6,7 @@
 /*   By: lvan-slu <lvan-slu@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 11:07:18 by lvan-slu          #+#    #+#             */
-/*   Updated: 2023/11/02 11:12:18 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2023/11/04 14:23:24 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int	ft_isalnum(int c)
 	else
 		return (0);
 }
-
+/*
 int	main(void)
 {
 	char	a = ',';
 	printf("%d", ft_isalnum(a));
 	printf("%d", isalnum(a));
-}
+}*/

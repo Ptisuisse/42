@@ -6,27 +6,27 @@
 /*   By: lvan-slu <lvan-slu@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 16:54:53 by lvan-slu          #+#    #+#             */
-/*   Updated: 2023/11/03 09:20:35 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2023/11/04 15:08:24 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
 #include <stdio.h>
 
-void	*ft_bzero(void *s, size_t n)
+void	ft_bzero(void *s, size_t n)
 {
-	char	*c;
+	unsigned int	i;
+	char	*str;
 
-	c = s;
-	while (n != 0)
+	str = s;
+	i = 0;
+	while (i < n)
 	{
-		*c = 0;
-		c++;
-		n--;
+		str[i] = '\0';
+		i++;
 	}
-	return (s);
 }
-
+/*
 int	main(void)
 {	
 	char	a[10];
@@ -34,4 +34,4 @@ int	main(void)
 	bzero(a, 3);
 	printf("%s\n", a);
 	printf("%s", a);
-}
+}*/

@@ -1,39 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvan-slu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/04 16:00:53 by lvan-slu          #+#    #+#             */
-/*   Updated: 2023/11/04 17:00:32 by lvan-slu         ###   ########.fr       */
+/*   Created: 2023/11/04 17:02:13 by lvan-slu          #+#    #+#             */
+/*   Updated: 2023/11/04 17:29:51 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include <string.h>
 #include <stdio.h>
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strrchr(const char *s, int c)
 {
-	char	*str;
+	char	*dest;
 	int	i;
+	int	j;
 
-	str = (char*)s;
 	i = 0;
-	while (str[i] != '\0')
+	j = 0;
+	dest = (char*)s;
+	while(dest[i] != '\0')
 	{
+		if (dest[i] == c)
+			j = i;
 		i++;
-		if (str[i] == c)
-			return(&str[i]);
 	}
-	return (0);
+	if (dest[i] == c && dest[i] == '\0')
+		return (&dest[i]);
+	if (j == 0)
+		return (0);
+	return (&dest[j]);
 }
 
 int	main(void)
 {
-	char	src[] = "this is my @mention";
+	char	src[] = "yestyuhf";
 
-	printf("%s\n", ft_strchr(src, '@'));
-	printf("%s", strchr(src, '@'));
+	printf("%s\n", ft_strrchr(src, 'u'));
+	printf("%s\n", strrchr(src, 'u'));
 }

@@ -6,7 +6,7 @@
 /*   By: lvan-slu <lvan-slu@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:29:05 by lvan-slu          #+#    #+#             */
-/*   Updated: 2023/11/02 16:58:23 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2023/11/04 14:24:20 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	*ft_memset(void *s, int c, size_t n)
 	}
 	return (s);
 }
-
+/*
 int	main(void)
 {
 	char	a[10];
@@ -34,4 +34,4 @@ int	main(void)
 	memset(a, 'c', 3);
 	printf("%s\n", a);
 	printf("%s", a);
-}
+}*/
