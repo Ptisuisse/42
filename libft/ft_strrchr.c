@@ -6,7 +6,7 @@
 /*   By: lvan-slu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 17:02:13 by lvan-slu          #+#    #+#             */
-/*   Updated: 2023/11/04 17:29:51 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2023/11/05 14:38:49 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ char	*ft_strrchr(const char *s, int c)
 		return (0);
 	return (&dest[j]);
 }
-
+/*
 int	main(void)
 {
 	char	src[] = "yestyuhf";
 
 	printf("%s\n", ft_strrchr(src, 'u'));
 	printf("%s\n", strrchr(src, 'u'));
-}
+}*/

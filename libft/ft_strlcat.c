@@ -1,39 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvan-slu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/04 16:00:53 by lvan-slu          #+#    #+#             */
-/*   Updated: 2023/11/05 14:38:14 by lvan-slu         ###   ########.fr       */
+/*   Created: 2023/11/05 12:24:40 by lvan-slu          #+#    #+#             */
+/*   Updated: 2023/11/05 14:28:03 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include <string.h>
 #include <stdio.h>
+#include "libft.h"
 
-char	*ft_strchr(const char *s, int c)
+int	ft_strlen(char *str);
+
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	char	*str;
-	int	i;
+	size_t	i;
+	size_t	j;
+	char	*stc;
 
-	str = (char*)s;
+	stc = (char*)src;
 	i = 0;
-	while (str[i] != '\0')
+	j = 0;
+	if (size == 0)
+		return (ft_strlen(stc));
+	while (dst[j] != '\0' && j < size - 1)
 	{
-		i++;
-		if (str[i] == c)
-			return(&str[i]);
+		j++;
 	}
-	return (0);
+	while (i < size)
+	{
+		dst[j+i] = stc[i];
+		i++;
+	}
+	dst[j+i] = '\0';
+	return (j+i);
 }
-/*
+
 int	main(void)
 {
-	char	src[] = "this is my @mention";
+	char	dest [] = "Hello";
+	char	src [] = "World!";
 
-	printf("%s\n", ft_strchr(src, '@'));
-	printf("%s", strchr(src, '@'));
-}*/
+	printf("src : %s\n dest:%s\n %zu",src, dest, ft_strlcat(dest, src, 0));
+}

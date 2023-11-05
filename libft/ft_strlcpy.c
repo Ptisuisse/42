@@ -1,39 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvan-slu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/04 16:00:53 by lvan-slu          #+#    #+#             */
-/*   Updated: 2023/11/05 14:38:14 by lvan-slu         ###   ########.fr       */
+/*   Created: 2023/11/05 11:01:20 by lvan-slu          #+#    #+#             */
+/*   Updated: 2023/11/05 12:20:06 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include <string.h>
 #include <stdio.h>
+#include "libft.h"
 
-char	*ft_strchr(const char *s, int c)
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
+	size_t	j;
 	char	*str;
-	int	i;
 
-	str = (char*)s;
-	i = 0;
-	while (str[i] != '\0')
+	str = (char*)src;
+	j = 0;
+	while (j < size)
 	{
-		i++;
-		if (str[i] == c)
-			return(&str[i]);
+		dst[j] = str[j];
+		j++;
 	}
-	return (0);
+	dst[j] = '\0';
+	return (j);
 }
 /*
-int	main(void)
+int	main()
 {
-	char	src[] = "this is my @mention";
+	char	src[200] = "";
+	char	dest[10];
 
-	printf("%s\n", ft_strchr(src, '@'));
-	printf("%s", strchr(src, '@'));
+	printf("src : %s\n dest : %s\n strlcpy : %zu\n", src, dest, ft_strlcpy(dest, src, 15));
 }*/

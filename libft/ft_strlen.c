@@ -6,12 +6,13 @@
 /*   By: lvan-slu <lvan-slu@42angouleme.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:06:40 by lvan-slu          #+#    #+#             */
-/*   Updated: 2023/11/04 14:24:33 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2023/11/05 14:25:13 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <string.h>
+#include "libft.h"
 
 int	ft_strlen(char *str)
 {
