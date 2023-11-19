@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvan-slu <lvan-slu@42angouleme.fr>         +#+  +:+       +#+        */
+/*   By: lvan-slu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/02 16:54:53 by lvan-slu          #+#    #+#             */
-/*   Updated: 2023/11/04 15:08:24 by lvan-slu         ###   ########.fr       */
+/*   Created: 2023/11/10 22:10:48 by lvan-slu          #+#    #+#             */
+/*   Updated: 2023/11/13 15:15:28 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-#include <stdio.h>
+#include "libft.h"
 
 void	ft_bzero(void *s, size_t n)
 {
 	unsigned int	i;
-	char	*str;
+	char			*str;
 
 	str = s;
 	i = 0;
@@ -26,12 +25,3 @@ void	ft_bzero(void *s, size_t n)
 		i++;
 	}
 }
-/*
-int	main(void)
-{	
-	char	a[10];
-	ft_bzero(a, 3);
-	bzero(a, 3);
-	printf("%s\n", a);
-	printf("%s", a);
-}*/

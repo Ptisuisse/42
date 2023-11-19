@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvan-slu <lvan-slu@42angouleme.fr>         +#+  +:+       +#+        */
+/*   By: lvan-slu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/14 17:50:32 by lvan-slu          #+#    #+#             */
-/*   Updated: 2023/11/04 14:22:56 by lvan-slu         ###   ########.fr       */
+/*   Created: 2023/11/10 22:10:32 by lvan-slu          #+#    #+#             */
+/*   Updated: 2023/11/13 20:36:47 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "libft.h"
 
-
-int	ft_atoi(char *str)
+int	ft_atoi(const char *str)
 {
 	int	i;
 	int	j;
@@ -42,10 +40,3 @@ int	ft_atoi(char *str)
 	}
 	return (0);
 }
-/*
-int	main(int argc, char **argv)
-{
-	(void)argc;
-	printf("%d", ft_atoi(argv[1]));
-	printf("%d", atoi(argv[1]));
-}*/

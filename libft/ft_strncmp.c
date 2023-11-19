@@ -3,37 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvan-slu <lvan-slu@42angouleme.fr>         +#+  +:+       +#+        */
+/*   By: lvan-slu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/03 14:19:55 by lvan-slu          #+#    #+#             */
-/*   Updated: 2023/11/03 14:45:05 by lvan-slu         ###   ########.fr       */
+/*   Created: 2023/11/19 15:25:44 by lvan-slu          #+#    #+#             */
+/*   Updated: 2023/11/19 15:26:12 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-#include <stdio.h>
+#include "libft.h"
 
-int	ft_strncmp(char *dest, char *src, size_t n)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	int	i;
+	size_t			a;
+	unsigned char	*str1;
+	unsigned char	*str2;
 
-	i = 0;
-	while (i < n)
+	a = 0;
+	str1 = (unsigned char *) s1;
+	str2 = (unsigned char *) s2;
+	while (str1[a] != '\0' && a < n)
 	{
-		if (dest[i] > src[i])
-			return (dest[i] - src[i]);
-		if (dest[i] < src[i])
-			return (dest[i] - src[i]);
-		i++;
+		if (str1[a] != str2[a])
+			return (str1[a] - str2[a]);
+		a++;
 	}
+	if ((a < n && a == 0) || (str2[a] != '\0' && a < n))
+		return (-str2[a]);
 	return (0);
-}
-
-int	main(void)
-{
-	char	dest [] = "ezt3";
-	char	src [] = "est3";
-
-	printf("%d\n", ft_strncmp(dest, src, 5));
-	printf("%d", strncmp(dest, src, 5));
 }

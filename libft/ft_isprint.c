@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvan-slu <lvan-slu@42angouleme.fr>         +#+  +:+       +#+        */
+/*   By: lvan-slu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/03 12:47:09 by lvan-slu          #+#    #+#             */
-/*   Updated: 2023/11/04 14:51:16 by lvan-slu         ###   ########.fr       */
+/*   Created: 2023/11/10 22:16:04 by lvan-slu          #+#    #+#             */
+/*   Updated: 2023/11/10 22:16:20 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ctype.h>
-#include <stdio.h>
+#include "libft.h"
 
 int	ft_isprint(int c)
 {
@@ -20,9 +19,3 @@ int	ft_isprint(int c)
 	else
 		return (0);
 }
-/*
-int	main(void)
-{
-	char	c = 37;
-	printf("%d", ft_isprint(c));
-}*/

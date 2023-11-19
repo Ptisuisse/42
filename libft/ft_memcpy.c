@@ -3,41 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvan-slu <lvan-slu@42angouleme.fr>         +#+  +:+       +#+        */
+/*   By: lvan-slu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/03 10:00:49 by lvan-slu          #+#    #+#             */
-/*   Updated: 2023/11/05 14:12:46 by lvan-slu         ###   ########.fr       */
+/*   Created: 2023/11/10 22:19:52 by lvan-slu          #+#    #+#             */
+/*   Updated: 2023/11/10 22:20:01 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <string.h>
 #include "libft.h"
 
-void	*memcpy(void *dest, const void *src, size_t n)
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
 	size_t	i;
-	void	*srce;
+	char	*str;
+	char	*dst;
 
 	i = 0;
-	srce = (void)src;
+	dst = (char *)dest;
+	str = (char *)src;
+	if (dst == 0 && str == 0)
+		return (0);
 	while (i < n)
 	{
+		dst[i] = str[i];
 		i++;
 	}
-	return (srce);
-}
-
-int	main(void)
-{
-	int	array [] = {54, 85, 20, 63, 21};
-	int	copy = NULL;
-
-	printf("%d", ft_memcpy(copy, array, 10));
-/*	for(length = 0; length < 5; length++)
-	{
-		printf("%d", copy[length]);
-	}
-	free (copy);
-	return EXIT_SUCCESS;*/
+	return (dst);
 }

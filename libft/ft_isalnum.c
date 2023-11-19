@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvan-slu <lvan-slu@42angouleme.fr>         +#+  +:+       +#+        */
+/*   By: lvan-slu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/02 11:07:18 by lvan-slu          #+#    #+#             */
-/*   Updated: 2023/11/04 14:23:24 by lvan-slu         ###   ########.fr       */
+/*   Created: 2023/11/10 22:14:29 by lvan-slu          #+#    #+#             */
+/*   Updated: 2023/11/10 22:14:32 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <ctype.h>
+#include "libft.h"
 
 int	ft_isalnum(int c)
 {
@@ -20,10 +19,3 @@ int	ft_isalnum(int c)
 	else
 		return (0);
 }
-/*
-int	main(void)
-{
-	char	a = ',';
-	printf("%d", ft_isalnum(a));
-	printf("%d", isalnum(a));
-}*/

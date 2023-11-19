@@ -26,14 +26,11 @@ SRCS =  ft_atoi.c \
 	ft_putendl_fd.c \
 	ft_putnbr_fd.c \
 	ft_strnstr.c  \
-	ft_strjoin.c \
 	ft_striteri.c \
 	ft_strmapi.c \
 	ft_itoa.c \
 	ft_strtrim.c \
-	ft_split.c \
-	ft_lstnew.c \
-	ft_lstadd_front.c
+	ft_split.c 
 
 HEADER = includes
 
@@ -48,7 +45,7 @@ CC = gcc
 all : $(NAME)
 
 $(NAME): $(OBJS)
-	ar rsc $(NAME) $(SRCS)
+	ar rsc $(NAME) $(OBJS)
 
 clean :
 	rm -rf $(OBJS)
@@ -58,8 +55,4 @@ fclean : clean
 
 re : fclean $(NAME)
 
-.PHONY : clean fclean re
-
-so:
-	$(CC) -nostartfiles -fPIC $(CFLAGS) $(SRCS)
-	gcc -nostartfiles -shared -o libft.so $(OBJS)
+.PHONY : all bonus clean fclean re

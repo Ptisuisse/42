@@ -6,44 +6,37 @@
 /*   By: lvan-slu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 12:24:40 by lvan-slu          #+#    #+#             */
-/*   Updated: 2023/11/05 14:28:03 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2023/11/11 18:04:51 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-#include <stdio.h>
 #include "libft.h"
-
-int	ft_strlen(char *str);
 
 size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
 	size_t	i;
 	size_t	j;
-	char	*stc;
+	size_t	lendst;
 
-	stc = (char*)src;
 	i = 0;
 	j = 0;
+	if (!dst && size == 0)
+		return (0);
 	if (size == 0)
-		return (ft_strlen(stc));
-	while (dst[j] != '\0' && j < size - 1)
+		return (ft_strlen(src));
+	lendst = ft_strlen(dst);
+	while (dst[i] != '\0' && i < size)
+		i++;
+	while (src[j] != '\0' && i < size - 1)
 	{
+		dst[i] = src[j];
+		i++;
 		j++;
 	}
-	while (i < size)
-	{
-		dst[j+i] = stc[i];
-		i++;
-	}
-	dst[j+i] = '\0';
-	return (j+i);
-}
-
-int	main(void)
-{
-	char	dest [] = "Hello";
-	char	src [] = "World!";
-
-	printf("src : %s\n dest:%s\n %zu",src, dest, ft_strlcat(dest, src, 0));
+	if (size != 0 && size >= lendst)
+		dst[i] = '\0';
+	if (size < ft_strlen(dst))
+		return (ft_strlen(src) + size);
+	else
+		return (lendst + ft_strlen(src));
 }

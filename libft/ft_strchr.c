@@ -6,34 +6,28 @@
 /*   By: lvan-slu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 16:00:53 by lvan-slu          #+#    #+#             */
-/*   Updated: 2023/11/05 14:38:14 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2023/11/19 15:22:57 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#include <string.h>
-#include <stdio.h>
+#include "libft.h"
 
 char	*ft_strchr(const char *s, int c)
 {
-	char	*str;
-	int	i;
+	char			*str;
+	unsigned char	b;
+	int				i;
+	int				j;
 
-	str = (char*)s;
+	str = (char *) s;
+	b = c;
+	j = ft_strlen(str);
 	i = 0;
-	while (str[i] != '\0')
+	while (i <= j)
 	{
+		if (str[i] == b)
+			return (&str[i]);
 		i++;
-		if (str[i] == c)
-			return(&str[i]);
 	}
 	return (0);
 }
-/*
-int	main(void)
-{
-	char	src[] = "this is my @mention";
-
-	printf("%s\n", ft_strchr(src, '@'));
-	printf("%s", strchr(src, '@'));
-}*/
