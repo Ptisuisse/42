@@ -1,37 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvan-slu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/10 17:34:19 by lvan-slu          #+#    #+#             */
-/*   Updated: 2023/11/20 20:57:48 by lvan-slu         ###   ########.fr       */
+/*   Created: 2023/11/19 19:55:50 by lvan-slu          #+#    #+#             */
+/*   Updated: 2023/11/20 22:41:11 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	int		ls1;
-	int		ls2;
-	char	*news;
+	t_list	*new;
+	t_list	*dest;
 
-	if (!s1 || !s2)
-		return (0);
-	ls1 = ft_strlen(s1);
-	ls2 = ft_strlen(s2);
-	news = ft_calloc((ls1 + ls2 + 1), sizeof(char));
-	if (news == NULL)
+	if (!lst || !f || !del)
 		return (NULL);
-	ft_memcpy(news, s1, ls1);
-	ls2 = 0;
-	while (s2[ls2] != '\0')
+	dest = NULL;
+	while (lst != NULL)
 	{
-		news[ls1] = s2[ls2];
-		ls1++;
-		ls2++;
+		new = ft_lstnew(f(lst->content));
+		if (new == NULL)
+			ft_lstclear(&dest, del);
+		ft_lstadd_back(&dest, new);
+		lst = lst->next;
 	}
-	return (news);
+	return (dest);
 }

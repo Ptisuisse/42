@@ -1,37 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvan-slu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/10 17:34:19 by lvan-slu          #+#    #+#             */
-/*   Updated: 2023/11/20 20:57:48 by lvan-slu         ###   ########.fr       */
+/*   Created: 2023/11/19 17:20:29 by lvan-slu          #+#    #+#             */
+/*   Updated: 2023/11/19 17:44:28 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+int	ft_lstsize(t_list *lst)
 {
-	int		ls1;
-	int		ls2;
-	char	*news;
-
-	if (!s1 || !s2)
+	if (lst == NULL)
 		return (0);
-	ls1 = ft_strlen(s1);
-	ls2 = ft_strlen(s2);
-	news = ft_calloc((ls1 + ls2 + 1), sizeof(char));
-	if (news == NULL)
-		return (NULL);
-	ft_memcpy(news, s1, ls1);
-	ls2 = 0;
-	while (s2[ls2] != '\0')
-	{
-		news[ls1] = s2[ls2];
-		ls1++;
-		ls2++;
-	}
-	return (news);
+	return (ft_lstsize(lst->next) + 1);
 }
