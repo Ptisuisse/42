@@ -6,12 +6,11 @@
 /*   By: lvan-slu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 13:24:52 by lvan-slu          #+#    #+#             */
-/*   Updated: 2023/11/26 17:25:48 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2023/11/26 18:37:01 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
-#include <unistd.h>
+#include "ft_printf.h"
 #include <stdio.h>
 
 int	print_char(int c)
@@ -24,6 +23,11 @@ int	print_str(char *str)
 	int	i;
 
 	i = 0;
+	if (str == NULL)
+	{
+		write (1, "(null)", 6);
+		return (i + 6);
+	}
 	while (*str != '\0')
 	{
 		print_char((int)*str);
@@ -44,13 +48,10 @@ int	print_digit(long n, int base, char type)
 		symbol = "0123456789ABCDEF";
 	else
 		symbol = "0123456789abcdef";
-	if (n < 0 && (type == 'u' || type == 'X' || type == 'x'))
-		return (print_digit (n += 4294967296, base, type));
-	else if (n < 0)
+	if (n < 0)
 	{
 		write (1, "-", 1);
-		n *= -1;
-		return (print_digit (n, base, type));
+		return (print_digit (-n, base, type) + 1);
 	}
 	else if (n < base)
 		return (print_char (symbol[n]));
@@ -83,8 +84,7 @@ int	print_type(char type, va_list ap)
 	else if (type == 'X')
 		i += print_digit((long)va_arg(ap, unsigned int), 16, type);
 	else if (type == '%')
-		write(1, "%", 1);
-	else write(1, &type, 1);
+		i += write(1, "%", 1);
 	return (i);
 }
 
@@ -106,9 +106,9 @@ int	ft_printf(const char *format, ...)
 	va_end(ap);
 	return (i);
 }
-/*
+
 int	main()
 {
-	ft_printf("%d\n", );
-	//printf("%u", 429467292);
-}*/
+	ft_printf("%k\n");
+	printf("%k\n");
+}
