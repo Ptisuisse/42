@@ -13,8 +13,6 @@
 #include "ft_printf.h"
 #include <stdio.h>
 
-int	print_hexa(unsigned long long n, unsigned long long base);
-
 int	print_char(int c)
 {
 	return write(1, &c, 1);
@@ -64,18 +62,28 @@ int	print_digit(long n, int base, char type)
 	}	
 }
 
-/*int	print_pointeur(unsigned long long n, unsigned long long base)
+int	print_add(unsigned long long n, unsigned long long base)
 {
-	unsigned long long	i;
+	int	i;
+
+	i = 0;
+	if (n == 0)	
+		return (i += write (1, "(nil)", 5));
+	else
+	{
+		i += write (1, "0x", 2);
+		return (i += print_pointeur(n, base));
+	}
+}
+
+int	print_pointeur(unsigned long long n, unsigned long long base)
+{
+
+	int	i;
 	char	*symbol;
 
 	i = 0;
 	symbol = "0123456789abcdef";
-
-	if (n == 0)
-		print_hexa(n, base);
-	if (i == 0)
-		i += write (1, "0x", 2);
 	if (n < base)
 		return (print_char (symbol[n]));
 	else
@@ -83,7 +91,7 @@ int	print_digit(long n, int base, char type)
 		i = print_pointeur ((n / base), base);
 		return (i + print_pointeur ((n % base), base));
 	}	
-}*/
+}
 
 int	print_type(char type, va_list ap)
 {
@@ -94,8 +102,8 @@ int	print_type(char type, va_list ap)
 		i += print_char(va_arg(ap, int));
 	else if (type == 's')
 		i += print_str(va_arg(ap, char *));
-//	else if (type == 'p')
-//		i += print_pointeur(va_arg(ap, unsigned long long), 16);
+	else if (type == 'p')
+		i += print_add(va_arg(ap, unsigned long long), 16);
 	else if (type == 'd')
 		i += print_digit((long)va_arg(ap, int), 10, type);
 	else if (type == 'i')
@@ -129,12 +137,14 @@ int	ft_printf(const char *format, ...)
 	va_end(ap);
 	return (i);
 }
-
+/*
 int	main()
 {
 	int	i;
+	int	*p;
 
 	i = 425454;
-	ft_printf("%x\n", i);
-	printf("%x\n", i);
-}
+	p = &i;
+	ft_printf("%p\n", p);
+	printf("%p\n", p);
+}*/

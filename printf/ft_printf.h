@@ -27,4 +27,6 @@ int	print_type(char type, va_list ap);
 
 int	ft_printf(const char *format, ...);
 
+int	print_pointeur(unsigned long long n, unsigned long long base);
+
 #endif
