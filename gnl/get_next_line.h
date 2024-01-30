@@ -19,7 +19,7 @@
 # define	GET_NEXT_LINE_H
 
 #ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 10
+#  define BUFFER_SIZE 40
 #endif
 
 typedef struct s_list
@@ -30,12 +30,12 @@ typedef struct s_list
 
 char	*get_next_line(int fd);
 void	read_line(t_list **list, int fd);
-int	check_end(t_list *list);
 void	store_node(t_list **list, char *buf, int read);
-int	ft_strlen(t_list *node);
 char	*into_char(t_list *list);
+int	check_end(t_list *list );
+int	ft_strlen(t_list *node);
 void	free_node(t_list **list);
-void	free_list(t_list **list, t_list *new);
-t_list	*char_buf(t_list *node, char *buf);
+void	free_list(t_list **list, t_list *new, char *buf);
+void	check_nl(t_list	*last, t_list	*new, char *buf, int i, int j);
 
 #endif

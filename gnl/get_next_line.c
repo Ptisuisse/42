@@ -21,19 +21,26 @@ char	*into_char(t_list *list)
 
 	new = list;
 	j = ft_strlen(new);
-	line = malloc(sizeof(char) * (j + 1));
+	line = malloc((j + 1) * sizeof(char));
 	if (line == NULL)
 		return (NULL);
 	j = 0;
+	if (!new->content[0])
+		return (NULL);
 	while (new)
 	{
 		i = 0;
-		while (new->content[i] != '\n' && new->content[i] != '\0')
+		while (new->content[i] != '\0')
 		{
-			line[i + j] = new->content[i];
+			if (new->content[i] == '\n')
+			{
+				line[j++] = '\n';
+				line[j] = '\0';
+			}
+			j++;
 			i++;
+			line[j] = new->content[i];
 		}
-		j += i;
 		new = new->next;
 	}
 	line[j] = '\0';
@@ -48,11 +55,11 @@ void	store_node(t_list **list, char *buf, int read)
 
 	i = 0;
 	tmp = *list;
-	new = malloc(sizeof(t_list));
-	new->content = malloc(sizeof(char) * (read + 1));
+	new = malloc(1 *sizeof(t_list));
+	new->content = malloc((read + 1) * sizeof(char));
 	if (!new || !list || new->content == NULL)
 		return ;
-	while (i < read)
+	while (buf[i])
 	{
 		new->content[i] = buf[i];
 		i++;
@@ -76,13 +83,13 @@ void	read_line(t_list **list, int fd)
 	char	*buf;
 
 	i = 0;
-	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
 		if (buf == NULL)
 			return ;
 	while (!(check_end(*list)))
 	{
-		i = (int)read(fd, buf, BUFFER_SIZE);
-		if (!i)
+		i = read(fd, buf, BUFFER_SIZE);
+		if (i == 0)
 		{
 			free(buf);
 			return ;
@@ -96,10 +103,10 @@ void	read_line(t_list **list, int fd)
 
 char	*get_next_line(int fd)
 {
-	static t_list	*list = NULL;
+	static t_list	*list;
 	char			*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &line, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	read_line(&list, fd);
 	if (list == NULL)
@@ -114,11 +121,19 @@ int	main(void)
 	int	fd;
 	char	*boulet;
 
-	fd = open("test.txt", O_RDONLY);
+	fd = open("nl", O_RDONLY);
+
 	boulet = get_next_line(fd);
-	printf("%s\n", boulet);
-	boulet = get_next_line(fd);
-	printf("%s\n", boulet);
-	boulet = get_next_line(fd);
-	printf("%s\n", boulet);
+	printf("%s", boulet);
+	// boulet = get_next_line(fd);
+	// printf("%s\n", boulet);
+	// boulet = get_next_line(fd);
+	// printf("%s\n", boulet);
+
+	// while (boulet)
+	// {
+	// 	printf("%s", boulet);
+	// 	free(boulet);
+	// 	boulet = get_next_line(fd);
+	// }
 }

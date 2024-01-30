@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-void	free_list(t_list **list, t_list *new)
+void	free_list(t_list **list, t_list *new, char *buf)
 {
 	t_list	*tmp;
 
@@ -25,7 +25,15 @@ void	free_list(t_list **list, t_list *new)
 		free(*list);
 		*list = tmp;
 	}
-	*list = new;
+	*list = NULL;
+	if (new->content[0])
+		*list = new;
+	else
+	{
+		free(new);
+		free(buf);
+	}
+	//list = &new;
 }
 
 void	free_node(t_list **list)
@@ -36,8 +44,8 @@ void	free_node(t_list **list)
 	int		j;
 	int		i;
 
-	new = malloc(sizeof(t_list));
-	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	new = malloc(1* sizeof(t_list));
+	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (new == NULL || buf == NULL)
 		return ;
 	last = *list;
@@ -45,18 +53,26 @@ void	free_node(t_list **list)
 	i = 0;
 	while (last->next != NULL)
 		last = last->next;
-	while (last->content[i] != '\n' && last->content[i] != '\0')
-		i++;
-//	i += 1;
+	if (check_end(last))
+	{
+		while (last->content[i] != '\n')
+			i++;
+	}
+	else
+	{
+		i += 1;
+		last->content[i] = '\0';
+	}
 	while (last->content[i] != '\0')
 	{
 		buf[j] = last->content[i];
 		i++;
 		j++;
 	}
+	buf[j] = '\0';
 	new->content = buf;
 	new->next = NULL;
-	free_list(list, new);
+	free_list(list, new, buf);
 }
 
 int	ft_strlen(t_list *node)
@@ -83,18 +99,18 @@ int	ft_strlen(t_list *node)
 	return (j);
 }
 
-int	check_end(t_list *list )
+int	check_end(t_list *list)
 {
 	int		i;
 	t_list	*node;
 
 	node = list;
-	if (node == NULL)
+	if (!node)
 		return (0);
 	while (node)
 	{
 		i = 0;
-		while (node->content[i] && i < BUFFER_SIZE)
+		while (node->content[i] != '\0' && i < BUFFER_SIZE)
 		{
 			if (node->content[i] == '\n')
 				return (1);
