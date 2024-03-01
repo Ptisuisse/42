@@ -6,7 +6,7 @@
 /*   By: lvan-slu <lvan-slu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 14:24:43 by lvan-slu          #+#    #+#             */
-/*   Updated: 2024/02/23 16:41:07 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2024/03/01 21:23:26 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,8 @@ int	ft_strlen(char *str)
 	size_t	i;
 
 	i = 0;
-	while (str[i] != '\0')
-	{
+	while (str && str[i] != '\0')
 		i++;
-	}
 	return (i);
 }
 

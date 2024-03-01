@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvan-slu <lvan-slu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 22:25:48 by lvan-slu          #+#    #+#             */
-/*   Updated: 2024/02/23 18:05:19 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2024/03/01 21:33:01 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,6 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>
-
-// void	map_conformity(char **map)
-// {
-	
-// }
 
 int	ft_strchr(const char *s, int c)
 {
@@ -38,11 +33,17 @@ int	ft_strchr(const char *s, int c)
 	return 1;
 }
 
-void wall_map(char **map, int count_line)
+void map_conformity(char **map, int count_line)
 {
 	int	i;
 	int	y;
+	int	c;
+	int	p;
+	int	e;
 
+	p = 0;
+	c = 0;
+	e = 0;
 	y = 0;
 	if (!(ft_strchr(map[0], '0')))
 		printf("MAP NOT CLOSE\n");
@@ -52,50 +53,88 @@ void wall_map(char **map, int count_line)
 	{
 		i = 0;
 		while (map[y][i])
+		{
+			if (map[y][i] == 'P')
+				p++;
+			if (map[y][i] == 'C')
+				c++;
+			if (map[y][i] == 'E')
+				e++;
 			i++;
+		}
 		if ((map[y][0] != '1') || (map[y][i - 1] != '1'))
 			printf("MAP NOT CLOSE\n");
 		y++;
 	}
+	if ((e != 1) || (c < 1) || (p != 1))
+	 	printf("ERROR\n");
 }
 
-void create_tab(int	count_line) 
+char **create_tab(int	count_line) 
 {
     char **map;
     char *line;
     int y;
+	int len;
 	int	fd;
 
     y = 0;
-    map = malloc(sizeof(char*) * count_line);
+	printf("%d\n", count_line);
+    map = malloc(sizeof(char*) * (count_line + 1));
     if (map == NULL)
-		return ;
+		return (0);
 	fd = open("map.ber", O_RDONLY);
-    while (1) 
+    while (y < count_line) 
 	{
         line = get_next_line(fd);
-        if (line == NULL)
-            break;
-	    if (line[ft_strlen(line) - 1] == '\n') 
-			line[ft_strlen(line) - 1] = '\0';
+		len = ft_strlen(line);
+	    if (line[len - 1] == '\n') 
+			line[len - 1] = '\0';
         map[y] = ft_strdup(line);
-		//printf("%s\n", map[y]);
+		free(line);
+		printf("%s\n", map[y]);
         y++;
     }
-	wall_map(map, count_line);
-	//map_conformity(map);
+	map[y] = 0;
+	map_conformity(map, count_line);
+	//flood_fill(map);
 	close(fd);
+	return (map);
 }
 
-int main(void)
+void free_tab(char **tab)
 {
-    int fd;
-	int	count_line;
+	int	i;
 
-	count_line = 0;
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		tab[i] = NULL;
+		i++;
+	}
+	free(tab);
+}
+
+int	main(void)
+{
+	char *line;
+	char **tab;
+	int	count_line;
+	int fd;
+
     fd = open("map.ber", O_RDONLY);
-	while (get_next_line(fd) != NULL)
+	count_line = 0;
+	line = get_next_line(fd);
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd);
 		count_line++;
-	create_tab(count_line);
+		
+	}
+	free(line);
 	close(fd);
+	tab = create_tab(count_line);
+	free_tab(tab);
 }

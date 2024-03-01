@@ -64,3 +64,7 @@ void    create_tab(int fd)
     }
     //check_map(map, i);
 }
+
+https://reactive.so/post/42-a-comprehensive-guide-to-so_long
+
+floodfill
