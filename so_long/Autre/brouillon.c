@@ -67,4 +67,6 @@ void    create_tab(int fd)
 
 https://reactive.so/post/42-a-comprehensive-guide-to-so_long
 
+https://www.freecodecamp.org/news/flood-fill-algorithm-explained-with-examples/
+
 floodfill

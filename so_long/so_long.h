@@ -6,13 +6,17 @@
 /*   By: lvan-slu <lvan-slu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 21:44:48 by lvan-slu          #+#    #+#             */
-/*   Updated: 2024/03/01 21:45:32 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2024/03/01 21:49:58 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef SO_LONG_H
+#define SO_LONG_H
 
-typedef struct  s_list
+typedef struct  position
 {
     int x;
     int y;
-} t_list;
+} t_pos;
+
+#endif

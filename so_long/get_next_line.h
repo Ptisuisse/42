@@ -6,7 +6,7 @@
 /*   By: lvan-slu <lvan-slu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 14:21:20 by lvan-slu          #+#    #+#             */
-/*   Updated: 2024/02/23 17:53:13 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2024/03/01 21:52:38 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,5 @@ char	*ft_calloc(size_t nmemb, size_t size);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 char	*ft_strrchr(char *str, int c);
 int		ft_strlen(char *str);
-
-typedef struct s_list
-{
-	char	**content;
-	struct s_list	*next;
-}	t_list;
 
 #endif

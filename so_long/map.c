@@ -6,7 +6,7 @@
 /*   By: lvan-slu <lvan-slu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 22:25:48 by lvan-slu          #+#    #+#             */
-/*   Updated: 2024/03/01 21:33:01 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2024/03/01 22:05:32 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 #include <stdio.h>
 #include <unistd.h>
 
+void find_start(char **map);
+
 int	ft_strchr(const char *s, int c)
 {
 	char			*str;
-	unsigned char	b;
 	int				i;
 
 	str = (char *)s;
 	i = ft_strlen(str);
-	b = c;
 	while (i >= 0)
 	{
-		if (str[i] == b)
+		if (str[i] == c)
 			return 0;
 		i--;
 	}
@@ -79,7 +79,6 @@ char **create_tab(int	count_line)
 	int	fd;
 
     y = 0;
-	printf("%d\n", count_line);
     map = malloc(sizeof(char*) * (count_line + 1));
     if (map == NULL)
 		return (0);
@@ -92,12 +91,11 @@ char **create_tab(int	count_line)
 			line[len - 1] = '\0';
         map[y] = ft_strdup(line);
 		free(line);
-		printf("%s\n", map[y]);
         y++;
     }
 	map[y] = 0;
 	map_conformity(map, count_line);
-	//flood_fill(map);
+	find_start(map);
 	close(fd);
 	return (map);
 }
