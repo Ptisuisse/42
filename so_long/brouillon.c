@@ -45,3 +45,22 @@
 
 liste : 
 []->[]->[]->[] 
+
+void    create_tab(int fd)
+{
+    char    **map;
+	char	*line;
+    char    c;
+    int j;
+
+    j = 0;
+    c = '\n';
+    while(1)
+    {
+		map = ft_split(get_next_line(fd), c, j);
+        if (map == NULL)
+            break ;
+        j++;
+    }
+    //check_map(map, i);
+}
