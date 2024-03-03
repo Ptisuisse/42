@@ -6,101 +6,96 @@
 /*   By: lvan-slu <lvan-slu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 22:25:48 by lvan-slu          #+#    #+#             */
-/*   Updated: 2024/03/01 22:05:32 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2024/03/03 12:24:48 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <fcntl.h>
-#include <stdio.h>
-#include <unistd.h>
+#include "so_long.h"
+#include "libft/libft.h"
 
-void find_start(char **map);
-
-int	ft_strchr(const char *s, int c)
+int	bol_chr(const char *s, int c)
 {
-	char			*str;
 	int				i;
 
-	str = (char *)s;
-	i = ft_strlen(str);
+	i = ft_strlen(s);
 	while (i >= 0)
 	{
-		if (str[i] == c)
+		if (s[i] == c)
 			return 0;
 		i--;
 	}
 	return 1;
 }
 
-void map_conformity(char **map, int count_line)
+void map_conformity(t_map *mapping, int count_line)
 {
-	int	i;
+	t_conf	*conf;
+	int	x;
 	int	y;
-	int	c;
-	int	p;
-	int	e;
 
-	p = 0;
-	c = 0;
-	e = 0;
-	y = 0;
-	if (!(ft_strchr(map[0], '0')))
+	conf = malloc(sizeof(t_conf));
+	if (conf == NULL)
+		return ;
+	conf->p = 0;
+	conf->c = 0;
+	conf->e = 0;
+	if (!(bol_chr(mapping->map[0], '0')))
 		printf("MAP NOT CLOSE\n");
-	if (!(ft_strchr(map[count_line - 1], '0')))
-		printf("MAP NOTE CLOSE\n");
-	while (y < count_line)
+	if (!(bol_chr(mapping->map[count_line - 1], '0')))
+		printf("MAP NOT CLOSE2\n");
+	y = 1;
+	while (y < count_line - 1)
 	{
-		i = 0;
-		while (map[y][i])
+		x = 0;
+		while (mapping->map[y][x])
 		{
-			if (map[y][i] == 'P')
-				p++;
-			if (map[y][i] == 'C')
-				c++;
-			if (map[y][i] == 'E')
-				e++;
-			i++;
+			if (mapping->map[y][x] == 'P')
+				conf->p++;
+			if (mapping->map[y][x] == 'C')
+				conf->c++;
+			if (mapping->map[y][x] == 'E')
+				conf->e++;
+			if (mapping->map[y][x] != 'P' && mapping->map[y][x] != 'C' && mapping->map[y][x] != 'E' && mapping->map[y][x] != '1' && mapping->map[y][x] != '0')
+				printf("ERROR");
+			x++;
 		}
-		if ((map[y][0] != '1') || (map[y][i - 1] != '1'))
-			printf("MAP NOT CLOSE\n");
+		if ((mapping->map[y][0] != '1') || (mapping->map[y][x - 1] != '1'))
+			printf("MAP NOT CLOSE3\n");
 		y++;
 	}
-	if ((e != 1) || (c < 1) || (p != 1))
+	if ((conf->e != 1) || (conf->c < 1) || (conf->p != 1))
 	 	printf("ERROR\n");
+	free(conf);
 }
-
-char **create_tab(int	count_line) 
+void	create_tab(int count_line, t_map *mapping) 
 {
-    char **map;
-    char *line;
-    int y;
-	int len;
+	char	*map;
+    char	*line;
+    int	y;
 	int	fd;
 
     y = 0;
-    map = malloc(sizeof(char*) * (count_line + 1));
+	map = malloc(sizeof(char) * (count_line + 1));
     if (map == NULL)
-		return (0);
+		return ;
+	map[0] = '\0';
 	fd = open("map.ber", O_RDONLY);
     while (y < count_line) 
 	{
         line = get_next_line(fd);
-		len = ft_strlen(line);
-	    if (line[len - 1] == '\n') 
-			line[len - 1] = '\0';
-        map[y] = ft_strdup(line);
+		map = free_strjoin(map, line);
 		free(line);
         y++;
     }
-	map[y] = 0;
-	map_conformity(map, count_line);
-	find_start(map);
+	mapping->map = ft_split(map, '\n');
+	mapping->tmp_map = ft_split(map, '\n');
+	free(map);
+	map_conformity(mapping, count_line);
 	close(fd);
-	return (map);
+	return ;
 }
 
-void free_tab(char **tab)
+void free_map(char **tab)
 {
 	int	i;
 
@@ -117,10 +112,13 @@ void free_tab(char **tab)
 int	main(void)
 {
 	char *line;
-	char **tab;
 	int	count_line;
 	int fd;
+	t_map	*mapping;
 
+	mapping = malloc(sizeof(t_map));
+	if (mapping == NULL)
+		return 0;
     fd = open("map.ber", O_RDONLY);
 	count_line = 0;
 	line = get_next_line(fd);
@@ -129,10 +127,10 @@ int	main(void)
 		free(line);
 		line = get_next_line(fd);
 		count_line++;
-		
 	}
 	free(line);
-	close(fd);
-	tab = create_tab(count_line);
-	free_tab(tab);
+	create_tab(count_line, mapping);
+	//find_start(mapping);
+	free_map(mapping->map);
+	free(mapping);
 }

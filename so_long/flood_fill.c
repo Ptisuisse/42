@@ -6,7 +6,7 @@
 /*   By: lvan-slu <lvan-slu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 20:34:06 by lvan-slu          #+#    #+#             */
-/*   Updated: 2024/03/01 22:08:17 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2024/03/02 18:49:07 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,44 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-void find_start(char **map)
+void    find_start(t_map *mapping) //trouver P
 {
-    t_pos  *pos;
     int x;
     int y;
 
-    pos = malloc(sizeof(t_pos));
     y = 0;
-    while(map[y])
+    while(mapping->map[y])
     {
         x = 0;
-        while(map[y][x])
+        while(1)
         {
-            if (map[y][x] == 'P')
+            if (mapping->map[y][x] == 'P')
             {
-                pos->y = y;
-                pos->x = x;
-                printf("%d\n", pos->y);
-                printf("%d\n", pos->x);
+                mapping->y = y; // POS Y --OK
+                mapping->x = x; // POS X --OK
+                printf("1");
+                return ;
             }
             x++;
         }
-        y++;      
+        y++;
     }
+   // flood_fill(x, y, pos, map);
+    return ;
 }
+
+// int    flood_fill(int x, int y, t_pos *pos, char **map)
+// {
+//     char    **tmp_map;
+
+//     tmp_map = map;
+//     printf("%d", pos->y);
+//     if (tmp_map[pos->y][pos->x] != '1')
+//     {
+//         tmp_map[pos->y][pos->x] == '1';
+//         flood_fill(pos->x + 1, pos->y, pos, tmp_map);
+//         flood_fill(pos->x - 1, pos->y, pos, tmp_map);
+//         flood_fill(pos->x, pos->y + 1, pos, tmp_map);
+//         flood_fill(pos->x, pos->y - 1, pos, tmp_map);
+//     }
+// }

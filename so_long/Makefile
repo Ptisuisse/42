@@ -1,31 +1,26 @@
-SRCS =  map \
-		get_next_line \
-		get_next_line_utils \
+SRCDIR = map libft
+
+SRCS = map.c \
+       $(wildcard libft/*.c) \
 
 CC = gcc
-
 CFLAGS = -Wall -Werror -Wextra
-
 EXEC = so_long.a
-
-CFILES = $(SRCS:%=%.c)
-
-OBJ = $(SRCS:=.o)
-
+OBJ = $(SRCS:.c=.o) $(SRCDIR)
 NAME = $(EXEC)
 
-$(NAME):
-	$(CC) $(CFLAGS) -c $(CFILES) -I./
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) -c $(SRCS) -I./
 	ar -rc $(EXEC) $(OBJ)
 
-all : $(NAME)
+all: $(NAME)
 
-clean :
+clean:
 	rm -f $(OBJ)
 
-fclean : clean
+fclean: clean
 	rm -f $(NAME)
 
-re : fclean all
+re: fclean all
 
-.PHONY : all, clean, fclean, re
+.PHONY: all clean fclean re

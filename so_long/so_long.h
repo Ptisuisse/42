@@ -6,17 +6,37 @@
 /*   By: lvan-slu <lvan-slu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 21:44:48 by lvan-slu          #+#    #+#             */
-/*   Updated: 2024/03/01 21:49:58 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2024/03/03 11:06:42 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
-#define SO_LONG_H
+# define SO_LONG_H
 
-typedef struct  position
+# include <fcntl.h>
+# include <stdio.h>
+# include <unistd.h>
+# include "libft/libft.h"
+
+typedef struct  mapping
 {
+    char    **map;
+    char    **tmp_map;
     int x;
     int y;
-} t_pos;
+} t_map;
+
+typedef struct  conformity
+{
+    int p;
+    int c;
+    int e;
+} t_conf;
+
+void    find_start(t_map *mapping);
+void free_map(char **tab);
+int	bol_chr(const char *s, int c);
+void map_conformity(t_map *mapping, int count_line);
+void    create_tab(int count_line, t_map *mapping);
 
 #endif

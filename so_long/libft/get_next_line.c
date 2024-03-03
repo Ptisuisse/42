@@ -6,36 +6,11 @@
 /*   By: lvan-slu <lvan-slu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 14:24:43 by lvan-slu          #+#    #+#             */
-/*   Updated: 2024/02/17 23:26:13 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2024/03/03 12:11:33 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-
-char	*ft_strjoin(char *s1, char *s2)
-{
-	int		ls1;
-	int		ls2;
-	char	*news;
-
-	if (!s1 || !s2)
-		return (0);
-	ls1 = ft_strlen(s1);
-	ls2 = ft_strlen(s2);
-	news = ft_calloc((ls1 + ls2 + 1), sizeof(char));
-	if (news == NULL)
-		return (NULL);
-	ft_memcpy(news, s1, ls1);
-	ls2 = 0;
-	while (s2[ls2] != '\0')
-	{
-		news[ls1] = s2[ls2];
-		ls1++;
-		ls2++;
-	}
-	free(s1);
-	return (news);
-}
+#include "libft.h"
 
 char	*sorting_buf(char *buf)
 {
@@ -103,7 +78,7 @@ char	*read_line(int fd, char *buf)
 			return (NULL);
 		}
 		str[i] = '\0';
-		tmp_2 = ft_strjoin(tmp_2, str);
+		tmp_2 = free_strjoin(tmp_2, str);
 		if (ft_strrchr(tmp_2, '\n'))
 			break ;
 	}
