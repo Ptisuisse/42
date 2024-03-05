@@ -6,7 +6,7 @@
 /*   By: lvan-slu <lvan-slu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 22:25:48 by lvan-slu          #+#    #+#             */
-/*   Updated: 2024/03/03 15:58:20 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2024/03/05 12:18:52 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int	bol_chr(const char *s, int c)
 	while (i >= 0)
 	{
 		if (s[i] == c)
-			return 0;
+			return (0);
 		i--;
 	}
-	return 1;
+	return (1);
 }
 
 int	check_PCE(t_map *mapping, int x, int y)
@@ -47,10 +47,10 @@ int	check_PCE(t_map *mapping, int x, int y)
 		}
 		if ((mapping->map[y][0] != '1') || (mapping->map[y][x - 1] != '1'))
 			printf("ERROR %d :\nMAP NOT CLOSE at [%d, %d]\n", (mapping->nbr_err += 1), x, y);
-	return (0);
+	return (1);
 }
 
-void map_conformity(t_map *mapping, int count_line)
+int map_conformity(t_map *mapping, int count_line)
 {
 	int	x;
 	int	y;
@@ -64,14 +64,17 @@ void map_conformity(t_map *mapping, int count_line)
 	if (!(bol_chr(mapping->map[count_line - 1], '0')))
 		printf("ERROR %d :\nLast line not close\n", (mapping->nbr_err += 1));
 	y = 1;
-	while (y< count_line - 1 && !(check_PCE(mapping, x, y)))
+	while (y< count_line - 1 && (check_PCE(mapping, x, y)))
 		y++;
 	if (mapping->e != 1)
 		printf("ERROR %d :\nIncorrect number of EXIT (1 needed)\n", (mapping->nbr_err += 1));
 	if (mapping->c < 1)
 		printf("ERROR %d :\nIncorrect number of Collectible (min. 1 needed)\n", (mapping->nbr_err += 1));
 	if (mapping->p != 1)
-	 	printf("ERROR %d :\nIncorrect number of Player (1 needed)\n", (mapping->nbr_err += 1));
+		printf("ERROR %d :\nIncorrect number of Player (1 needed)\n", (mapping->nbr_err += 1));
+	if (!(playable_map(mapping)) && (mapping->p == 1))
+		printf("ERROR %d :\nYou can't win", (mapping->nbr_err += 1));
+	return (1);
 }
 
 void	create_tab(int count_line, t_map *mapping) 
@@ -137,7 +140,6 @@ int	main(void)
 	}
 	free(line);
 	create_tab(count_line, mapping);
-	flood_fill(mapping->x_P, mapping->y_P, mapping);
 	free_map(mapping->map);
 	free_map(mapping->tmp_map);
 	free(mapping);
