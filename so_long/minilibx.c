@@ -1,10 +1,10 @@
-#include "../MacroLibX/includes/mlx.h"
-#include "so_long.h"
+#include "../Macrolibx/includes/mlx.h"
+#include "../so_long/src/so_long.h"
 #include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>
 
-int	init_map(t_map *mapping);
+void	init_map(t_map *mapping);
 
 int main(void)
 {

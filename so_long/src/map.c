@@ -26,33 +26,33 @@ int	bol_chr(const char *s, int c)
 	return (1);
 }
 
-int	check_PCE(t_map *mapping, int x, int y)
+int	check_PCE(t_map *mapping, int y)
 {
-		x = 0;
-		while (mapping->map[y][x])
+	int x;
+	x = 0;
+	while (mapping->map[y][x])
+	{
+		if (mapping->map[y][x] == 'P')
 		{
-			if (mapping->map[y][x] == 'P')
-			{
-				mapping->y_P = y;
-				mapping->x_P = x;
-				mapping->p++;
-			}
-			if (mapping->map[y][x] == 'C')
-				mapping->c++;
-			if (mapping->map[y][x] == 'E')
-				mapping->e++;
-			if (mapping->map[y][x] != 'P' && mapping->map[y][x] != 'C' && mapping->map[y][x] != 'E' && mapping->map[y][x] != '1' && mapping->map[y][x] != '0')
-				printf("ERROR %d :\nAt [%d, %d] [ASCII]%d is not available\n", (mapping->nbr_err += 1), x, y, mapping->map[y][x]);
-			x++;
+			mapping->y_P = y;
+			mapping->x_P = x;
+			mapping->p++;
 		}
-		if ((mapping->map[y][0] != '1') || (mapping->map[y][x - 1] != '1'))
-			printf("ERROR %d :\nMAP NOT CLOSE at [%d, %d]\n", (mapping->nbr_err += 1), x, y);
+		if (mapping->map[y][x] == 'C')
+			mapping->c++;
+		if (mapping->map[y][x] == 'E')
+			mapping->e++;
+		if (mapping->map[y][x] != 'P' && mapping->map[y][x] != 'C' && mapping->map[y][x] != 'E' && mapping->map[y][x] != '1' && mapping->map[y][x] != '0')
+			printf("ERROR %d :\nAt [%d, %d] [ASCII]%d is not available\n", (mapping->nbr_err += 1), x, y, mapping->map[y][x]);
+		x++;
+	}
+	if ((mapping->map[y][0] != '1') || (mapping->map[y][x - 1] != '1'))
+		printf("ERROR %d :\nMAP NOT CLOSE at [%d, %d]\n", (mapping->nbr_err += 1), x, y);
 	return (1);
 }
 
 int map_conformity(t_map *mapping, int count_line)
 {
-	int	x;
 	int	y;
 
 	y = 0;
@@ -64,7 +64,7 @@ int map_conformity(t_map *mapping, int count_line)
 	if (!(bol_chr(mapping->map[count_line - 1], '0')))
 		printf("ERROR %d :\nLast line not close\n", (mapping->nbr_err += 1));
 	y = 1;
-	while (y< count_line - 1 && (check_PCE(mapping, x, y)))
+	while (y< count_line - 1 && (check_PCE(mapping, y)))
 		y++;
 	if (mapping->e != 1)
 		printf("ERROR %d :\nIncorrect number of EXIT (1 needed)\n", (mapping->nbr_err += 1));
@@ -72,8 +72,8 @@ int map_conformity(t_map *mapping, int count_line)
 		printf("ERROR %d :\nIncorrect number of Collectible (min. 1 needed)\n", (mapping->nbr_err += 1));
 	if (mapping->p != 1)
 		printf("ERROR %d :\nIncorrect number of Player (1 needed)\n", (mapping->nbr_err += 1));
-	if (!(playable_map(mapping)) && (mapping->p == 1))
-		printf("ERROR %d :\nYou can't win", (mapping->nbr_err += 1));
+	if (mapping->p == 1)
+		playable_map(mapping);
 	return (1);
 }
 
@@ -119,16 +119,16 @@ void free_map(char **tab)
 	free(tab);
 }
 
-int	main(void)
+void	init_map(t_map *mapping)
 {
 	char *line;
 	int	count_line;
 	int fd;
-	t_map	*mapping;
+	// t_map	*mapping;
 
-	mapping = malloc(sizeof(t_map));
-	if (mapping == NULL)
-		return 0;
+	// mapping = malloc(sizeof(t_map));
+	// if (mapping == NULL)
+	// 	return 0;
     fd = open("map.ber", O_RDONLY);
 	count_line = 0;
 	line = get_next_line(fd);
@@ -140,7 +140,7 @@ int	main(void)
 	}
 	free(line);
 	create_tab(count_line, mapping);
-	free_map(mapping->map);
-	free_map(mapping->tmp_map);
-	free(mapping);
+	// free_map(mapping->map);
+	// free_map(mapping->tmp_map);
+	// free(mapping);
 }

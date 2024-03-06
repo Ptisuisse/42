@@ -1,25 +1,21 @@
-SRCDIR = map libft
-
-SRCS = map.c \
-       $(wildcard libft/*.c) \
-
+SRCDIR = src libft
+SRCS = $(wildcard $(addsuffix /*.c,$(SRCDIR)))
+OBJS = $(SRCS:.c=.o)
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
-EXEC = so_long.a
-OBJ = $(SRCS:.c=.o) $(SRCDIR)
+EXEC = so_long
 NAME = $(EXEC)
 
-$(NAME): $(OBJ)
-	$(CC) $(CFLAGS) -c $(SRCS) -I./
-	ar -rc $(EXEC) $(OBJ)
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $(EXEC) $(OBJS) -I./map -I./libft
 
 all: $(NAME)
 
 clean:
-	rm -f $(OBJ)
+	@rm -f $(OBJS)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 

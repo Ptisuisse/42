@@ -25,6 +25,7 @@ int   flood_fill(int x, int y, t_map *mapping)
         flood_fill(x, y + 1, mapping);
         flood_fill(x, y - 1, mapping);
     }
+    return (1);
 }
 
 int    playable_map(t_map *mapping)
@@ -44,11 +45,15 @@ int    playable_map(t_map *mapping)
         while(mapping->tmp_map[y][x])
         {
             if(mapping->tmp_map[y][x] == 'C' || mapping->tmp_map[y][x] == 'P' || mapping->tmp_map[y][x] == 'E')
-                return 0;
+            {
+                printf("ERROR %d :\nYou can't win", (mapping->nbr_err += 1));
+                return (0);
+            }
             x++;
         }
         y++;
     }
-    return 1;
+    return (1);
+    
 }
 
