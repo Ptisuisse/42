@@ -1,17 +1,17 @@
 #include "../../MacroLibX/includes/mlx.h"
 #include "so_long.h"
 
-int keyhook(int key, void *mlx)
+int keyhook(int key, void *mapping)
 {
+    t_map *data = (t_map *)mapping;
+    data->win_x++;
     if(key == 41)
-        mlx_loop_end(mlx);
+        mlx_loop_end(data->mlx);
+    if (key == 26)
+        printf("%d", data->win_x);
     return (0);
 }
 
-void    ft_move_up(t_map *mapping)
-{
-    return ;
-}
 void    ft_mlx_sprites(t_map *mapping)
 {
     mapping->y = 0;
@@ -50,19 +50,13 @@ void    ft_sizeof_window(t_map *mapping)
     }
 }
 
-int mlx_event(void *mlx, void *win, mlx_event_type2 event, int (*f)(int, void*), t_map *mapping)
-{
-    event = 41;
-    return 0;
-}
-
 int ft_mlx_init(t_map *mapping)
 {
     mapping->mlx = mlx_init();
     ft_sizeof_window(mapping);
     mapping->win = mlx_new_window(mapping->mlx, (mapping->win_x * 64), (mapping->win_y * 64), "So_long");
     ft_mlx_sprites(mapping);
-    mlx_event(mapping->mlx, mapping->win, MLX_KEYDOWN2, keyhook, mapping); 
+    mlx_on_event(mapping->mlx, mapping->win, MLX_KEYDOWN2, keyhook, mapping);
     mlx_loop(mapping->mlx);
     mlx_destroy_image(mapping->mlx, mapping->img);
     mlx_destroy_window(mapping->mlx, mapping->win);
