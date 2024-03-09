@@ -6,7 +6,7 @@
 /*   By: lvan-slu <lvan-slu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 22:25:48 by lvan-slu          #+#    #+#             */
-/*   Updated: 2024/03/05 12:18:52 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2024/03/08 22:36:28 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,11 +124,7 @@ void	init_map(t_map *mapping)
 	char *line;
 	int	count_line;
 	int fd;
-	// t_map	*mapping;
 
-	// mapping = malloc(sizeof(t_map));
-	// if (mapping == NULL)
-	// 	return 0;
     fd = open("map.ber", O_RDONLY);
 	count_line = 0;
 	line = get_next_line(fd);
@@ -140,7 +136,4 @@ void	init_map(t_map *mapping)
 	}
 	free(line);
 	create_tab(count_line, mapping);
-	// free_map(mapping->map);
-	// free_map(mapping->tmp_map);
-	// free(mapping);
 }
