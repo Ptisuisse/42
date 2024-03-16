@@ -6,7 +6,7 @@
 /*   By: lvan-slu <lvan-slu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 22:25:48 by lvan-slu          #+#    #+#             */
-/*   Updated: 2024/03/08 22:36:28 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2024/03/16 20:12:56 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	bol_chr(const char *s, int c)
 int	check_PCE(t_map *mapping, int y)
 {
 	int x;
+	
 	x = 0;
 	while (mapping->map[y][x])
 	{
@@ -64,7 +65,7 @@ int map_conformity(t_map *mapping, int count_line)
 	if (!(bol_chr(mapping->map[count_line - 1], '0')))
 		printf("ERROR %d :\nLast line not close\n", (mapping->nbr_err += 1));
 	y = 1;
-	while (y< count_line - 1 && (check_PCE(mapping, y)))
+	while (y < count_line - 1 && (check_PCE(mapping, y)))
 		y++;
 	if (mapping->e != 1)
 		printf("ERROR %d :\nIncorrect number of EXIT (1 needed)\n", (mapping->nbr_err += 1));

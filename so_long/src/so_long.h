@@ -6,7 +6,7 @@
 /*   By: lvan-slu <lvan-slu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 21:44:48 by lvan-slu          #+#    #+#             */
-/*   Updated: 2024/03/09 02:26:31 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2024/03/16 23:53:26 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include "../libft/libft.h"
+# include "../../MacroLibX/includes/mlx.h"
 
 typedef enum
 {
@@ -49,6 +50,10 @@ typedef struct  mapping
     void    *win;
     int img_height;
     int img_width;
+    void    *img_player;
+    void    *img_floor;
+    void    *img_coll;
+    void    *img_exit;
 } t_map;
 
 void    print_tab(t_map *mapping);
@@ -62,5 +67,18 @@ int playable_map(t_map *mapping);
 void    init_map(t_map *mapping);
 int ft_mlx_init(t_map *mapping);
 int mlx_event(void *mlx, void *win, mlx_event_type2 event, int (*f)(int, void*), t_map *mapping);
+void    ft_mlx_sprites(t_map *mapping);
+int keyhook(int key, void *mapping);
+void    ft_put_player(t_map *mapping);
+void    ft_put_wall(t_map *mapping);
+int ft_event(void *mapping);
+int keyhook(int key, void *mapping);
+void    ft_move_up(t_map *mapping);
+void    ft_move_down(t_map *mapping);
+void    ft_move_right(t_map *mapping);
+void    ft_move_left(t_map *mapping);
+void    ft_put_floor(t_map *mapping);
+void    ft_put_collectible(t_map *mapping);
+void    ft_put_exit(t_map *mapping);
 
 #endif
