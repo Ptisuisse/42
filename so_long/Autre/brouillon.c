@@ -16,6 +16,28 @@ floodfill
     79 = right
     9 = f
 
+   if (mapping->y == 0 || mapping->y == (mapping->count_line - 1))
+    {
+        mapping->img = mlx_png_file_to_image(mapping->mlx, "/nfs/homes/lvan-slu/Documents/42_git/so_long/sprites/cloud2 (copy).png", &mapping->img_width, &mapping->img_height);
+        mlx_put_image_to_window(mapping->mlx, mapping->win, mapping->img, (mapping->x * 64),(mapping->y * 64));  
+    }
+    else if (mapping->x == 0)
+    {
+        mapping->img = mlx_png_file_to_image(mapping->mlx, "/nfs/homes/lvan-slu/Documents/42_git/so_long/sprites/cloudgauche.png", &mapping->img_width, &mapping->img_height);
+        mlx_put_image_to_window(mapping->mlx, mapping->win, mapping->img, (mapping->x * 64),(mapping->y * 64));  
+    }
+    else if (mapping->x == (mapping->win_x - 1))
+    {
+        mapping->img = mlx_png_file_to_image(mapping->mlx, "/nfs/homes/lvan-slu/Documents/42_git/so_long/sprites/clouddroit.png", &mapping->img_width, &mapping->img_height);
+        mlx_put_image_to_window(mapping->mlx, mapping->win, mapping->img, (mapping->x * 64),(mapping->y * 64)); 
+    }
+    else
+    {
+        mapping->img = mlx_png_file_to_image(mapping->mlx, "/nfs/homes/lvan-slu/Documents/42_git/so_long/sprites/cloud2.png", &mapping->img_width, &mapping->img_height);
+        mlx_put_image_to_window(mapping->mlx, mapping->win, mapping->img, (mapping->x * 64),(mapping->y * 64));
+    }
+
+
     //if ((key == 26) || (key == 82))
     // if ((key == 22 || key == 81))
     //     ft_move_down();

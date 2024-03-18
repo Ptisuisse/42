@@ -6,7 +6,7 @@
 /*   By: lvan-slu <lvan-slu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 22:25:48 by lvan-slu          #+#    #+#             */
-/*   Updated: 2024/03/16 20:12:56 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2024/03/18 17:43:38 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	check_PCE(t_map *mapping, int y)
 	return (1);
 }
 
-int map_conformity(t_map *mapping, int count_line)
+int map_conformity(t_map *mapping)
 {
 	int	y;
 
@@ -62,10 +62,10 @@ int map_conformity(t_map *mapping, int count_line)
 	mapping->p = 0;
 	if (!(bol_chr(mapping->map[y], '0')))
 		printf("ERROR %d :\nFirst line not close\n", (mapping->nbr_err += 1));
-	if (!(bol_chr(mapping->map[count_line - 1], '0')))
+	if (!(bol_chr(mapping->map[mapping->count_line - 1], '0')))
 		printf("ERROR %d :\nLast line not close\n", (mapping->nbr_err += 1));
 	y = 1;
-	while (y < count_line - 1 && (check_PCE(mapping, y)))
+	while (y < mapping->count_line - 1 && (check_PCE(mapping, y)))
 		y++;
 	if (mapping->e != 1)
 		printf("ERROR %d :\nIncorrect number of EXIT (1 needed)\n", (mapping->nbr_err += 1));
@@ -78,7 +78,7 @@ int map_conformity(t_map *mapping, int count_line)
 	return (1);
 }
 
-void	create_tab(int count_line, t_map *mapping) 
+void	create_tab(t_map *mapping) 
 {
 	char	*char_map;
     char	*line;
@@ -86,12 +86,12 @@ void	create_tab(int count_line, t_map *mapping)
 	int	fd;
 
     y = 0;
-	char_map = malloc(sizeof(char) * (count_line + 1));
+	char_map = malloc(sizeof(char) * (mapping->count_line + 1));
     if (char_map == NULL)
 		return ;
 	char_map[0] = '\0';
 	fd = open("map.ber", O_RDONLY);
-    while (y < count_line) 
+    while (y < mapping->count_line) 
 	{
         line = get_next_line(fd);
 		char_map = free_strjoin(char_map, line);
@@ -101,7 +101,7 @@ void	create_tab(int count_line, t_map *mapping)
 	mapping->map = ft_split(char_map, '\n');
 	mapping->tmp_map = ft_split(char_map, '\n');
 	free(char_map);
-	map_conformity(mapping, count_line);
+	map_conformity(mapping);
 	close(fd);
 	return ;
 }
@@ -123,18 +123,17 @@ void free_map(char **tab)
 void	init_map(t_map *mapping)
 {
 	char *line;
-	int	count_line;
 	int fd;
 
     fd = open("map.ber", O_RDONLY);
-	count_line = 0;
+	mapping->count_line = 0;
 	line = get_next_line(fd);
 	while (line)
 	{
 		free(line);
 		line = get_next_line(fd);
-		count_line++;
+		mapping->count_line++;
 	}
 	free(line);
-	create_tab(count_line, mapping);
+	create_tab(mapping);
 }
