@@ -1,3 +1,22 @@
+c ; 37/35 event
+flood fill : 17
+put exit : 137
+sprites : 24 26 28 34  17 20 22 
+
+init :
+	// if (mapping->map[mapping->y_p][mapping->x_p] != 'E')
+	// {
+	// 	mapping->img_player = mlx_png_file_to_image(mapping->mlx,
+	// 			"./sprites/bg.png",
+	// 			&mapping->img_width, &mapping->img_height);
+	// 	mlx_put_image_to_window(mapping->mlx, mapping->win, mapping->img_player,
+	// 		(mapping->x_p * 64), (mapping->y_p * 64));
+	// }
+
+
+
+
+p / c /e / shots / 
 
 https://reactive.so/mappingt/42-a-comprehensive-guide-to-so_long
 
