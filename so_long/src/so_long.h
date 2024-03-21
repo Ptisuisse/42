@@ -6,7 +6,7 @@
 /*   By: lvan-slu <lvan-slu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 21:44:48 by lvan-slu          #+#    #+#             */
-/*   Updated: 2024/03/19 18:07:09 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2024/03/21 18:43:56 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "../../MacroLibX/includes/mlx.h"
 # include "../libft/libft.h"
 # include <fcntl.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 
@@ -31,7 +30,8 @@ typedef struct mlx
 	void	*img_floor;
 	void	*img_coll;
 	void	*img_exit;
-}	t_mlx;
+	void	*img_eny;
+}			t_mlx;
 
 typedef struct mapping
 {
@@ -54,30 +54,42 @@ typedef struct mapping
 	int		nbr_err;
 }			t_map;
 
-void		print_tab(t_map *mapping);
-void		free_map(char **tab);
+/*map.c*/
+void		init_map(t_map *mapping, char *argv);
+void		create_tab(t_map *mapping, char *argv);
 int			bol_chr(const char *s, int c);
-int			map_conformity(t_map *mapping);
-void		create_tab(t_map *mapping);
-int			check_pce(t_map *mapping, int x);
+/*flood_fill.c*/
 int			flood_fill(int x, int y, t_map *mapping);
 int			playable_map(t_map *mapping);
-void		init_map(t_map *mapping);
+/*mlx.c*/
 int			ft_mlx_init(t_map *mapping);
 void		ft_mlx_sprites(t_map *mapping);
-int			ft_event(void *mapping);
-int			keyhook(int key, void *mapping);
-void		ft_move_up(t_map *mapping);
-void		ft_move_down(t_map *mapping);
-void		ft_move_right(t_map *mapping);
-void		ft_move_left(t_map *mapping);
+void		ft_sizeof_window(t_map *mapping);
+void	ft_put_eny(t_map *mapping);
+int mouse_hook(int button, void* data);
+/*images.c*/
 void		ft_put_floor(t_map *mapping);
 void		ft_put_collectible(t_map *mapping);
 void		ft_put_exit(t_map *mapping);
 void		ft_put_player(t_map *mapping);
 void		ft_put_wall(t_map *mapping);
-void		ft_exit_game(t_map *mapping);
-void	init_struct_map(t_map *mapping);
-void	init_struct_mlx(t_map *mapping);
+/*move.c*/
+void		ft_move_up(t_map *mapping);
+void		ft_move_down(t_map *mapping);
+void		ft_move_right(t_map *mapping);
+void		ft_move_left(t_map *mapping);
+/*events.c*/
+int			ft_event(void *mapping);
+int			keyhook(int key, void *mapping);
+/*init_and_free.c*/
+void		init_struct_map(t_map *mapping);
+void		init_struct_mlx(t_map *mapping);
+void		free_mlx(t_map *mapping);
+void		free_struct(t_map *mapping);
+void		free_map(char **tab);
+/*errors.c*/
+int			map_conformity(t_map *mapping);
+int			check_pce(t_map *mapping, int x);
+int			check_extension(char *argv);
 
 #endif

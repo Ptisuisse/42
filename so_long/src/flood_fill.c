@@ -6,7 +6,7 @@
 /*   By: lvan-slu <lvan-slu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 20:34:06 by lvan-slu          #+#    #+#             */
-/*   Updated: 2024/03/19 15:00:00 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2024/03/21 18:59:29 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,8 @@ int	playable_map(t_map *mapping)
 		{
 			if (mapping->tmp_map[y][x] == 'C' || mapping->tmp_map[y][x] == 'P'
 				|| mapping->tmp_map[y][x] == 'E')
-			{
-				printf("ERROR %d :\nYou can't win", (mapping->nbr_err += 1));
-				return (0);
-			}
+				return (ft_printf("ERROR %d :\nYou can't win", (mapping->nbr_err
+							+= 1)));
 			x++;
 		}
 		y++;

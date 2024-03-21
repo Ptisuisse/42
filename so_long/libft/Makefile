@@ -34,6 +34,7 @@ SRCS =  ft_atoi \
 	ft_split \
 	get_next_line \
 	get_next_line_utils \
+	ft_printf \
 
 SRCB =	ft_lstnew \
 	ft_lstadd_front \

@@ -6,7 +6,7 @@
 /*   By: lvan-slu <lvan-slu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 22:25:48 by lvan-slu          #+#    #+#             */
-/*   Updated: 2024/03/19 16:15:22 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2024/03/21 16:54:42 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,63 +26,7 @@ int	bol_chr(const char *s, int c)
 	return (1);
 }
 
-int	check_pce(t_map *mapping, int y)
-{
-	int	x;
-
-	x = 0;
-	while (mapping->map[y][x])
-	{
-		if (mapping->map[y][x] == 'P')
-		{
-			mapping->y_p = y;
-			mapping->x_p = x;
-			mapping->p++;
-		}
-		if (mapping->map[y][x] == 'C')
-			mapping->c++;
-		if (mapping->map[y][x] == 'E')
-			mapping->e++;
-		if (mapping->map[y][x] != 'P' && mapping->map[y][x] != 'C'
-			&& mapping->map[y][x] != 'E' && mapping->map[y][x] != '1'
-			&& mapping->map[y][x] != '0')
-			printf("ERROR %d :\nAt [%d, %d] [ASCII]%d is not available\n",
-				(mapping->nbr_err += 1), x, y, mapping->map[y][x]);
-		x++;
-	}
-	if ((mapping->map[y][0] != '1') || (mapping->map[y][x - 1] != '1'))
-		printf("ERROR %d :\nMAP NOT CLOSE at [%d, %d]\n", (mapping->nbr_err
-				+= 1), x, y);
-	return (1);
-}
-
-int	map_conformity(t_map *mapping)
-{
-	int	y;
-
-	y = 0;
-	if (!(bol_chr(mapping->map[y], '0')))
-		printf("ERROR %d :\nFirst line not close\n", (mapping->nbr_err += 1));
-	if (!(bol_chr(mapping->map[mapping->count_line - 1], '0')))
-		printf("ERROR %d :\nLast line not close\n", (mapping->nbr_err += 1));
-	y = 1;
-	while (y < mapping->count_line - 1 && (check_pce(mapping, y)))
-		y++;
-	if (mapping->e != 1)
-		printf("ERROR %d :\nIncorrect number of EXIT (1 needed)\n",
-			(mapping->nbr_err += 1));
-	if (mapping->c < 1)
-		printf("ERROR %d :\nIncorrect number of Collectible (min. 1 needed)\n",
-			(mapping->nbr_err += 1));
-	if (mapping->p != 1)
-		printf("ERROR %d :\nIncorrect number of Player (1 needed)\n",
-			(mapping->nbr_err += 1));
-	if (mapping->p == 1)
-		playable_map(mapping);
-	return (1);
-}
-
-void	create_tab(t_map *mapping)
+void	create_tab(t_map *mapping, char *argv)
 {
 	char	*char_map;
 	char	*line;
@@ -94,7 +38,7 @@ void	create_tab(t_map *mapping)
 	if (char_map == NULL)
 		return ;
 	char_map[0] = '\0';
-	fd = open("map.ber", O_RDONLY);
+	fd = open(argv, O_RDONLY);
 	while (y < mapping->count_line)
 	{
 		line = get_next_line(fd);
@@ -106,16 +50,17 @@ void	create_tab(t_map *mapping)
 	mapping->tmp_map = ft_split(char_map, '\n');
 	free(char_map);
 	map_conformity(mapping);
+	ft_sizeof_window(mapping);
 	close(fd);
 	return ;
 }
 
-void	init_map(t_map *mapping)
+void	init_map(t_map *mapping, char *argv)
 {
 	char	*line;
 	int		fd;
 
-	fd = open("map.ber", O_RDONLY);
+	fd = open(argv, O_RDONLY);
 	line = get_next_line(fd);
 	while (line)
 	{
@@ -124,5 +69,6 @@ void	init_map(t_map *mapping)
 		mapping->count_line++;
 	}
 	free(line);
-	create_tab(mapping);
+	close(fd);
+	create_tab(mapping, argv);
 }

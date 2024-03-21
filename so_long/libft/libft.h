@@ -6,7 +6,7 @@
 /*   By: lvan-slu <lvan-slu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 21:06:18 by lvan-slu          #+#    #+#             */
-/*   Updated: 2024/03/03 12:12:57 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2024/03/21 18:07:43 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdarg.h>
 
 int		ft_isalpha(int c);
 
@@ -121,4 +122,19 @@ void	ft_lstdelone(t_list *lst, void (*del)(void*));
 void	ft_lstclear(t_list **lst, void (*del)(void*));
 
 void	ft_lstiter(t_list *lst, void (*f)(void *));
+
+int	ft_printf(const char *format, ...);
+
+int	print_char(int c);
+
+int	print_str(char *str);
+
+int	print_type(char type, va_list ap);
+
+int	print_digit(long n, int base, char type);
+
+int	print_pointeur(unsigned long long n, unsigned long long base);
+
+int	print_add(unsigned long long n, unsigned long long base);
+
 #endif

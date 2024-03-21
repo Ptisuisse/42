@@ -6,11 +6,18 @@
 /*   By: lvan-slu <lvan-slu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:21:00 by lvan-slu          #+#    #+#             */
-/*   Updated: 2024/03/19 18:15:05 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2024/03/21 18:49:07 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	ft_put_eny(t_map *mapping)
+{
+	ft_put_floor(mapping);
+	mlx_put_image_to_window(mapping->mlx->mlx, mapping->mlx->win,
+		mapping->mlx->img_eny, (mapping->x * 64), (mapping->y * 64));
+}
 
 void	ft_mlx_sprites(t_map *mapping)
 {
@@ -33,6 +40,8 @@ void	ft_mlx_sprites(t_map *mapping)
 			}
 			if (mapping->map[mapping->y][mapping->x] == '0')
 				ft_put_floor(mapping);
+			if (mapping->map[mapping->y][mapping->x] == 'M')
+				ft_put_eny(mapping);
 			mapping->x++;
 		}
 		mapping->y++;
@@ -41,11 +50,21 @@ void	ft_mlx_sprites(t_map *mapping)
 
 void	ft_sizeof_window(t_map *mapping)
 {
+	int	tmpx;
+
+	tmpx = 0;
 	while (mapping->map[mapping->win_y])
 	{
 		mapping->win_x = 0;
 		while (mapping->map[mapping->win_y][mapping->win_x])
 			mapping->win_x++;
+		if (tmpx == 0)
+			tmpx = mapping->win_x;
+		else if (tmpx != mapping->win_x)
+		{
+			ft_printf("ERROR\n");
+			exit(0);
+		}
 		mapping->win_y++;
 	}
 }
@@ -60,10 +79,5 @@ int	ft_mlx_init(t_map *mapping)
 	ft_mlx_sprites(mapping);
 	mlx_loop_hook(mapping->mlx->mlx, ft_event, mapping);
 	mlx_loop(mapping->mlx->mlx);
-	mlx_destroy_image(mapping->mlx->mlx, mapping->mlx->img_exit);
-	mlx_destroy_image(mapping->mlx->mlx, mapping->mlx->img);
-	mlx_destroy_image(mapping->mlx->mlx, mapping->mlx->img_player);
-	mlx_destroy_image(mapping->mlx->mlx, mapping->mlx->img_floor);
-	mlx_destroy_image(mapping->mlx->mlx, mapping->mlx->img_coll);
 	return (0);
 }
