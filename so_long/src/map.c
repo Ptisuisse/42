@@ -15,44 +15,52 @@
 int	bol_chr(const char *s, int c)
 {
 	int	i;
+	int	j;
 
+	j = 0;
 	i = ft_strlen(s);
-	while (i >= 0)
+	while (j < i)
 	{
-		if (s[i] == c)
+		if (s[j] != c)
 			return (0);
-		i--;
+		j++;
 	}
 	return (1);
 }
 
 void	create_tab(t_map *mapping, char *argv)
 {
-	char	*char_map;
 	char	*line;
 	int		y;
 	int		fd;
 
 	y = 0;
-	char_map = malloc(sizeof(char) * (mapping->count_line + 1));
-	if (char_map == NULL)
+	mapping->char_map = malloc(sizeof(char) * (mapping->count_line + 1));
+	if (mapping->char_map == NULL)
 		return ;
-	char_map[0] = '\0';
+	mapping->char_map[0] = '\0';
 	fd = open(argv, O_RDONLY);
 	while (y < mapping->count_line)
 	{
 		line = get_next_line(fd);
-		char_map = free_strjoin(char_map, line);
+		mapping->char_map = free_strjoin(mapping->char_map, line);
+		check_line(mapping, fd);
 		free(line);
 		y++;
 	}
-	mapping->map = ft_split(char_map, '\n');
-	mapping->tmp_map = ft_split(char_map, '\n');
-	free(char_map);
+	get_next_line(fd);
+	close(fd);
+	split_map(mapping);
+	return ;
+}
+
+void	split_map(t_map *mapping)
+{
+	mapping->map = ft_split(mapping->char_map, '\n');
+	mapping->tmp_map = ft_split(mapping->char_map, '\n');
+	free(mapping->char_map);
 	map_conformity(mapping);
 	ft_sizeof_window(mapping);
-	close(fd);
-	return ;
 }
 
 void	init_map(t_map *mapping, char *argv)
@@ -61,7 +69,15 @@ void	init_map(t_map *mapping, char *argv)
 	int		fd;
 
 	fd = open(argv, O_RDONLY);
+	if (fd < 0)
+	{
+		ft_printf("ERROR\n");
+		close(fd);
+		exit (1);
+	}
 	line = get_next_line(fd);
+	if (line == NULL)
+		ft_empty_line(mapping, line, fd);
 	while (line)
 	{
 		free(line);

@@ -6,7 +6,7 @@
 /*   By: lvan-slu <lvan-slu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 20:34:06 by lvan-slu          #+#    #+#             */
-/*   Updated: 2024/03/21 18:59:29 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2024/03/27 14:04:43 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,18 @@ int	flood_fill(int x, int y, t_map *mapping)
 {
 	if (mapping->nbr_err >= 1)
 		return (0);
-	if (mapping->tmp_map[y][x] != '1')
+	if (mapping->tmp_map[y][x] != '1' && mapping->tmp_map[y][x] != 'M')
 	{
 		mapping->tmp_map[y][x] = '1';
 		flood_fill(x + 1, y, mapping);
 		flood_fill(x - 1, y, mapping);
 		flood_fill(x, y + 1, mapping);
 		flood_fill(x, y - 1, mapping);
+	}
+	if (x > 300 || y > 300)
+	{
+		ft_printf("ERROR\n");
+		exit(1);
 	}
 	return (1);
 }
@@ -44,8 +49,11 @@ int	playable_map(t_map *mapping)
 		{
 			if (mapping->tmp_map[y][x] == 'C' || mapping->tmp_map[y][x] == 'P'
 				|| mapping->tmp_map[y][x] == 'E')
-				return (ft_printf("ERROR %d :\nYou can't win", (mapping->nbr_err
-							+= 1)));
+			{
+				ft_printf("ERROR %d:\nYou can't win\n");
+				ft_free(mapping);
+				exit (1);
+			}
 			x++;
 		}
 		y++;

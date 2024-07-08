@@ -63,7 +63,7 @@ void	ft_sizeof_window(t_map *mapping)
 		else if (tmpx != mapping->win_x)
 		{
 			ft_printf("ERROR\n");
-			exit(0);
+			exit(1);
 		}
 		mapping->win_y++;
 	}
@@ -71,6 +71,7 @@ void	ft_sizeof_window(t_map *mapping)
 
 int	ft_mlx_init(t_map *mapping)
 {
+	check_sprite(mapping);
 	mapping->mlx->mlx = mlx_init();
 	init_struct_mlx(mapping);
 	ft_sizeof_window(mapping);

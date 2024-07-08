@@ -14,14 +14,13 @@
 
 int	main(int argc, char **argv)
 {
-	int		fd;
 	t_map	*mapping;
 
-	fd = open(argv[1], O_RDONLY);
-	if (fd < 0)
-		return (ft_printf("ERROR\n"));
 	if (argc != 2)
-		return (0);
+	{
+		ft_printf("ERROR\n");
+		exit (1);
+	}
 	check_extension(argv[1]);
 	mapping = malloc(sizeof(t_map));
 	if (mapping == NULL)
@@ -33,7 +32,6 @@ int	main(int argc, char **argv)
 	init_map(mapping, argv[1]);
 	ft_mlx_init(mapping);
 	free_mlx(mapping);
-	free_map(mapping->map);
-	free_map(mapping->tmp_map);
-	free_struct(mapping);
+	ft_free(mapping);
+	return (0);
 }

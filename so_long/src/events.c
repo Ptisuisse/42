@@ -6,7 +6,7 @@
 /*   By: lvan-slu <lvan-slu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 21:31:17 by lvan-slu          #+#    #+#             */
-/*   Updated: 2024/03/21 18:57:46 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2024/03/27 15:18:07 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,12 @@ int	keyhook(int key, void *data)
 		ft_move_right(mapping);
 	if (mapping->c == 0)
 		ft_put_exit(mapping);
-	if (mapping->c == 0 && mapping->map[mapping->y_p][mapping->x_p] == 'E'
-		|| mapping->map[mapping->y_p][mapping->x_p] == 'M')
+	if (mapping->c == 0 && mapping->map[mapping->y_p][mapping->x_p] == 'E')
 		mlx_loop_end(mapping->mlx->mlx);
+	if (mapping->map[mapping->y_p][mapping->x_p] == 'M')
+	{
+		ft_printf("YOU LOSE\n");
+		mlx_loop_end(mapping->mlx->mlx);
+	}
 	return (0);
 }
