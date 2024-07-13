@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void	ft_move_up(t_map *mapping)
 {
@@ -18,9 +18,11 @@ void	ft_move_up(t_map *mapping)
 	{
 		mapping->shots++;
 		ft_printf("%d\n", mapping->shots);
+		mapping->str = ft_itoa(mapping->shots);
 		mapping->x = 0;
 		mapping->y = 0;
 		ft_put_wall(mapping);
+		ft_put_move(mapping);
 		mapping->x = mapping->x_p;
 		mapping->y = mapping->y_p;
 		if (mapping->map[mapping->y_p][mapping->x_p] != 'E')
@@ -38,9 +40,11 @@ void	ft_move_down(t_map *mapping)
 	{
 		mapping->shots++;
 		ft_printf("%d\n", mapping->shots);
+		mapping->str = ft_itoa(mapping->shots);
 		mapping->x = 0;
 		mapping->y = 0;
 		ft_put_wall(mapping);
+		ft_put_move(mapping);
 		mapping->x = mapping->x_p;
 		mapping->y = mapping->y_p;
 		if (mapping->map[mapping->y_p][mapping->x_p] != 'E')
@@ -58,9 +62,11 @@ void	ft_move_left(t_map *mapping)
 	{
 		mapping->shots++;
 		ft_printf("%d\n", mapping->shots);
+		mapping->str = ft_itoa(mapping->shots);
 		mapping->x = 0;
 		mapping->y = 0;
 		ft_put_wall(mapping);
+		ft_put_move(mapping);
 		mapping->x = mapping->x_p;
 		mapping->y = mapping->y_p;
 		if (mapping->map[mapping->y_p][mapping->x_p] != 'E')
@@ -78,9 +84,11 @@ void	ft_move_right(t_map *mapping)
 	{
 		mapping->shots++;
 		ft_printf("%d\n", mapping->shots);
+		mapping->str = ft_itoa(mapping->shots);
 		mapping->x = 0;
 		mapping->y = 0;
 		ft_put_wall(mapping);
+		ft_put_move(mapping);
 		mapping->x = mapping->x_p;
 		mapping->y = mapping->y_p;
 		if (mapping->map[mapping->y_p][mapping->x_p] != 'E')

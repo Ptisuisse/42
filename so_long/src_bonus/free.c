@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void	ft_free(t_map *mapping)
 {
@@ -40,6 +40,8 @@ void	free_mlx(t_map *mapping)
 	mlx_destroy_image(mapping->mlx->mlx, mapping->mlx->img_floor);
 	mlx_destroy_image(mapping->mlx->mlx, mapping->mlx->img_coll);
 	mlx_destroy_image(mapping->mlx->mlx, mapping->mlx->img_exit);
+	if (mapping->eny > 0)
+		ft_free_eny(mapping);
 	mlx_clear_window(mapping->mlx->mlx, mapping->mlx->win);
 	mlx_destroy_window(mapping->mlx->mlx, mapping->mlx->win);
 	mlx_destroy_display(mapping->mlx->mlx);

@@ -21,7 +21,7 @@ char	*sorting_buf(char *buf)
 	i = 0;
 	while (buf[i] && buf[i] != '\n')
 		i++;
-	if (!buf[i])
+	if (!buf[i] || (buf[i] == '\n' && buf[i + 1] == '\n'))
 	{
 		free(buf);
 		return (NULL);

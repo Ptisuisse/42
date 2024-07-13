@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 int	flood_fill(int x, int y, t_map *mapping)
 {
 	if (mapping->nbr_err >= 1)
 		return (0);
-	if (mapping->tmp_map[y][x] != '1')
+	if (mapping->tmp_map[y][x] != '1' && mapping->tmp_map[y][x] != 'M')
 	{
 		mapping->tmp_map[y][x] = '1';
 		flood_fill(x + 1, y, mapping);

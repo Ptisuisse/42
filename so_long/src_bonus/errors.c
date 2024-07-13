@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void	ft_empty_line(t_map *mapping, char *line, int fd)
 {
@@ -36,6 +36,8 @@ void	check_line(t_map *mapping, int fd)
 			free_struct(mapping);
 			exit(1);
 		}
+		if (mapping->char_map[i] == 'M')
+			mapping->eny++;
 		i++;
 	}
 }
@@ -59,7 +61,7 @@ int	check_pce(t_map *mapping, int y)
 			mapping->e++;
 		if (mapping->map[y][x] != 'P' && mapping->map[y][x] != 'C'
 			&& mapping->map[y][x] != 'E' && mapping->map[y][x] != '1'
-			&& mapping->map[y][x] != '0')
+			&& mapping->map[y][x] != '0' && mapping->map[y][x] != 'M')
 			ft_printf("ERROR\n%d: At [%d, %d]\n", (mapping->nbr_err += 1), x,
 				y);
 		x++;

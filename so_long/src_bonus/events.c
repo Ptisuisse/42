@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 int	mouse_hook(int button, void *data)
 {
@@ -52,5 +52,7 @@ int	keyhook(int key, void *data)
 		ft_put_exit(mapping);
 	if (mapping->c == 0 && mapping->map[mapping->y_p][mapping->x_p] == 'E')
 		mlx_loop_end(mapping->mlx->mlx);
+	if (mapping->map[mapping->y_p][mapping->x_p] == 'M')
+		ft_bonus_lose(mapping);
 	return (0);
 }

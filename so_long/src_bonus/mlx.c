@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void	ft_mlx_sprites(t_map *mapping)
 {
@@ -33,6 +33,8 @@ void	ft_mlx_sprites(t_map *mapping)
 			}
 			if (mapping->map[mapping->y][mapping->x] == '0')
 				ft_put_floor(mapping);
+			if (mapping->map[mapping->y][mapping->x] == 'M')
+				ft_put_eny(mapping);
 			mapping->x++;
 		}
 		mapping->y++;

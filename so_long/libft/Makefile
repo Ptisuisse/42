@@ -33,8 +33,10 @@ SRCS =  ft_atoi \
 	ft_strtrim \
 	ft_split \
 	get_next_line \
-	get_next_line_utils \
 	ft_printf \
+	print_add \
+	print_digit \
+	free_strjoin \
 
 SRCB =	ft_lstnew \
 	ft_lstadd_front \

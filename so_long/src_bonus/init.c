@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void	init_struct_map(t_map *mapping)
 {
@@ -19,6 +19,7 @@ void	init_struct_map(t_map *mapping)
 	mapping->c = 0;
 	mapping->p = 0;
 	mapping->y = 0;
+	mapping->eny = 0;
 	mapping->count_line = 0;
 	mapping->nbr_err = 0;
 	mapping->shots = 0;
@@ -41,23 +42,27 @@ void	init_struct_mlx(t_map *mapping)
 	mapping->mlx->img = mlx_png_file_to_image(mapping->mlx->mlx,
 			"./sprites/boxAlt.png", &mapping->mlx->img_width,
 			&mapping->mlx->img_height);
+	if (mapping->eny > 0)
+		ft_init_eny(mapping);
 }
 
 int	check_sprite(t_map *mapping)
 {
 	int	fd;
 
-	fd = open ("./sprites/star.png", O_RDONLY);
+	fd = open("./sprites/star.png", O_RDONLY);
 	check_fd(fd, mapping);
-	fd = open ("./sprites/lock_red.png", O_RDONLY);
+	fd = open("./sprites/lock_red.png", O_RDONLY);
 	check_fd(fd, mapping);
-	fd = open ("./sprites/lock_green.png", O_RDONLY);
+	fd = open("./sprites/lock_green.png", O_RDONLY);
 	check_fd(fd, mapping);
-	fd = open ("./sprites/bg.png", O_RDONLY);
+	fd = open("./sprites/bg.png", O_RDONLY);
 	check_fd(fd, mapping);
-	fd = open ("./sprites/p1_front.png", O_RDONLY);
+	fd = open("./sprites/p1_front.png", O_RDONLY);
 	check_fd(fd, mapping);
-	fd = open ("./sprites/boxAlt.png", O_RDONLY);
+	fd = open("./sprites/blockerMad.png", O_RDONLY);
+	check_fd(fd, mapping);
+	fd = open("./sprites/boxAlt.png", O_RDONLY);
 	check_fd(fd, mapping);
 	return (0);
 }
@@ -68,7 +73,7 @@ void	check_fd(int fd, t_map *mapping)
 	{
 		ft_printf("ERROR\n");
 		free_struct(mapping);
-		exit (1);
+		exit(1);
 	}
-	close (fd);
+	close(fd);
 }

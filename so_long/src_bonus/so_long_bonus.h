@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   so_long_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvan-slu <lvan-slu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 21:44:48 by lvan-slu          #+#    #+#             */
-/*   Updated: 2024/03/27 14:56:54 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2024/07/12 13:26:48 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef SO_LONG_BONUS_H
+# define SO_LONG_BONUS_H
 
 # include "../MacroLibX/includes/mlx.h"
 # include "../libft/libft.h"
@@ -30,6 +30,7 @@ typedef struct mlx
 	void	*img_floor;
 	void	*img_coll;
 	void	*img_exit;
+	void	*img_eny;
 }			t_mlx;
 
 typedef struct mapping
@@ -51,7 +52,9 @@ typedef struct mapping
 	int		p;
 	int		c;
 	int		e;
+	int		eny;
 	int		nbr_err;
+	char	*str;
 }			t_map;
 
 /*map.c*/
@@ -97,5 +100,11 @@ void		check_line(t_map *mapping, int fd);
 int			map_conformity(t_map *mapping);
 int			check_pce(t_map *mapping, int x);
 int			check_extension(char *argv);
+/*bonus.c*/
+void		ft_put_eny(t_map *mapping);
+void		ft_bonus_lose(t_map *mapping);
+void		ft_put_move(t_map *mapping);
+void		ft_free_eny(t_map *mapping);
+void		ft_init_eny(t_map *mapping);
 
 #endif
