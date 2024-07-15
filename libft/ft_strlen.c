@@ -6,7 +6,7 @@
 /*   By: lvan-slu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/19 15:40:34 by lvan-slu          #+#    #+#             */
-/*   Updated: 2023/11/19 15:40:39 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2024/03/02 20:18:47 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,12 @@ size_t	ft_strlen(const char *str)
 	size_t	i;
 
 	i = 0;
-	while (str[i] != '\0')
+	while (str[i])
 	{
-		i++;
+		if (str)
+			i++;
+		else
+			break ;
 	}
 	return (i);
 }

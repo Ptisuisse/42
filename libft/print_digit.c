@@ -1,39 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   print_digit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvan-slu <lvan-slu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/13 19:27:18 by lvan-slu          #+#    #+#             */
-/*   Updated: 2024/03/03 13:27:27 by lvan-slu         ###   ########.fr       */
+/*   Created: 2023/11/28 17:43:08 by lvan-slu          #+#    #+#             */
+/*   Updated: 2024/03/21 18:05:24 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr_fd(int n, int fd)
+int	print_digit(long n, int base, char type)
 {
+	int		i;
+	char	*symbol;
+
+	i = 0;
+	if (type == 'X')
+		symbol = "0123456789ABCDEF";
+	else
+		symbol = "0123456789abcdef";
 	if (n < 0)
 	{
-		ft_putchar_fd('-', fd);
-		if (n == -2147483648)
-		{
-			write (fd, "2147483648", 10);
-			return ;
-		}
-		n *= -1;
-		ft_putnbr_fd(n, fd);
+		write (1, "-", 1);
+		return (print_digit (-n, base, type) + 1);
 	}
+	else if (n < base)
+		return (print_char (symbol[n]));
 	else
 	{
-		if (n > 9)
-		{
-			ft_putnbr_fd (n / 10, fd);
-			n = n % 10;
-			ft_putchar_fd(n + '0', fd);
-		}
-		else
-			ft_putchar_fd(n + '0', fd);
+		i = print_digit ((n / base), base, type);
+		return (i + print_digit ((n % base), base, type));
 	}
 }

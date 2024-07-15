@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lvan-slu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lvan-slu <lvan-slu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 13:24:52 by lvan-slu          #+#    #+#             */
-/*   Updated: 2023/11/26 19:53:21 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2024/03/21 18:07:43 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include <stdio.h>
+#include "libft.h"
 
 int	print_char(int c)
 {
-	return write(1, &c, 1);
+	return (write(1, &c, 1));
 }
 
 int	print_str(char *str)
@@ -35,62 +34,6 @@ int	print_str(char *str)
 		str++;
 	}
 	return (i);
-}
-
-int	print_digit(long n, int base, char type)
-{
-
-	int	i;
-	char	*symbol;
-
-	i = 0;
-	if (type == 'X')
-		symbol = "0123456789ABCDEF";
-	else
-		symbol = "0123456789abcdef";
-	if (n < 0)
-	{
-		write (1, "-", 1);
-		return (print_digit (-n, base, type) + 1);
-	}
-	else if (n < base)
-		return (print_char (symbol[n]));
-	else
-	{
-		i = print_digit ((n / base), base, type);
-		return (i + print_digit ((n % base), base, type));
-	}	
-}
-
-int	print_add(unsigned long long n, unsigned long long base)
-{
-	int	i;
-
-	i = 0;
-	if (n == 0)	
-		return (i += write (1, "(nil)", 5));
-	else
-	{
-		i += write (1, "0x", 2);
-		return (i += print_pointeur(n, base));
-	}
-}
-
-int	print_pointeur(unsigned long long n, unsigned long long base)
-{
-
-	int	i;
-	char	*symbol;
-
-	i = 0;
-	symbol = "0123456789abcdef";
-	if (n < base)
-		return (print_char (symbol[n]));
-	else
-	{
-		i = print_pointeur ((n / base), base);
-		return (i + print_pointeur ((n % base), base));
-	}	
 }
 
 int	print_type(char type, va_list ap)
@@ -121,8 +64,8 @@ int	print_type(char type, va_list ap)
 
 int	ft_printf(const char *format, ...)
 {
-	va_list ap;
-	int	i;
+	va_list	ap;
+	int		i;
 
 	va_start(ap, format);
 	i = 0;
@@ -137,14 +80,3 @@ int	ft_printf(const char *format, ...)
 	va_end(ap);
 	return (i);
 }
-/*
-int	main()
-{
-	int	i;
-	int	*p;
-
-	i = 425454;
-	p = &i;
-	ft_printf("%p\n", p);
-	printf("%p\n", p);
-}*/

@@ -1,39 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   free_strjoin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvan-slu <lvan-slu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/13 19:27:18 by lvan-slu          #+#    #+#             */
-/*   Updated: 2024/03/03 13:27:27 by lvan-slu         ###   ########.fr       */
+/*   Created: 2024/03/03 12:10:04 by lvan-slu          #+#    #+#             */
+/*   Updated: 2024/03/03 12:12:22 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr_fd(int n, int fd)
+char	*free_strjoin(char *s1, char *s2)
 {
-	if (n < 0)
+	int		ls1;
+	int		ls2;
+	char	*news;
+
+	if (!s1 || !s2)
+		return (0);
+	ls1 = ft_strlen(s1);
+	ls2 = ft_strlen(s2);
+	news = ft_calloc((ls1 + ls2 + 1), sizeof(char));
+	if (news == NULL)
+		return (NULL);
+	ft_memcpy(news, s1, ls1);
+	ls2 = 0;
+	while (s2[ls2] != '\0')
 	{
-		ft_putchar_fd('-', fd);
-		if (n == -2147483648)
-		{
-			write (fd, "2147483648", 10);
-			return ;
-		}
-		n *= -1;
-		ft_putnbr_fd(n, fd);
+		news[ls1] = s2[ls2];
+		ls1++;
+		ls2++;
 	}
-	else
-	{
-		if (n > 9)
-		{
-			ft_putnbr_fd (n / 10, fd);
-			n = n % 10;
-			ft_putchar_fd(n + '0', fd);
-		}
-		else
-			ft_putchar_fd(n + '0', fd);
-	}
+	free(s1);
+	return (news);
 }
