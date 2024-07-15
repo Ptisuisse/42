@@ -66,6 +66,8 @@ void	check_fd(int fd, t_map *mapping)
 {
 	if (fd < 0)
 	{
+		free_map(mapping->map);
+		free_map(mapping->tmp_map);
 		ft_printf("ERROR\n");
 		free_struct(mapping);
 		exit (1);

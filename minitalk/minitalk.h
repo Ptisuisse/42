@@ -10,10 +10,19 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include <signal.h>
-#include <stdlib.h>
+#ifndef MINITALK_H
+# define MINITALK_H
 
-void ft_binary(char c, int pid);
-void ft_char_to_bin(char *str, int pid);
-//void decrypt_bin(int signal);
+# include "libft/libft.h"
+# include <signal.h>
+# include <stdlib.h>
+# include <unistd.h>
+
+/*Client*/
+void	ft_binary(int pid, char c);
+void	ft_char_to_bin(char *str, int pid);
+/*Server*/
+char	*ft_strjoin_serv(char *s1, char s2);
+void	ft_handler(int signal);
+
+#endif

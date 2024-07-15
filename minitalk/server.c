@@ -1,108 +1,79 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvan-slu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 19:00:01 by lvan-slu          #+#    #+#             */
-/*   Updated: 2024/07/08 19:00:02 by lvan-slu         ###   ########.fr       */
+/*   Updated: 2024/07/14 16:08:49 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
-#include <stdio.h>
 
-char *ftstrjoin(char const *s1, char const s2)
+char	*g_str;
+
+char	*ft_strjoin_serv(char *s1, char s2)
 {
-	int ls1;
-	char *news;
+	int		i;
+	int		len;
+	char	*dest;
 
-	if (!s1)
-		return (0);
-	ls1 = ft_strlen(s1);
-	news = ft_calloc((ls1 + 2), sizeof(char));
-	if (news == NULL)
+	len = 0;
+	if (s1 != NULL)
+		len = ft_strlen(s1);
+	dest = malloc(sizeof(char) * (len + 2));
+	if (dest == NULL)
 		return (NULL);
-	ft_memcpy(news, s1, ls1);
-	news[ls1] = s2;
-	return (news);
+	i = 0;
+	while (i < len)
+	{
+		dest[i] = s1[i];
+		i++;
+	}
+	dest[i] = s2;
+	dest[i + 1] = '\0';
+	free(s1);
+	return (dest);
 }
 
-void ft_handler(int sig, siginfo_t *info, void *oldcat)
+void	ft_handler(int signal)
 {
-	(void)oldcat;
-	static int pwr;
-	int byte;
-	char	*str;
+	static int	pwr;
+	static int	byte;
 
-	if (sig == SIGUSR2)
-		byte ^= 1 << (7 - pwr);
+	byte <<= 1;
+	if (signal == SIGUSR1)
+		byte |= 1;
 	pwr++;
-	// if () //start == 0
-	// {
-	// 	str = malloc;
-	// 	str[0]
-	// 	start write
-	// 	start++
-	// }
 	if (pwr == 8)
 	{
-		if (byte == 0)
+		if (byte == '\0')
 		{
-			write (1, &str, ft_strlen(str));
-			free (str);
+			ft_putstr_fd(g_str, 1);
+			free(g_str);
+			g_str = NULL;
 		}
 		else
-			ftstrjoin(str, (char)byte);
-		pwr = 0;
+			g_str = ft_strjoin_serv(g_str, (char)byte);
 		byte = 0;
+		pwr = 0;
 	}
 }
 
-int main(void)
+int	main(int argc, char **argv)
 {
-	struct sigaction	sa;
-
+	(void)argv;
+	if (argc != 1)
+		return (0);
 	write(1, "PID :", 5);
 	ft_putnbr_fd(getpid(), 1);
 	ft_putchar_fd('\n', 1);
-	sigaction(SIGUSR1, &sa, NULL);
-	sigaction(SIGUSR2, &sa, NULL);
+	signal(SIGUSR1, ft_handler);
+	signal(SIGUSR2, ft_handler);
 	while (1)
 	{
-		// signal(SIGUSR1, decrypt_bin);
-		// signal(SIGUSR2, decrypt_bin);
 		pause();
 	}
-}
-
-
-void	ft_handler(int sig, siginfo_t *info, void *oldact)
-{
-	(void)oldact;
-	g_bit_info.car = g_bit_info.car << 1;
-	if (sig == SIGUSR2)
-		g_bit_info.car++;
-	g_bit_info.bits++;
-	if (g_bit_info.is_start == 0)
-	{
-		g_bit_info.str = malloc(1);
-		g_bit_info.str[0] = 0;
-		ft_start_writer(info->si_pid);
-		g_bit_info.is_start ++;
-	}
-	if (g_bit_info.bits == 8)
-	{
-		if (g_bit_info.car == 0 && --g_bit_info.is_start == 0)
-		{
-			write(1, g_bit_info.str, ft_strlen(g_bit_info.str));
-			free(g_bit_info.str);
-		}
-		else
-			g_bit_info.str = ft_strjoin(g_bit_info.str, (char)g_bit_info.car);
-		g_bit_info.bits = 0;
-		g_bit_info.car = 0;
-	}
-	kill(info->si_pid, SIGUSR1);
 }
