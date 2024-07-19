@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <limits.h>
 
 int	ft_check_sign(char **argv)
 {
@@ -71,8 +70,58 @@ void	ft_check_args(char **argv)
 	}
 }
 
+t_swap	*ft_init_stack_a(t_swap *stack_a, char **argv)
+{
+	int		i;
+	t_swap	*head;
+
+	i = 1;
+	stack_a = malloc(sizeof(t_swap));
+	if (stack_a == NULL)
+		return (NULL);
+	head = stack_a;
+	while (argv[i])
+	{
+		stack_a->next = malloc(sizeof(t_swap));
+		stack_a->nb = ft_atoi(argv[i]);
+		stack_a = stack_a->next;
+		i++;
+	}
+	return (head);
+}
+
+void	ft_is_sort(t_swap *stack_a)
+{
+
+	while (stack_a->next)
+	{
+		ft_printf("NBDEBASE%d\n", stack_a->nb);
+		if (stack_a->nb > stack_a->next->nb)
+		{
+			ft_printf("nb%d\n", stack_a->nb);
+			ft_printf("nbnext%d\n", stack_a->next->nb);
+		}
+		stack_a = stack_a->next;
+	}
+}
+
+void	ft_print_list(t_swap *stack_a)
+{
+	t_swap	*tmp;
+
+	tmp = stack_a;
+	while (tmp->next)
+	{
+		ft_printf("%d\n", tmp->nb);
+		tmp = tmp->next;
+	}
+}
+
 int	main(int argc, char **argv)
 {
+	t_swap	*stack_a;
+
+	stack_a = NULL;
 	if (argc < 3)
 	{
 		ft_printf("ERROR : Nbr of args\n");
@@ -83,4 +132,11 @@ int	main(int argc, char **argv)
 		// INTMAX */
 	ft_check_args(argv);
 	/*init struct*/
+	/*stocker dans stack A*/
+	stack_a = ft_init_stack_a(stack_a, argv);
+	//ft_print_list(stack_a);
+	ft_is_sort(stack_a);
+	/*Verifier si trier*/
+	/*si <= 5 (sort <= de 5)*/
+	/*si superieur big sort*/
 }

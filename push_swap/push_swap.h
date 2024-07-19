@@ -17,11 +17,11 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-typedef struct s_abc
+typedef struct s_swap
 {
 	int			nb;
-	struct s_abc	*next;
-	struct s_abc	*prev;
-}				t_abc;
+	struct s_swap	*next;
+	struct s_swap	*prev;
+}				t_swap;
 
 #endif
