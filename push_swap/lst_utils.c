@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   lst_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvan-slu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/19 18:46:24 by lvan-slu          #+#    #+#             */
-/*   Updated: 2023/11/20 22:39:29 by lvan-slu         ###   ########.fr       */
+/*   Created: 2024/07/20 17:37:46 by lvan-slu          #+#    #+#             */
+/*   Updated: 2024/07/20 17:37:47 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void*))
+void	ft_lstaddfront(t_swap **lst, t_swap *new)
 {
-	t_list	*tmp;
+	new->next = *lst;
+	*lst = new;
+}
 
-	if (!lst || !del)
+void	ft_lstadd_back(t_swap **lst, t_swap *new)
+{
+	t_swap	*tmp;
+
+	if (!new || !lst)
 		return ;
-	while (*lst)
+	if (*lst == NULL)
+		*lst = new;
+	else
 	{
-		tmp = (*lst)->next;
-		ft_lstdelone(*lst, del);
-		*lst = tmp;
+		tmp = ft_lstlast(*lst);
+		tmp->next = new;
 	}
-	*lst = NULL;
+	return ;
 }

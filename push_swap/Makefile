@@ -13,7 +13,6 @@
 SRCS =	main.c \
 
 OBJS = $(SRCS:.c=.o)
-OBJSB = $(SRCSB:.c=.o)
 CC = cc
 CFLAGS = -Wall -Werror -Wextra -g
 EXEC = push_swap
