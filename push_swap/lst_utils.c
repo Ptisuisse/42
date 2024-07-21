@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	ft_lstaddfront(t_swap **lst, t_swap *new)
+void	ft_lstadd_front(t_swap **lst, t_swap *new)
 {
 	new->next = *lst;
 	*lst = new;
@@ -32,4 +32,40 @@ void	ft_lstadd_back(t_swap **lst, t_swap *new)
 		tmp->next = new;
 	}
 	return ;
+}
+
+t_swap	*ft_lstlast(t_swap *lst)
+{
+	if (lst == NULL)
+		return (NULL);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
+}
+
+t_swap	*ft_lstnew(int content)
+{
+	t_swap	*element;
+
+	element = malloc(sizeof(t_swap));
+	if (element == NULL)
+		return (NULL);
+	element->next = NULL;
+	element->nb = content;
+	return (element);
+}
+
+int	ft_listlen(t_swap *stack)
+{
+	int		i;
+	t_swap	*tmp;
+
+	i = 0;
+	tmp = stack;
+	while (tmp->next)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (i);
 }

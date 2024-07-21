@@ -62,25 +62,18 @@ char	**ft_join_args(char **argv)
 	return (args);
 }
 
-t_swap	*ft_init_stack_a(t_swap *stack_a, char **args)
+void	ft_init_stack_a(t_swap **stack_a, char **args)
 {
 	int		i;
-	t_swap	*head;
+	t_swap	*new;
 
 	i = 0;
-	stack_a = malloc(sizeof(t_swap));
-	if (stack_a == NULL)
-		return (NULL);
-	head = stack_a;
 	while (args[i])
 	{
-		stack_a->next = malloc(sizeof(t_swap));
-		stack_a->nb = ft_atoi(args[i]);
-		stack_a = stack_a->next;
+		new = ft_lstnew(ft_atoi(args[i]));
+		ft_lstadd_back(stack_a, new);
 		i++;
 	}
-	stack_a->next = NULL;
-	return (head);
 }
 
 void	ft_print_list(t_swap *stack_a)
@@ -88,7 +81,7 @@ void	ft_print_list(t_swap *stack_a)
 	t_swap	*tmp;
 
 	tmp = stack_a;
-	while (tmp->next)
+	while (tmp)
 	{
 		ft_printf("%d\n", tmp->nb);
 		tmp = tmp->next;
@@ -106,69 +99,28 @@ int	ft_is_sort(t_swap *stack_a)
 	return (1);
 }
 
-int	ft_listlen(t_swap *stack)
-{
-	int	i;
-
-	i = 0;
-	while (stack->next)
-	{
-		stack = stack->next;
-		i++;
-	}
-	return (i);
-}
-
-t_swap	*ft_lstlast(t_swap *lst)
-{
-	if (lst == NULL)
-		return (NULL);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
-}
-
-void	ft_lstadd_back(t_swap **lst, t_swap *new)
-{
-	t_swap	*tmp;
-
-	if (!new || !lst)
-		return ;
-	if (*lst == NULL)
-		*lst = new;
-	else
-	{
-		tmp = ft_lstlast(*lst);
-		tmp->next = new;
-	}
-	return ;
-}
-
-void	ra(t_swap *stack_a)
-{
-	t_swap	*head;
-
-	head = stack_a->next;
-	ft_lstadd_back(&head, stack_a);
-	stack_a = head;
-	return ;
-}
-
 int	main(int argc, char **argv)
 {
-	t_swap	*stack_a;
+	t_swap	**stack_a;
+	t_swap	**stack_b;
 	char	**args;
 
-	stack_a = NULL;
+	stack_a = malloc(sizeof(t_swap *));
+	if (stack_a == NULL)
+		return (0);
+	*stack_a = NULL;
+	stack_b = malloc(sizeof(t_swap *));
+	if (stack_b == NULL)
+		return (0);
+	*stack_b = NULL;
 	if (argc < 2)
 	{
 		ft_printf("ERROR : Nbr of args\n");
 		exit(1);
 	}
 	args = ft_join_args(argv);
-	stack_a = ft_init_stack_a(stack_a, args);
-	ra(stack_a);
-	// if (!(ft_is_sort(stack_a)))
-	//	sa(stack_a);
-	ft_print_list(stack_a);
+	ft_init_stack_a(stack_a, args);
+	pb(stack_a, stack_b);
+	ft_print_list((*stack_a));
+	ft_print_list((*stack_b));
 }
