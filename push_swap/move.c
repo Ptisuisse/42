@@ -25,6 +25,7 @@ void	sa(t_swap **stack_a)
 		(*stack_a)->nb = (*stack_a)->next->nb;
 		(*stack_a)->next->nb = tmp;
 	}
+	ft_printf("sa\n");
 	return ;
 }
 
@@ -50,7 +51,7 @@ void	ss(t_swap **stack_a, t_swap **stack_b)
 /*Prend le premier élément au sommet de b et le met sur a.
 Ne fait rien si b est vide.*/
 
- void	pa(t_swap **stack_b, t_swap **stack_a)
+void	pa(t_swap **stack_b, t_swap **stack_a)
 {
 	t_swap	*head;
 
@@ -81,6 +82,7 @@ void	ra(t_swap **stack_a)
 	*stack_a = head->next;
 	head->next = NULL;
 	tmp->next = head;
+	ft_printf("ra\n");
 	return ;
 }
 
@@ -113,7 +115,7 @@ void	rra(t_swap **stack_a)
 	int		i;
 
 	i = ft_listlen((*stack_a));
-	i -= 1;
+	i -= 2;
 	head = *stack_a;
 	tmp = ft_lstlast(head);
 	while (i)
@@ -124,6 +126,7 @@ void	rra(t_swap **stack_a)
 	head->next = NULL;
 	tmp->next = *stack_a;
 	*stack_a = tmp;
+	ft_printf("rra\n");
 }
 
 void	rrb(t_swap **stack_b)
@@ -133,7 +136,7 @@ void	rrb(t_swap **stack_b)
 	int		i;
 
 	i = ft_listlen((*stack_b));
-	i -= 1;
+	i -= 2;
 	head = *stack_b;
 	tmp = ft_lstlast(head);
 	while (i)

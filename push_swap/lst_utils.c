@@ -62,7 +62,7 @@ int	ft_listlen(t_swap *stack)
 
 	i = 0;
 	tmp = stack;
-	while (tmp->next)
+	while (tmp)
 	{
 		tmp = tmp->next;
 		i++;

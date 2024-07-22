@@ -31,6 +31,15 @@ void				ft_init_stack_a(t_swap **stack_a, char **args);
 char				**ft_join_args(char **argv);
 char				**ft_check_args(char *str);
 
+/*parsing.c*/
+char				**ft_check_args(char *str);
+char				**ft_join_args(char **argv);
+
+/*sort.c*/
+void				sort_three(t_swap **stack);
+void	sort_four(t_swap **stack_a, t_swap **stack_b);
+void				sort_five(t_swap **stack_a, t_swap **stack_b);
+
 /*move.c*/
 void				sa(t_swap **stack_a);
 void				sb(t_swap **stack_b);
@@ -47,7 +56,7 @@ void				rrr(t_swap **stack_a, t_swap **stack_b);
 /*lst_utils.c*/
 void				ft_lstadd_front(t_swap **lst, t_swap *new);
 void				ft_lstadd_back(t_swap **lst, t_swap *new);
-t_swap	*ft_lstlast(t_swap *lst);
+t_swap				*ft_lstlast(t_swap *lst);
 t_swap				*ft_lstnew(int content);
 int					ft_listlen(t_swap *stack);
 
