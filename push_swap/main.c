@@ -70,6 +70,5 @@ int	main(int argc, char **argv)
 	}
 	args = ft_join_args(argv);
 	ft_init_stack_a(stack_a, args);
-	sort_four(stack_a, stack_b);
-	//ft_print_list((*stack_a));
+	sort_five(stack_a, stack_b);
 }

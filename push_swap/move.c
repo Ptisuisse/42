@@ -40,6 +40,7 @@ void	sb(t_swap **stack_b)
 		(*stack_b)->nb = (*stack_b)->next->nb;
 		(*stack_b)->next->nb = tmp;
 	}
+	ft_printf("sb\n");
 	return ;
 }
 
@@ -47,26 +48,29 @@ void	ss(t_swap **stack_a, t_swap **stack_b)
 {
 	sa(stack_a);
 	sb(stack_b);
+	ft_printf("ss\n");
 }
 /*Prend le premier élément au sommet de b et le met sur a.
 Ne fait rien si b est vide.*/
 
-void	pa(t_swap **stack_b, t_swap **stack_a)
+void	pa(t_swap **stack_a, t_swap **stack_b)
 {
 	t_swap	*head;
 
 	head = *stack_b;
 	(*stack_b) = (*stack_b)->next;
 	ft_lstadd_front(stack_a, head);
+	ft_printf("pa\n");
 }
 
-void	pb(t_swap **stack_a, t_swap **stack_b)
+void	pb(t_swap **stack_b, t_swap **stack_a)
 {
 	t_swap	*head;
 
 	head = *stack_a;
 	(*stack_a) = (*stack_a)->next;
 	ft_lstadd_front(stack_b, head);
+	ft_printf("pb\n");
 }
 
 /*Décale d’une position vers le haut tous les élements de la pile a.
@@ -96,6 +100,7 @@ void	rb(t_swap **stack_b)
 	*stack_b = head->next;
 	head->next = NULL;
 	tmp->next = head;
+	ft_printf("rb\n");
 	return ;
 }
 
@@ -103,6 +108,7 @@ void	rr(t_swap **stack_a, t_swap **stack_b)
 {
 	ra(stack_a);
 	rb(stack_b);
+	ft_printf("rr\n");
 }
 
 /*Décale d’une position vers le bas tous les élements de
@@ -147,10 +153,12 @@ void	rrb(t_swap **stack_b)
 	head->next = NULL;
 	tmp->next = *stack_b;
 	*stack_b = tmp;
+	ft_printf("rrb\n");
 }
 
 void	rrr(t_swap **stack_a, t_swap **stack_b)
 {
 	rra(stack_a);
 	rrb(stack_b);
+	ft_printf("rrr\n");
 }
