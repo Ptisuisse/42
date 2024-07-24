@@ -12,50 +12,58 @@
 
 #include "push_swap.h"
 
-void	pa(t_swap **stack_a, t_swap **stack_b)
+void	rr(t_swap **stack_a, t_swap **stack_b)
 {
-	t_swap	*head;
-
-	head = *stack_b;
-	(*stack_b) = (*stack_b)->next;
-	ft_lstadd_front(stack_a, head);
-	ft_printf("pa\n");
+	ra(stack_a);
+	rb(stack_b);
+	ft_printf("rr\n");
 }
 
-void	pb(t_swap **stack_a, t_swap **stack_b)
-{
-	t_swap	*head;
-
-	head = *stack_a;
-	(*stack_a) = (*stack_a)->next;
-	ft_lstadd_front(stack_b, head);
-	ft_printf("pb\n");
-}
-
-void	ra(t_swap **stack_a)
+void	rra(t_swap **stack_a)
 {
 	t_swap	*head;
 	t_swap	*tmp;
+	int		i;
 
+	i = ft_listlen((*stack_a));
+	i -= 2;
 	head = *stack_a;
 	tmp = ft_lstlast(head);
-	*stack_a = head->next;
+	while (i)
+	{
+		head = head->next;
+		i--;
+	}
 	head->next = NULL;
-	tmp->next = head;
-	ft_printf("ra\n");
-	return ;
+	tmp->next = *stack_a;
+	*stack_a = tmp;
+	ft_printf("rra\n");
 }
 
-void	rb(t_swap **stack_b)
+void	rrb(t_swap **stack_b)
 {
 	t_swap	*head;
 	t_swap	*tmp;
+	int		i;
 
+	i = ft_listlen((*stack_b));
+	i -= 2;
 	head = *stack_b;
 	tmp = ft_lstlast(head);
-	*stack_b = head->next;
+	while (i)
+	{
+		head = head->next;
+		i--;
+	}
 	head->next = NULL;
-	tmp->next = head;
-	ft_printf("rb\n");
-	return ;
+	tmp->next = *stack_b;
+	*stack_b = tmp;
+	ft_printf("rrb\n");
+}
+
+void	rrr(t_swap **stack_a, t_swap **stack_b)
+{
+	rra(stack_a);
+	rrb(stack_b);
+	ft_printf("rrr\n");
 }
