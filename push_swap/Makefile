@@ -14,6 +14,8 @@ SRCS =	main.c \
 		parsing.c \
 		lst_utils.c \
 		move.c \
+		move_s.c \
+		move_rr.c\
 		sort.c \
 
 OBJS = $(SRCS:.c=.o)

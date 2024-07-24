@@ -37,17 +37,21 @@ char				**ft_join_args(char **argv);
 
 /*sort.c*/
 void				sort_three(t_swap **stack);
-void	sort_four(t_swap **stack_a, t_swap **stack_b);
+void				sort_four(t_swap **stack_a, t_swap **stack_b);
 void				sort_five(t_swap **stack_a, t_swap **stack_b);
+int					check_lowest(t_swap **stack_a);
+void				ft_find_last(t_swap **stack_a, t_swap **stack_b);
 
-/*move.c*/
+/*move_s.c*/
 void				sa(t_swap **stack_a);
 void				sb(t_swap **stack_b);
 void				ss(t_swap **stack_a, t_swap **stack_b);
+/*move.c*/
 void				pa(t_swap **stack_a, t_swap **stack_b);
 void				pb(t_swap **stack_a, t_swap **stack_b);
 void				ra(t_swap **stack_a);
 void				rb(t_swap **stack_b);
+/*move_rr.c*/
 void				rr(t_swap **stack_a, t_swap **stack_b);
 void				rra(t_swap **stack_a);
 void				rrb(t_swap **stack_b);
