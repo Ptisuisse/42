@@ -13,10 +13,11 @@
 SRCS =	main.c \
 		parsing.c \
 		lst_utils.c \
+		push_swap.c \
 		move.c \
 		move_s.c \
 		move_rr.c\
-		sort.c \
+		short_sort.c \
 
 OBJS = $(SRCS:.c=.o)
 CC = cc

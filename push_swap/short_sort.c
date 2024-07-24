@@ -29,7 +29,7 @@ void	sort_three(t_swap **stack)
 
 void	sort_four(t_swap **stack_a, t_swap **stack_b)
 {
-	ft_find_last(stack_a, stack_b);
+	ft_move_lowest(stack_a, stack_b);
 	pa(stack_a, stack_b);
 }
 
@@ -58,7 +58,7 @@ int	check_lowest(t_swap **stack_a)
 	return (j);
 }
 
-void	ft_find_last(t_swap **stack_a, t_swap **stack_b)
+void	ft_move_lowest(t_swap **stack_a, t_swap **stack_b)
 {
 	while ((ft_listlen((*stack_a)) != 3))
 	{
@@ -88,7 +88,7 @@ void	ft_find_last(t_swap **stack_a, t_swap **stack_b)
 
 void	sort_five(t_swap **stack_a, t_swap **stack_b)
 {
-	ft_find_last(stack_a, stack_b);
+	ft_move_lowest(stack_a, stack_b);
 	if ((*stack_b)->nb < (*stack_b)->next->nb)
 		sb(stack_b);
 	pa(stack_a, stack_b);

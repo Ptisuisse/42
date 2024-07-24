@@ -40,7 +40,10 @@ void				sort_three(t_swap **stack);
 void				sort_four(t_swap **stack_a, t_swap **stack_b);
 void				sort_five(t_swap **stack_a, t_swap **stack_b);
 int					check_lowest(t_swap **stack_a);
-void				ft_find_last(t_swap **stack_a, t_swap **stack_b);
+void				ft_move_lowest(t_swap **stack_a, t_swap **stack_b);
+
+/*push_swap*/
+void	ft_radix(t_swap **stack_a, t_swap **stack_b);
 
 /*move_s.c*/
 void				sa(t_swap **stack_a);
