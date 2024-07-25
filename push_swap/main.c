@@ -24,6 +24,7 @@ void	ft_init_stack_a(t_swap **stack_a, char **args)
 		ft_lstadd_back(stack_a, new);
 		i++;
 	}
+	free(new);
 }
 
 int	ft_is_sort(t_swap *stack_a)
@@ -58,10 +59,12 @@ int	main(int argc, char **argv)
 	}
 	args = ft_join_args(argv);
 	ft_init_stack_a(stack_a, args);
+	free_tab(args);
 	if (ft_is_sort((*stack_a)))
 		return (0);
 	else
 		(ft_size_list(stack_a, stack_b));
+	ft_free(stack_a, stack_b);
 	return (0);
 }
 

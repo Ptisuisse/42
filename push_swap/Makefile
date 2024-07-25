@@ -19,6 +19,7 @@ SRCS =	main.c \
 		move_rr.c\
 		short_sort.c \
 		check.c \
+		free.c \
 
 OBJS = $(SRCS:.c=.o)
 CC = cc

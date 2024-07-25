@@ -38,7 +38,7 @@ char				**ft_join_args(char **argv);
 void				sort_three(t_swap **stack);
 void				sort_four(t_swap **stack_a, t_swap **stack_b);
 void				sort_five(t_swap **stack_a, t_swap **stack_b);
-void	ft_size_list(t_swap **stack_a, t_swap **stack_b);
+void				ft_size_list(t_swap **stack_a, t_swap **stack_b);
 
 /*move_s.c*/
 void				sa(t_swap **stack_a);
@@ -73,5 +73,10 @@ void				ft_move_lowest(t_swap **stack_a, t_swap **stack_b);
 int					check_lowest(t_swap **stack_a);
 int					check_lowest_number(t_swap **stack_a);
 int					check_biggest(t_swap **stack_a);
+
+/*free.c*/
+void				ft_free(t_swap **stack_a, t_swap **stack_b);
+void				free_tab(char **tab);
+void				free_str(char *tab);
 
 #endif
