@@ -72,6 +72,7 @@ void				ft_move_lowest(t_swap **stack_a, t_swap **stack_b);
 int					check_lowest(t_swap **stack_a);
 int					check_lowest_number(t_swap **stack_a);
 int					check_biggest(t_swap **stack_a);
+int					ft_biggest(t_swap **stack_a, int tmp, int i, int j);
 
 /*free.c*/
 void				ft_free(t_swap **stack_a, t_swap **stack_b);
