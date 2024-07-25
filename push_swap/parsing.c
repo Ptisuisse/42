@@ -59,6 +59,5 @@ char	**ft_join_args(char **argv)
 		i++;
 	}
 	args = ft_check_args(str);
-	free_str(str);
 	return (args);
 }

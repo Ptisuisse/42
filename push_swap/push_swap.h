@@ -23,11 +23,10 @@ typedef struct s_swap
 	int				index;
 	int				checked;
 	struct s_swap	*next;
-	struct s_swap	*prev;
 }					t_swap;
 
 /*main.c*/
-int					ft_is_sort(t_swap *stack_a);
+int					ft_is_sort(t_swap **stack_a);
 void				ft_init_stack_a(t_swap **stack_a, char **args);
 
 /*parsing.c*/

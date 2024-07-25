@@ -12,12 +12,21 @@
 
 #include "push_swap.h"
 
+void	ft_free_stack(t_swap **stack)
+{
+	while ((*stack))
+	{
+		free((*stack));
+		(*stack) = (*stack)->next;
+	}
+}
+
 void	ft_free(t_swap **stack_a, t_swap **stack_b)
 {
 	if (stack_a != NULL)
-		free(stack_a);
+		ft_free_stack(stack_a);
 	if (stack_b != NULL)
-		free(stack_b);
+		ft_free_stack(stack_b);
 }
 
 void	free_tab(char **tab)
