@@ -60,9 +60,9 @@ int	ft_listlen(t_swap *stack)
 	int		i;
 	t_swap	*tmp;
 
-	i = 0;
+	i = 1;
 	tmp = stack;
-	while (tmp)
+	while (tmp->next != NULL)
 	{
 		tmp = tmp->next;
 		i++;
