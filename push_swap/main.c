@@ -55,6 +55,7 @@ int	ft_is_sort(t_swap **stack_a)
 			tmp = tmp->next;
 		}
 	}
+
 	int main(int argc, char **argv)
 	{
 		t_swap **stack_a;

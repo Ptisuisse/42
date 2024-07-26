@@ -18,9 +18,12 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	int		ls2;
 	char	*news;
 
-	if (!s1 || !s2)
+	if (!s2)
 		return (NULL);
-	ls1 = ft_strlen(s1);
+	if (s1)
+		ls1 = ft_strlen(s1);
+	else
+		ls1 = 1;
 	ls2 = ft_strlen(s2);
 	news = ft_calloc((ls1 + ls2 + 1), sizeof(char));
 	if (news == NULL)

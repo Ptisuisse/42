@@ -51,6 +51,7 @@ char	**ft_join_args(char **argv)
 	str = malloc(sizeof(char) * 1);
 	if (str == NULL)
 		return (NULL);
+	str[0] = '\0';
 	while (argv[i])
 	{
 		if (i > 1)

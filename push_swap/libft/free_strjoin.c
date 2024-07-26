@@ -18,7 +18,7 @@ char	*free_strjoin(char *s1, char *s2)
 	int		ls2;
 	char	*news;
 
-	if (!s1 || !s2)
+	if (!s2)
 		return (0);
 	ls1 = ft_strlen(s1);
 	ls2 = ft_strlen(s2);

@@ -52,6 +52,7 @@ t_swap	*ft_lstnew(int content)
 		return (NULL);
 	element->next = NULL;
 	element->nb = content;
+	element->checked = 0;
 	return (element);
 }
 
