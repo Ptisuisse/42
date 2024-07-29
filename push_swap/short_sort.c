@@ -14,7 +14,7 @@
 
 void	ft_size_list(t_swap **stack_a, t_swap **stack_b)
 {
-	int size;
+	int	size;
 
 	size = ft_listlen((*stack_a));
 	if (size == 3)

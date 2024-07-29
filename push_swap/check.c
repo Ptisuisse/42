@@ -90,6 +90,7 @@ int	check_lowest_number(t_swap **stack_a)
 	(*stack_a) = head;
 	return (tmp);
 }
+
 int	ft_biggest(t_swap **stack_a, int tmp, int i, int j)
 {
 	while ((*stack_a)->next != NULL)
@@ -123,7 +124,7 @@ int	check_biggest(t_swap **stack_a)
 	i = 1;
 	j = 0;
 	tmp = check_lowest_number(stack_a);
-	j = ft_biggest(stack_a, tmp, i , j);
+	j = ft_biggest(stack_a, tmp, i, j);
 	(*stack_a) = head;
 	return (j);
 }
