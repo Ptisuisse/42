@@ -33,10 +33,7 @@ void	ft_error(char **args, char *str)
 void	ft_error_arg(int argc, char **argv)
 {
 	if (argc < 2)
-	{
-		ft_printf("ERROR : Nbr of args\n");
 		exit(1);
-	}
 	if (argv[1][0] == '\0')
 	{
 		ft_printf("ERROR\n");
