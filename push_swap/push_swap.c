@@ -73,8 +73,7 @@ void	ft_radix(t_swap **stack_a, t_swap **stack_b)
 	size = ft_listlen((*stack_a));
 	max_num = ft_list_nb(stack_a);
 	max_bit = 0;
-	while ((max_num >> max_bit))
+	while ((max_num >> max_bit) != 0)
 		max_bit++;
-	max_bit++;
 	ft_radix_sort(stack_a, stack_b, max_bit, size);
 }
