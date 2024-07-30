@@ -16,14 +16,12 @@ void	ft_init_stack_a(t_swap **stack_a, char **args)
 {
 	int		i;
 	t_swap	*new;
-	t_swap	*head;
 
 	i = 0;
 	while (args[i])
 	{
 		new = ft_lstnew(ft_atol(args[i++]), stack_a, args);
 		ft_lstadd_back(stack_a, new);
-		head = (*stack_a);
 	}
 	return ;
 }
@@ -82,7 +80,7 @@ int	main(int argc, char **argv)
 	t_swap	**stack_b;
 	char	**args;
 
-	ft_error_arg(argc);
+	ft_error_arg(argc, argv);
 	args = ft_join_args(argv);
 	stack_a = malloc(sizeof(t_swap *));
 	if (stack_a == NULL)

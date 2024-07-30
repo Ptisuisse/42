@@ -15,23 +15,23 @@
 char	**ft_check_args(char *str, char **args)
 {
 	int	i;
-	int	count;
 
 	i = 0;
+	while (str[i] == ' ')
+	{
+		if (str[i + 1] == '\0')
+			ft_error(args, str);
+		i++;
+	}
 	while (str[i])
 	{
-		count = 0;
-		if (str[i] == ' ')
-			i++;
 		if (str[i] == '\0')
 			break ;
-		if (!(ft_isdigit(str[i])) && (str[i] != '+' && str[i] != '-'))
+		if (!(ft_isdigit(str[i])) && (str[i] != '+' && str[i] != '-')
+			&& str[i] != ' ')
 			ft_error(args, str);
-		if (str[i] == '-' || str[i] == '+')
-			count++;
-		if ((str[i] == '-' || str[i] == '+') && str[i + 1] == ' ')
-			ft_error(args, str);
-		if (count > 1)
+		if ((str[i] == '-' || str[i] == '+') && ((str[i + 1] == ' ') || (str[i
+						+ 1] == '+') || (str[i + 1] == '-')))
 			ft_error(args, str);
 		i++;
 	}
@@ -40,35 +40,6 @@ char	**ft_check_args(char *str, char **args)
 	free(str);
 	return (args);
 }
-
-// char	**ft_check_args(char *str)
-//{
-//	char	**args;
-//	int		i;
-//	int		j;
-//	int		count;
-
-//	args = ft_split(str, ' ');
-//	i = 0;
-//	while (args[i])
-//	{
-//		count = 0;
-//		j = 0;
-//		while (args[i][j])
-//		{
-//			if (!(ft_isdigit(args[i][j])) && (args[i][j] != '+'
-//					&& args[i][j] != '-'))
-//				ft_error(args, str);
-//			if (args[i][j] == '-' || args[i][j] == '+')
-//				count++;
-//			j++;
-//			if (count > 1)
-//				ft_error(args, str);
-//		}
-//		i++;
-//	}
-//	return (args);
-//}
 
 char	**ft_join_args(char **argv)
 {

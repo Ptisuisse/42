@@ -30,8 +30,10 @@ void	ft_error(char **args, char *str)
 	exit(1);
 }
 
-void	ft_error_arg(int argc)
+void	ft_error_arg(int argc, char **argv)
 {
+	if (argv[1][0] == '\0')
+		exit(1);
 	if (argc < 2)
 	{
 		ft_printf("ERROR : Nbr of args\n");
