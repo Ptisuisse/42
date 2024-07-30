@@ -12,53 +12,89 @@
 
 #include "push_swap.h"
 
-char	**ft_check_args(char *str)
+char	**ft_check_args(char *str, char **args)
 {
-	char	**args;
-	int		i;
-	int		j;
-	int		count;
+	int	i;
+	int	count;
 
-	args = ft_split(str, ' ');
 	i = 0;
-	while (args[i])
+	while (str[i])
 	{
 		count = 0;
-		j = 0;
-		while (args[i][j])
-		{
-			if (!(ft_isdigit(args[i][j])) && (args[i][j] != '+'
-					&& args[i][j] != '-'))
-				ft_printf("NO DIGIT\n");
-			if (args[i][j] == '-' || args[i][j] == '+')
-				count++;
-			j++;
-			if (count > 1)
-				ft_printf("- || +\n");
-		}
+		if (str[i] == ' ')
+			i++;
+		if (str[i] == '\0')
+			break ;
+		if (!(ft_isdigit(str[i])) && (str[i] != '+' && str[i] != '-'))
+			ft_error(args, str);
+		if (str[i] == '-' || str[i] == '+')
+			count++;
+		if ((str[i] == '-' || str[i] == '+') && str[i + 1] == ' ')
+			ft_error(args, str);
+		if (count > 1)
+			ft_error(args, str);
 		i++;
 	}
+	str[i - 1] = '\0';
+	args = ft_split(str, ' ');
+	free(str);
 	return (args);
 }
 
+// char	**ft_check_args(char *str)
+//{
+//	char	**args;
+//	int		i;
+//	int		j;
+//	int		count;
+
+//	args = ft_split(str, ' ');
+//	i = 0;
+//	while (args[i])
+//	{
+//		count = 0;
+//		j = 0;
+//		while (args[i][j])
+//		{
+//			if (!(ft_isdigit(args[i][j])) && (args[i][j] != '+'
+//					&& args[i][j] != '-'))
+//				ft_error(args, str);
+//			if (args[i][j] == '-' || args[i][j] == '+')
+//				count++;
+//			j++;
+//			if (count > 1)
+//				ft_error(args, str);
+//		}
+//		i++;
+//	}
+//	return (args);
+//}
+
 char	**ft_join_args(char **argv)
 {
-	int		i;
+	size_t	i;
+	int		len;
 	char	*str;
 	char	**args;
 
 	i = 1;
-	str = malloc(sizeof(char) * 1);
-	if (str == NULL)
-		return (NULL);
-	str[0] = '\0';
+	len = 0;
 	while (argv[i])
 	{
-		if (i > 1)
-			str = ft_strjoin(str, " ");
-		str = ft_strjoin(str, argv[i]);
-		i++;
+		len += ft_strlen(argv[i++]);
+		len++;
 	}
-	args = ft_check_args(str);
+	str = malloc(sizeof(char) * len + 1);
+	if (!str)
+		return (NULL);
+	str[0] = 0;
+	i = 1;
+	while (argv[i])
+	{
+		ft_strcat(str, argv[i++]);
+		ft_strcat(str, " ");
+	}
+	args = NULL;
+	args = ft_check_args(str, args);
 	return (args);
 }

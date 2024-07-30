@@ -1,44 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvan-slu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/25 15:39:27 by lvan-slu          #+#    #+#             */
-/*   Updated: 2024/07/25 15:39:28 by lvan-slu         ###   ########.fr       */
+/*   Created: 2023/11/10 22:10:32 by lvan-slu          #+#    #+#             */
+/*   Updated: 2023/11/19 19:19:55 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-void	ft_free_stack(t_swap **stack)
+long int	ft_atol(const char *str)
 {
-	while ((*stack))
+	long int	j;
+	long int	k;
+
+	j = 1;
+	k = 0;
+	while (*str == 32 || (*str >= 9 && *str <= 13))
+		str++;
+	if (*str == 43 || *str == 45)
 	{
-		free((*stack));
-		(*stack) = (*stack)->next;
+		if (*str == 45)
+			j = -1;
+		str++;
 	}
-}
-
-void	ft_free(t_swap **stack_a, t_swap **stack_b)
-{
-	if (stack_a != NULL)
-		ft_free_stack(stack_a);
-	if (stack_b != NULL)
-		ft_free_stack(stack_b);
-}
-
-void	free_tab(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
+	while (*str >= '0' && *str <= '9')
 	{
-		free(tab[i]);
-		tab[i] = NULL;
-		i++;
+		k = k * 10 + (*str - '0');
+		str++;
 	}
-	free(tab);
+	return (k * j);
 }

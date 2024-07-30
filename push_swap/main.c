@@ -16,14 +16,16 @@ void	ft_init_stack_a(t_swap **stack_a, char **args)
 {
 	int		i;
 	t_swap	*new;
+	t_swap	*head;
 
 	i = 0;
 	while (args[i])
 	{
-		new = ft_lstnew(ft_atoi(args[i]));
+		new = ft_lstnew(ft_atol(args[i++]), stack_a, args);
 		ft_lstadd_back(stack_a, new);
-		i++;
+		head = (*stack_a);
 	}
+	return ;
 }
 
 int	ft_is_sort(t_swap **stack_a)
@@ -41,19 +43,37 @@ int	ft_is_sort(t_swap **stack_a)
 		(*stack_a) = (*stack_a)->next;
 	}
 	(*stack_a) = head;
+	ft_printf("Is sort\n");
 	return (0);
 }
 
-void	ft_print_list(t_swap *stack_a)
+int	ft_is_double(t_swap **stack)
 {
+	t_swap	*head;
 	t_swap	*tmp;
+	int		i;
 
-	tmp = stack_a;
+	head = (*stack);
+	tmp = (*stack);
 	while (tmp)
 	{
-		ft_printf("%d\n", tmp->nb);
+		i = 0;
+		while ((*stack))
+		{
+			if ((*stack)->nb == tmp->nb)
+				i++;
+			if (i > 1)
+			{
+				(*stack) = head;
+				ft_printf("ERROR : DOUBLE\n");
+				return (0);
+			}
+			(*stack) = (*stack)->next;
+		}
+		(*stack) = head;
 		tmp = tmp->next;
 	}
+	return (1);
 }
 
 int	main(int argc, char **argv)
@@ -62,24 +82,25 @@ int	main(int argc, char **argv)
 	t_swap	**stack_b;
 	char	**args;
 
+	ft_error_arg(argc);
+	args = ft_join_args(argv);
 	stack_a = malloc(sizeof(t_swap *));
 	if (stack_a == NULL)
 		return (0);
 	*stack_a = NULL;
+	ft_init_stack_a(stack_a, args);
 	stack_b = malloc(sizeof(t_swap *));
 	if (stack_b == NULL)
 		return (0);
 	*stack_b = NULL;
-	if (argc < 2)
+	free_tab(args);
+	if ((!ft_is_double(stack_a)) || (!ft_is_sort(stack_a)))
 	{
-		ft_printf("ERROR : Nbr of args\n");
-		exit(1);
-	}
-	args = ft_join_args(argv);
-	ft_init_stack_a(stack_a, args);
-	if (ft_is_sort(stack_a) == 0)
+		ft_free_stack(stack_a, stack_b);
 		return (1);
+	}
 	else
 		(ft_size_list(stack_a, stack_b));
+	ft_free_stack(stack_a, stack_b);
 	return (0);
 }

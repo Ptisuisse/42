@@ -17,7 +17,9 @@ void	ft_size_list(t_swap **stack_a, t_swap **stack_b)
 	int	size;
 
 	size = ft_listlen((*stack_a));
-	if (size == 3)
+	if (size == 2)
+		sa(stack_a);
+	else if (size == 3)
 		sort_three(stack_a);
 	else if (size == 5)
 		sort_five(stack_a, stack_b);

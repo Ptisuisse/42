@@ -43,10 +43,24 @@ t_swap	*ft_lstlast(t_swap *lst)
 	return (lst);
 }
 
-t_swap	*ft_lstnew(int content)
+t_swap	*ft_lstnew(long int content, t_swap **stack_a, char **args)
 {
 	t_swap	*element;
+	t_swap	*head;
 
+	head = (*stack_a);
+	if (content < -2147483648 || content > 2147483647)
+	{
+		free_tab(args);
+		if ((*stack_a))
+		{
+			(*stack_a) = head;
+			ft_lstclear(&(*stack_a), free);
+		}
+		else
+			free(stack_a);
+		exit(1);
+	}
 	element = malloc(sizeof(t_swap));
 	if (element == NULL)
 		return (NULL);

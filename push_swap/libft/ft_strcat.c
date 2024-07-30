@@ -1,40 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvan-slu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/10 17:34:19 by lvan-slu          #+#    #+#             */
-/*   Updated: 2023/11/20 20:57:48 by lvan-slu         ###   ########.fr       */
+/*   Created: 2023/09/28 11:56:24 by lvan-slu          #+#    #+#             */
+/*   Updated: 2023/09/28 17:40:42 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strcat(char *dest, char *src)
 {
-	int		ls1;
-	int		ls2;
-	char	*news;
+	int	i;
+	int	destlen;
 
-	if (!s2)
-		return (NULL);
-	if (s1)
-		ls1 = ft_strlen(s1);
-	else
-		ls1 = 1;
-	ls2 = ft_strlen(s2);
-	news = ft_calloc((ls2 + 2), sizeof(char));
-	if (news == NULL)
-		return (NULL);
-	ft_memcpy(news, s1, ls1);
-	ls2 = 0;
-	while (s2[ls2] != '\0')
+	destlen = 0;
+	while (dest[destlen] != '\0')
+		destlen++;
+	i = 0;
+	while (src[i] != '\0')
 	{
-		news[ls1] = s2[ls2];
-		ls1++;
-		ls2++;
+		dest[i + destlen] = src [i];
+		i++;
 	}
-	return (news);
+	dest[i + destlen] = '\0';
+	return (dest);
 }

@@ -19,7 +19,7 @@
 
 typedef struct s_swap
 {
-	int				nb;
+	long int		nb;
 	int				index;
 	int				checked;
 	struct s_swap	*next;
@@ -27,10 +27,11 @@ typedef struct s_swap
 
 /*main.c*/
 int					ft_is_sort(t_swap **stack_a);
+int					ft_is_double(t_swap **stack);
 void				ft_init_stack_a(t_swap **stack_a, char **args);
 
 /*parsing.c*/
-char				**ft_check_args(char *str);
+char				**ft_check_args(char *str, char **args);
 char				**ft_join_args(char **argv);
 
 /*short_sort.c*/
@@ -58,7 +59,7 @@ void				rrr(t_swap **stack_a, t_swap **stack_b);
 void				ft_lstadd_front(t_swap **lst, t_swap *new);
 void				ft_lstadd_back(t_swap **lst, t_swap *new);
 t_swap				*ft_lstlast(t_swap *lst);
-t_swap				*ft_lstnew(int content);
+t_swap				*ft_lstnew(long int content, t_swap **stack_a, char **args);
 int					ft_listlen(t_swap *stack);
 
 /*push_swap*/
@@ -74,9 +75,11 @@ int					check_lowest_number(t_swap **stack_a);
 int					check_biggest(t_swap **stack_a);
 int					ft_biggest(t_swap **stack_a, int tmp, int i, int j);
 
-/*free.c*/
-void				ft_free(t_swap **stack_a, t_swap **stack_b);
+/*free_error.c*/
 void				free_tab(char **tab);
-void				free_str(char *tab);
+void				ft_error(char **args, char *str);
+void				ft_error_arg(int argc);
+void				ft_lstclear(t_swap **lst, void (*del)(void *));
+void				ft_free_stack(t_swap **stack_a, t_swap **stack_b);
 
 #endif
