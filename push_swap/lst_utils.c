@@ -59,6 +59,7 @@ t_swap	*ft_lstnew(long int content, t_swap **stack_a, char **args)
 		}
 		else
 			free(stack_a);
+		ft_printf("ERROR INT VALUE\n");
 		exit(1);
 	}
 	element = malloc(sizeof(t_swap));

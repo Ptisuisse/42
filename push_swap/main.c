@@ -41,7 +41,7 @@ int	ft_is_sort(t_swap **stack_a)
 		(*stack_a) = (*stack_a)->next;
 	}
 	(*stack_a) = head;
-	ft_printf("Is sort\n");
+	ft_printf("ERROR : Is sorted\n");
 	return (0);
 }
 
