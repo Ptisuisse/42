@@ -79,7 +79,7 @@ int					ft_biggest(t_swap **stack_a, int tmp, int i, int j);
 void				free_tab(char **tab);
 void				ft_error(char **args, char *str);
 void				ft_error_arg(int argc, char **argv);
-void				ft_lstclear(t_swap **lst, void (*del)(void *));
+void				ft_lstclear(t_swap **lst);
 void				ft_free_stack(t_swap **stack_a, t_swap **stack_b);
 
 #endif

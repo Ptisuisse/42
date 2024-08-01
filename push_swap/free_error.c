@@ -15,9 +15,9 @@
 void	ft_free_stack(t_swap **stack_a, t_swap **stack_b)
 {
 	if (stack_a)
-		ft_lstclear(stack_a, free);
+		ft_lstclear(stack_a);
 	if (stack_b)
-		ft_lstclear(stack_b, free);
+		ft_lstclear(stack_b);
 }
 
 void	ft_error(char **args, char *str)
@@ -55,11 +55,11 @@ void	free_tab(char **tab)
 	free(tab);
 }
 
-void	ft_lstclear(t_swap **lst, void (*del)(void *))
+void	ft_lstclear(t_swap **lst)
 {
 	t_swap	*tmp;
 
-	if (!lst || !del)
+	if (!lst)
 		return ;
 	while (*lst)
 	{

@@ -55,7 +55,7 @@ t_swap	*ft_lstnew(long int content, t_swap **stack_a, char **args)
 		if ((*stack_a))
 		{
 			(*stack_a) = head;
-			ft_lstclear(&(*stack_a), free);
+			ft_lstclear(&(*stack_a));
 		}
 		else
 			free(stack_a);
