@@ -22,7 +22,9 @@ typedef struct s_init
 {
 	pthread_t		*thread;
 	pthread_mutex_t	mutex;
-	int				i;
+	pthread_mutex_t	m_eat;
+	int				nbr_philo;
+	int	i;
 	size_t			time_eat;
 	size_t			time_sleep;
 }					t_init;
@@ -32,5 +34,5 @@ int					check_arg_value(char **arg);
 /*error.c*/
 void				ft_exit(int i);
 /*init_struct*/
-void	init_struct(char **arg, t_init philo);
+t_init				init_struct(char **arg, t_init philo);
 #endif

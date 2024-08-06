@@ -39,26 +39,29 @@ int	check_arg_value(char **arg)
 	return (1);
 }
 
-void	ft_test(t_init philo)
+void	ft_eating(t_init *philo)
 {
-	usleep(5000);
-	printf("TEST%d\n", philo.i);
+	pthread_mutex_lock(&philo->m_eat);
+	printf("Philo %d is eating\n", philo->nbr_philo);
+	usleep(1000);
+	pthread_mutex_unlock(&philo->m_eat);
+	philo->nbr_philo--;
 }
 
-void	*routine(t_init philo)
+void	*routine(t_init *philo)
 {
-	pthread_mutex_lock(&philo.mutex);
-	philo.i += 1;
-	ft_test(philo);
-	pthread_mutex_unlock(&philo.mutex);
+	pthread_mutex_lock(&philo->mutex);
+	ft_eating(philo);
+	usleep(1000);
+	pthread_mutex_unlock(&philo->mutex);
 	return (NULL);
 }
 
-void	test_thread(char *arg, t_init philo)
+void	test_thread(t_init philo)
 {
 	int	i;
 
-	i = ft_atoi(arg);
+	i = philo.nbr_philo;
 	philo.thread = malloc(sizeof(pthread_t) * i);
 	while (i)
 	{
@@ -67,7 +70,7 @@ void	test_thread(char *arg, t_init philo)
 			return ;
 		i--;
 	}
-	i = ft_atoi(arg);
+	i = philo.nbr_philo;
 	while (i)
 	{
 		if (pthread_join(philo.thread[i], NULL) != 0)
@@ -88,7 +91,7 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	/*init struct valeur argv*/
-	init_struct(argv, philo);
+	philo = init_struct(argv, philo);
 	/*creation thread dependant nbr philo*/
-	test_thread(argv[1], philo);
+	test_thread(philo);
 }
