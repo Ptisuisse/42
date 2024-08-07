@@ -19,9 +19,9 @@ t_init	init_struct(char **arg)
 	philo.nbr_philo = ft_atoi(arg[1]);
 	philo.time_to_eat = ft_atoi(arg[3]);
 	philo.time_to_sleep = ft_atoi(arg[4]);
-	philo.i = 0;
+	philo.i = 1;
 	pthread_mutex_init(&philo.mutex, NULL);
-	pthread_mutex_init(&philo.m_eat, NULL);
+	//pthread_mutex_init(&philo.m_eat, NULL);
 	pthread_mutex_init(&philo.R_fork, NULL);
 	pthread_mutex_init(&philo.L_fork, NULL);
 	return (philo);

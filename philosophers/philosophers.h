@@ -22,7 +22,7 @@ typedef struct s_init
 {
 	pthread_t		*thread;
 	pthread_mutex_t	mutex;
-	pthread_mutex_t	m_eat;
+	//pthread_mutex_t	m_eat;
 	pthread_mutex_t	R_fork;
 	pthread_mutex_t	L_fork;
 	int		i;
