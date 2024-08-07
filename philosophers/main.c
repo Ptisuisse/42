@@ -69,20 +69,25 @@ void	ft_fork_lock(t_init *philo)
 	int	r_fork;
 	int	l_fork;
 
+	r_fork = philo->i % philo->nbr_philo;
+	l_fork = philo->i - 1;
+	if (l_fork % philo->nbr_philo == r_fork - 1)
 	{
 		pthread_mutex_lock(&philo->L_fork);
+		printf("philo %d has taken fork 1\n", philo->i);
 		pthread_mutex_lock(&philo->R_fork);
+		printf("philo %d has taken fork 2\n", philo->i);
 	}
+	else
+		usleep((philo->time_to_eat)* 1000);
 }
 
 void	*routine(t_init *philo)
 {
 	ft_fork_lock(philo);
-	// printf("philo %d has taken fork 1\n", philo->i);
-	// printf("philo %d has taken fork 2\n", philo->i);
 	ft_is_eating(philo);
-	ft_is_sleeping(philo);
 	ft_fork_unlock(philo);
+	ft_is_sleeping(philo);
 	return (NULL);
 }
 
@@ -91,13 +96,13 @@ void	test_thread(t_init *philo)
 	int	i;
 
 	i = philo->nbr_philo;
-	philo->thread = malloc(sizeof(pthread_t) * philo->nbr_philo);
-	while (philo->nbr_philo)
+	philo->thread = malloc(sizeof(pthread_t) * i);
+	while (i)
 	{
-		if (pthread_create(&philo->thread[philo->nbr_philo], NULL,
-				(void *)routine, philo) != 0)
+		usleep(100);
+		if (pthread_create(&philo->thread[i], NULL, (void *)routine,
+				philo) != 0)
 			return ;
-		usleep(1000);
 		philo->i++;
 		i--;
 	}
