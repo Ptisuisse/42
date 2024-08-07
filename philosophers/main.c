@@ -39,44 +39,61 @@ int	check_arg_value(char **arg)
 	return (1);
 }
 
-void	ft_eating(t_init *philo)
+t_init	*ft_is_sleeping(t_init *philo)
 {
-	pthread_mutex_lock(&philo->m_eat);
-	printf("Philo %d is eating\n", philo->nbr_philo);
-	usleep(1000);
-	pthread_mutex_unlock(&philo->m_eat);
-	philo->nbr_philo--;
+	int	i;
+
+	i = (philo->time_to_sleep * 1000);
+	printf("Is sleeping\n");
+	usleep(i); /*during time to eat en ms*/
+	return (philo);
+}
+
+t_init	*ft_is_eating(t_init *philo)
+{
+	int	i;
+
+	i = (philo->time_to_eat * 1000);
+	printf("Is eating\n");
+	usleep(i); /*during time to eat en ms*/
+	return (philo);
 }
 
 void	*routine(t_init *philo)
 {
-	pthread_mutex_lock(&philo->mutex);
-	ft_eating(philo);
-	usleep(1000);
-	pthread_mutex_unlock(&philo->mutex);
+	philo->i++;
+	pthread_mutex_lock(&philo->R_fork);
+	printf("philo %d has taken fork 1\n", philo->i);
+	pthread_mutex_lock(&philo->L_fork);
+	printf("philo %d has taken fork 2\n", philo->i);
+	ft_is_eating(philo);
+	pthread_mutex_unlock(&philo->R_fork);
+	pthread_mutex_unlock(&philo->L_fork);
+	ft_is_sleeping(philo);
 	return (NULL);
 }
 
-void	test_thread(t_init philo)
+void	test_thread(t_init *philo)
 {
 	int	i;
 
-	i = philo.nbr_philo;
-	philo.thread = malloc(sizeof(pthread_t) * i);
+	i = philo->nbr_philo;
+	philo->thread = malloc(sizeof(pthread_t) * philo->nbr_philo);
+	while (philo->nbr_philo)
+	{
+		if (pthread_create(&philo->thread[philo->nbr_philo], NULL,
+				(void *)routine, philo) != 0)
+			return ;
+		usleep((philo->time_to_sleep * 1000));
+		philo->nbr_philo--;
+	}
 	while (i)
 	{
-		if (pthread_create(&philo.thread[i], NULL, (void *)routine,
-				(void *)&philo) != 0)
+		if (pthread_join(philo->thread[i], NULL) != 0)
 			return ;
 		i--;
 	}
-	i = philo.nbr_philo;
-	while (i)
-	{
-		if (pthread_join(philo.thread[i], NULL) != 0)
-			return ;
-		i--;
-	}
+	free(philo->thread);
 }
 
 int	main(int argc, char **argv)
@@ -91,7 +108,7 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	/*init struct valeur argv*/
-	philo = init_struct(argv, philo);
+	philo = init_struct(argv);
 	/*creation thread dependant nbr philo*/
-	test_thread(philo);
+	test_thread(&philo);
 }

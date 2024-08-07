@@ -23,10 +23,13 @@ typedef struct s_init
 	pthread_t		*thread;
 	pthread_mutex_t	mutex;
 	pthread_mutex_t	m_eat;
+	pthread_mutex_t	R_fork;
+	pthread_mutex_t	L_fork;
+	int		i;
 	int				nbr_philo;
-	int	i;
-	size_t			time_eat;
-	size_t			time_sleep;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				time_to_die;
 }					t_init;
 
 /*main.c*/
@@ -34,5 +37,6 @@ int					check_arg_value(char **arg);
 /*error.c*/
 void				ft_exit(int i);
 /*init_struct*/
-t_init				init_struct(char **arg, t_init philo);
+t_init				init_struct(char **arg);
+
 #endif
