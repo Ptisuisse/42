@@ -12,9 +12,9 @@
 
 #include "philosophers.h"
 
-void	ft_exit(int i)
+void	ft_exit(int status)
 {
-	(void)i;
+	(void)status;
 	ft_printf("Error\n");
 	return ;
 }

@@ -12,18 +12,16 @@
 
 #include "philosophers.h"
 
-t_init	init_struct(char **arg)
+void init_struct(char **arg, t_init *data) 
 {
-	t_init	philo;
+    data->nbr_philo = ft_atoi(arg[1]);
+    data->philo = malloc(sizeof(t_philo) * data->nbr_philo);
+    data->forks = malloc(sizeof(pthread_mutex_t) * data->nbr_philo);
+    data->time_to_die = ft_atoi(arg[2]);
+    data->time_to_eat = ft_atoi(arg[3]);
+    data->time_to_sleep = ft_atoi(arg[4]);
+	if (arg[5])
+		data->max_meal = ft_atoi(arg[5]);
 
-	philo.nbr_philo = ft_atoi(arg[1]);
-	philo.time_to_eat = ft_atoi(arg[3]);
-	philo.time_to_sleep = ft_atoi(arg[4]);
-	philo.i = 0;
-	pthread_mutex_init(&philo.mutex, NULL);
-	//pthread_mutex_init(&philo.m_eat, NULL);
-	pthread_mutex_init(&philo.R_fork, NULL);
-	pthread_mutex_init(&philo.L_fork, NULL);
-	return (philo);
+    pthread_mutex_init(&data->print, NULL);
 }
-/*Init nombre de fouchettes // Time to eat // Time to sleep // */

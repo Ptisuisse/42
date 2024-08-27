@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "philosophers.h"
-#include <stdio.h>
 
 int	check_arg_value(char **arg)
 {
@@ -22,7 +21,7 @@ int	check_arg_value(char **arg)
 	i = 1;
 	while (arg[i])
 	{
-		if (i == 6 && !arg[i])
+		if (i == 6 /*&& !arg[i]*/)
 			break ;
 		j = 0;
 		while (arg[i][j])
@@ -39,95 +38,177 @@ int	check_arg_value(char **arg)
 	return (1);
 }
 
-t_init	*ft_is_sleeping(t_init *philo)
+void ft_sleep(long sleep_time_ms) 
 {
-	int	i;
-
-	i = (philo->time_to_sleep * 1000);
-	printf("Is sleeping\n");
-	usleep(i); /*during time to eat en ms*/
-	return (philo);
+    usleep(sleep_time_ms * 1000);
 }
 
-t_init	*ft_is_eating(t_init *philo)
+long get_current_time_ms() 
 {
-	int	i;
-
-	i = (philo->time_to_eat * 1000);
-	printf("Is eating\n");
-	usleep(i); /*during time to eat en ms*/
-	return (philo);
-}
-void	ft_fork_unlock(t_init *philo)
-{
-	pthread_mutex_unlock(&philo->R_fork);
-	pthread_mutex_unlock(&philo->L_fork);
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    return (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
 }
 
-void	ft_fork_lock(t_init *philo)
+void ft_is_sleeping(t_philo *philo) 
 {
-	int	r_fork;
-	int	l_fork;
-
-	r_fork = philo->i % philo->nbr_philo;
-	l_fork = philo->i - 1;
-	if (l_fork % philo->nbr_philo == r_fork - 1)
-	{
-		pthread_mutex_lock(&philo->L_fork);
-		printf("philo %d has taken fork 1\n", philo->i);
-		pthread_mutex_lock(&philo->R_fork);
-		printf("philo %d has taken fork 2\n", philo->i);
-	}
-	else
-		usleep((philo->time_to_eat)* 1000);
+    printf("%d Philosopher is sleeping\n", philo->id);
+    ft_sleep(philo->data->time_to_sleep);
 }
 
-void	*routine(t_init *philo)
+void ft_is_eating(t_philo *philo) 
 {
-	ft_fork_lock(philo);
-	ft_is_eating(philo);
-	ft_fork_unlock(philo);
-	ft_is_sleeping(philo);
-	return (NULL);
+    printf("%d is eating\n", philo->id);
+    ft_sleep(philo->data->time_to_eat);
+    pthread_mutex_lock(&philo->last_meal);
+    philo->l_meal = get_current_time_ms();
+    pthread_mutex_unlock(&philo->last_meal);
+    philo->meals_eaten++; 
+    pthread_mutex_unlock(philo->L_fork);
+    pthread_mutex_unlock(philo->R_fork);
 }
 
-void	test_thread(t_init *philo)
-{
-	int	i;
 
-	i = philo->nbr_philo;
-	philo->thread = malloc(sizeof(pthread_t) * i);
-	while (i)
-	{
-		usleep(100);
-		if (pthread_create(&philo->thread[i], NULL, (void *)routine,
-				philo) != 0)
-			return ;
-		philo->i++;
-		i--;
-	}
-	i = philo->nbr_philo;
-	while (i)
-	{
-		if (pthread_join(philo->thread[i], NULL) != 0)
-			return ;
-		i--;
-	}
+void take_fork(t_philo *philo) 
+{
+    if (philo->id % 2 == 0) 
+    {
+        pthread_mutex_lock(philo->R_fork);
+        printf("%d has taken the right fork\n", philo->id);
+        pthread_mutex_lock(philo->L_fork);
+        printf("%d has taken the left fork\n", philo->id);
+    } 
+    else 
+    {
+        pthread_mutex_lock(philo->L_fork);
+        printf("%d has taken the left fork\n", philo->id);
+        pthread_mutex_lock(philo->R_fork);
+        printf("%d has taken the right fork\n", philo->id);
+
+    }
+}
+
+
+// int has_died(t_philo *philo, t_init *data)
+// {
+//     long current_time = get_current_time_ms();
+//     long elapsed_time;
+
+//     pthread_mutex_lock(&philo->last_meal);
+//     elapsed_time = current_time - philo->l_meal;
+//     pthread_mutex_unlock(&philo->last_meal);
+
+//     if (elapsed_time > data->time_to_die)
+//         return 1;
+
+//     return 0;
+// }
+
+int has_died(t_philo *philo, t_init *data) {
+    long current_time = get_current_time_ms();
+    long elapsed_time;
+
+    pthread_mutex_lock(&philo->last_meal);
+    elapsed_time = current_time - philo->l_meal;
+    pthread_mutex_unlock(&philo->last_meal);
+
+    if (elapsed_time > data->time_to_die)
+        return 1;
+    if (philo->meals_eaten == data->max_meal) {
+        return 2;
+    }
+    return 0;
+}
+
+void *routine(void *arg) 
+{
+    t_philo *philo = (t_philo *)arg;
+    int death_status;
+
+    while (1) 
+    {
+        pthread_mutex_lock(&philo->data->print);
+        take_fork(philo);
+        ft_is_eating(philo);
+        pthread_mutex_unlock(&philo->data->print);
+        death_status = has_died(philo, philo->data);
+        if (death_status == 1) 
+        {
+            pthread_mutex_lock(&philo->data->print);
+            printf("%d is dead\n", philo->id);
+            pthread_mutex_unlock(&philo->data->print);
+            return (NULL);
+        } 
+        else if (death_status == 2) 
+        {
+            pthread_mutex_lock(&philo->data->print);
+            printf("%d has finished eating.\n", philo->id);
+            pthread_mutex_unlock(&philo->data->print);
+            return (NULL);
+        }
+        ft_is_sleeping(philo);
+    }
+    return (NULL);
+}
+
+void init_philo(t_init *data)
+{
+    int i;
+
+    i = 0;
+    while (i < data->nbr_philo)
+    {
+        data->philo[i].id = i + 1;
+        data->philo[i].R_fork = &data->forks[i];
+        data->philo[i].L_fork = &data->forks[(i + 1) % data->nbr_philo];
+        data->philo[i].meals_eaten = 0;
+        pthread_mutex_init(&data->philo[i].last_meal, NULL);
+        pthread_mutex_init(&data->forks[i], NULL);
+        data->philo[i].data = data;
+        if (pthread_create(&data->philo[i].thread, NULL, routine, &data->philo[i]) != 0)
+            return;
+        i++;
+    }
+    i = 0;
+    while (i < data->nbr_philo)
+    {
+        if (pthread_join(data->philo[i].thread, NULL) != 0)
+            return;
+        i++;
+    }
+}
+
+void clean_up(t_init *data)
+{
+    int i;
+
+    i = 0;
+    while (i < data->nbr_philo)
+    {
+        pthread_mutex_destroy(&data->forks[i]);
+        pthread_mutex_destroy(&data->philo[i].last_meal);
+        i++;
+    }
+    pthread_mutex_destroy(&data->print);
+    free(data->forks);
+    free(data->philo);
+    free(data);
 }
 
 int	main(int argc, char **argv)
 {
-	t_init	philo;
+	t_init	*data;
 
+	data = malloc(sizeof(t_init));
 	if (argc < 5 || argc > 6)
-		ft_exit(1);
+		exit(1);
 	if (!check_arg_value(argv))
 	{
 		ft_printf("ERROR\n");
 		return (1);
 	}
-	/*init struct valeur argv*/
-	philo = init_struct(argv);
-	/*creation thread dependant nbr philo*/
-	test_thread(&philo);
+	init_struct(argv, data);
+	init_philo(data);
+	clean_up(data);
+	return (0);
 }
