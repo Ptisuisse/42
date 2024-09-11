@@ -14,6 +14,7 @@
 
 void	init_struct(char **arg, t_init *data)
 {
+	data->stop = 1;
 	data->number_of_philosophers = ft_atoi(arg[1]);
 	data->philo = malloc(sizeof(t_philo) * data->number_of_philosophers);
 	data->forks = malloc(sizeof(pthread_mutex_t)
@@ -47,15 +48,15 @@ void	init_philo(t_init *data)
 
 void	init_data_philo(t_init *data, int i)
 {
+	pthread_mutex_init(&data->print, NULL);
+	pthread_mutex_init(&data->philo[i].last_meal, NULL);
+	data->start_time = get_current_time();
 	data->philo[i].id = i + 1;
 	data->philo[i].R_fork = &data->forks[i];
 	data->philo[i].L_fork = &data->forks[(i + 1)
 		% data->number_of_philosophers];
 	data->philo[i].meals_eaten = 0;
-	pthread_mutex_init(&data->philo[i].last_meal, NULL);
 	data->philo[i].data = data;
-	pthread_mutex_init(&data->print, NULL);
-	data->start_time = get_current_time();
 	if (pthread_create(&data->philo[i].thread, NULL, routine,
 			&data->philo[i]) != 0)
 		return ;

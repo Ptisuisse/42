@@ -32,7 +32,10 @@ int	ft_died(t_philo *philo)
 int	ft_supervisor(t_philo *philo)
 {
 	if (!ft_died(philo))
+	{
+		philo->data->stop = 0;
 		return (0);
+	}
 	return (1);
 }
 
