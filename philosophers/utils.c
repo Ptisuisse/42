@@ -19,3 +19,15 @@ void	log_print(char *str, t_philo *philo)
 		philo->id, str);
 	pthread_mutex_unlock(&philo->data->print);
 }
+void	ft_sleep(long sleep_time_ms)
+{
+	usleep(sleep_time_ms * 1000);
+}
+
+long	get_current_time(void)
+{
+	struct timeval tv;
+
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+}

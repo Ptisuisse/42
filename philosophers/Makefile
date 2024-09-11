@@ -1,7 +1,6 @@
 SRCS =	main.c \
 		error.c \
 		init_struct.c \
-		time.c \
 		philo.c \
 		utils.c \
 

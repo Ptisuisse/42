@@ -30,7 +30,7 @@ int	check_arg_value(char **arg)
 				return (0);
 			j++;
 		}
-		if ((nb = ft_atoi(arg[i])) <= 0 || nb > 2147483647
+		if ((nb = ft_atoi(arg[i])) <= 0 || (nb > 2147483647)
 			|| (ft_strlen(arg[i]) > 10))
 			return (0);
 		i++;
@@ -38,21 +38,21 @@ int	check_arg_value(char **arg)
 	return (1);
 }
 
-void clean_up(t_init *data)
+void	clean_up(t_init *data)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (i < data->number_of_philosophers)
-    {
-        pthread_mutex_destroy(&data->forks[i]);
-        pthread_mutex_destroy(&data->philo[i].last_meal);
-        i++;
-    }
-    pthread_mutex_destroy(&data->print);
-    free(data->forks);
-    free(data->philo);
-    free(data);
+	i = 0;
+	while (i < data->number_of_philosophers)
+	{
+		pthread_mutex_destroy(&data->forks[i]);
+		pthread_mutex_destroy(&data->philo[i].last_meal);
+		i++;
+	}
+	pthread_mutex_destroy(&data->print);
+	free(data->forks);
+	free(data->philo);
+	free(data);
 }
 
 int	main(int argc, char **argv)

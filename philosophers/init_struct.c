@@ -44,6 +44,7 @@ void	init_philo(t_init *data)
 		i++;
 	}
 }
+
 void	init_data_philo(t_init *data, int i)
 {
 	data->philo[i].id = i + 1;
