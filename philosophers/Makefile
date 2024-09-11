@@ -3,6 +3,7 @@ SRCS =	main.c \
 		init_struct.c \
 		time.c \
 		philo.c \
+		utils.c \
 
 OBJS = $(SRCS:.c=.o)
 CC = cc
