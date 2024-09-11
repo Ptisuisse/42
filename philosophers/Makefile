@@ -1,6 +1,8 @@
 SRCS =	main.c \
 		error.c \
 		init_struct.c \
+		time.c \
+		philo.c \
 
 OBJS = $(SRCS:.c=.o)
 CC = cc
