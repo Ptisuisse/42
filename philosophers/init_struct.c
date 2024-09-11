@@ -46,23 +46,23 @@ void	init_philo(t_init *data)
 }
  void	init_data_philo(t_init *data, int i)
 {
-		data->philo[i].id = i + 1;
-		data->philo[i].R_fork = &data->forks[i];
-		data->philo[i].L_fork = &data->forks[(i + 1)
-			% data->number_of_philosophers];
-		if (data->number_of_philosophers % 2)
-		{
-			data->philo[i].L_fork = &data->forks[i];
-			data->philo[i].R_fork = &data->forks[(i + 1)
-				% data->number_of_philosophers];
-		}
-		data->philo[i].meals_eaten = 0;
-		pthread_mutex_init(&data->philo[i].last_meal, NULL);
-		data->philo[i].data = data;
-		pthread_mutex_init(&data->print, NULL);
-		data->start_time = get_current_time();
-		if (pthread_create(&data->philo[i].thread, NULL, routine,
-				&data->philo[i]) != 0)
-			return ;
-		data->philo[i].l_meal = get_current_time();
+	data->philo[i].id = i + 1;
+	data->philo[i].R_fork = &data->forks[i];
+	data->philo[i].L_fork = &data->forks[(i + 1)
+		% data->number_of_philosophers];
+	//if (data->number_of_philosophers % 2)
+	//{
+	//	data->philo[i].L_fork = &data->forks[i];
+	//	data->philo[i].R_fork = &data->forks[(i + 1)
+	//		% data->number_of_philosophers];
+	//}
+	data->philo[i].meals_eaten = 0;
+	pthread_mutex_init(&data->philo[i].last_meal, NULL);
+	data->philo[i].data = data;
+	pthread_mutex_init(&data->print, NULL);
+	data->start_time = get_current_time();
+	if (pthread_create(&data->philo[i].thread, NULL, routine,
+			&data->philo[i]) != 0)
+		return ;
+	data->philo[i].l_meal = get_current_time();
 }

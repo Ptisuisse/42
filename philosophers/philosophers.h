@@ -59,12 +59,14 @@ void				*routine(void *arg);
 void				ft_is_eating(t_philo *philo);
 int					take_fork(t_philo *philo);
 void				ft_is_sleeping(t_philo *philo);
-//int					has_died(t_philo *philo, t_init *data);
+// int					has_died(t_philo *philo, t_init *data);
 /*time.c*/
 void				ft_sleep(long sleep_time_ms);
 long				get_current_time(void);
 /*utils.c*/
 void				log_print(char *str, t_philo *philo);
 void				init_data_philo(t_init *data, int i);
+
+int	ft_supervisor(t_philo *philo);
 
 #endif
