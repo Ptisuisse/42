@@ -1,6 +1,6 @@
 #include "philosophers.h"
 
-/*log_print + time_stamp + supervisor*/
+/*supervisor*/
 
 void	*routine(void *arg)
 {
@@ -49,8 +49,6 @@ int	take_fork(t_philo *philo)
 			log_print("has taken a fork", philo);
 			return (1);
 		}
-		else
-			pthread_mutex_unlock(philo->R_fork);
 	}
 	return (0);
 }
