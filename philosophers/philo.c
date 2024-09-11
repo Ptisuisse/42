@@ -1,8 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lvan-slu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/11 14:14:51 by lvan-slu          #+#    #+#             */
+/*   Updated: 2024/09/11 14:14:53 by lvan-slu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
-/*supervisor*/
-
-int	ft_supervisor(t_philo *philo)
+int	ft_died(t_philo *philo)
 {
 	long	current_time;
 	long	elapsed_time;
@@ -16,10 +26,13 @@ int	ft_supervisor(t_philo *philo)
 		log_print("died", philo);
 		return (0);
 	}
-	if (philo->meals_eaten >= philo->data->number_of_times_each_philosopher_must_eat)
-	{
+	return (1);
+}
+
+int	ft_supervisor(t_philo *philo)
+{
+	if (!ft_died(philo))
 		return (0);
-	}
 	return (1);
 }
 
