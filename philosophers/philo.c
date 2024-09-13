@@ -12,38 +12,32 @@
 
 #include "philosophers.h"
 
-int	ft_died(t_init *data)
+int	ft_died(t_philo *philo)
 {
 	long	current_time;
 	long	elapsed_time;
-	int		i;
 
-	i = 0;
-	while (i < data->number_of_philosophers)
+	current_time = get_current_time();
+	pthread_mutex_lock(&philo->last_meal);
+	elapsed_time = current_time - philo->l_meal;
+	pthread_mutex_unlock(&philo->last_meal);
+	if (elapsed_time > philo->data->time_to_die)
 	{
-		current_time = get_current_time();
-		pthread_mutex_lock(&data->philo[i].last_meal);
-		elapsed_time = current_time - data->philo[i].l_meal;
-		pthread_mutex_unlock(&data->philo[i].last_meal);
-		if (elapsed_time > data->time_to_die)
-		{
-			log_print("died", data->philo);
-			data->stop = 0;
-			return (0);
-		}
-		i++;
+		log_print("died", philo);
+		philo->data->stop = 0;
+		return (0);
 	}
 	return (1);
 }
 
 void	*ft_supervisor(void *arg)
 {
-	t_init	*philo;
+	t_philo	*philo;
 
-	philo = (t_init *)arg;
+	philo = (t_philo *)arg;
 	while (1)
 	{
-		usleep(500);
+		usleep(5000);
 		if (ft_died(philo) == 0)
 		{
 			break ;

@@ -64,9 +64,9 @@ void	clean_up(t_init *data)
 
 int	main(int argc, char **argv)
 {
-	t_init	*data;
+	t_init	data;
 
-	data = malloc(sizeof(t_init));
+	//data = malloc(sizeof(t_init));
 	if (argc < 5 || argc > 6)
 		exit(1);
 	if (!check_arg_value(argv))
@@ -74,8 +74,8 @@ int	main(int argc, char **argv)
 		ft_printf("ERROR\n");
 		return (1);
 	}
-	init_struct(argv, data);
-	init_philo(data);
+	init_struct(argv, &data);
+	init_philo(&data);
 	//clean_up(data);
 	return (0);
 }
