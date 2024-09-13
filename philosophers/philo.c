@@ -12,31 +12,44 @@
 
 #include "philosophers.h"
 
-int	ft_died(t_philo *philo)
+int	ft_died(t_init *data)
 {
 	long	current_time;
 	long	elapsed_time;
+	int		i;
 
-	current_time = get_current_time();
-	pthread_mutex_lock(&philo->last_meal);
-	elapsed_time = current_time - philo->l_meal;
-	pthread_mutex_unlock(&philo->last_meal);
-	if (elapsed_time > philo->data->time_to_die)
+	i = 0;
+	while (i < data->number_of_philosophers)
 	{
-		log_print("died", philo);
-		return (0);
+		current_time = get_current_time();
+		pthread_mutex_lock(&data->philo[i].last_meal);
+		elapsed_time = current_time - data->philo[i].l_meal;
+		pthread_mutex_unlock(&data->philo[i].last_meal);
+		if (elapsed_time > data->time_to_die)
+		{
+			log_print("died", data->philo);
+			data->stop = 0;
+			return (0);
+		}
+		i++;
 	}
 	return (1);
 }
 
-int	ft_supervisor(t_philo *philo)
+void	*ft_supervisor(void *arg)
 {
-	if (!ft_died(philo))
+	t_init	*philo;
+
+	philo = (t_init *)arg;
+	while (1)
 	{
-		philo->data->stop = 0;
-		return (0);
+		usleep(500);
+		if (ft_died(philo) == 0)
+		{
+			break ;
+		}
 	}
-	return (1);
+	return (NULL);
 }
 
 void	*routine(void *arg)
@@ -49,7 +62,7 @@ void	*routine(void *arg)
 		log_print("is thinking", philo);
 		ft_sleep(philo->data->time_to_eat);
 	}
-	while (ft_supervisor(philo))
+	while (philo->data->stop == 1)
 	{
 		take_fork(philo);
 		ft_is_eating(philo);

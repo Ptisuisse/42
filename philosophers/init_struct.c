@@ -31,12 +31,17 @@ void	init_philo(t_init *data)
 	int	i;
 
 	i = 0;
+	data->start_time = get_current_time();
+	pthread_mutex_init(&data->print, NULL);
 	while (i < data->number_of_philosophers)
 	{
 		pthread_mutex_init(&data->forks[i], NULL);
 		init_data_philo(data, i);
+		data->philo[i].l_meal = get_current_time();
 		i++;
 	}
+	if (pthread_create(&data->supervisor, NULL, ft_supervisor, &data) != 0)
+		return ;
 	i = 0;
 	while (i < data->number_of_philosophers)
 	{
@@ -44,13 +49,15 @@ void	init_philo(t_init *data)
 			return ;
 		i++;
 	}
+	if (pthread_join(data->supervisor, NULL) != 0)
+		return ;
 }
 
 void	init_data_philo(t_init *data, int i)
 {
-	pthread_mutex_init(&data->print, NULL);
+	//	pthread_mutex_init(&data->print, NULL);
 	pthread_mutex_init(&data->philo[i].last_meal, NULL);
-	data->start_time = get_current_time();
+	//	data->start_time = get_current_time();
 	data->philo[i].id = i + 1;
 	data->philo[i].R_fork = &data->forks[i];
 	data->philo[i].L_fork = &data->forks[(i + 1)
@@ -60,5 +67,4 @@ void	init_data_philo(t_init *data, int i)
 	if (pthread_create(&data->philo[i].thread, NULL, routine,
 			&data->philo[i]) != 0)
 		return ;
-	data->philo[i].l_meal = get_current_time();
 }

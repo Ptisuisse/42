@@ -45,8 +45,15 @@ void	clean_up(t_init *data)
 	i = 0;
 	while (i < data->number_of_philosophers)
 	{
-		pthread_mutex_destroy(&data->forks[i]);
+		pthread_mutex_destroy(&data->philo->R_fork[i]);
+		pthread_mutex_destroy(&data->philo->L_fork[i]);
+		i++;
+	}
+	i = 0;
+	while (i < data->number_of_philosophers)
+	{
 		pthread_mutex_destroy(&data->philo[i].last_meal);
+		pthread_mutex_destroy(&data->forks[i]);
 		i++;
 	}
 	pthread_mutex_destroy(&data->print);
@@ -69,6 +76,6 @@ int	main(int argc, char **argv)
 	}
 	init_struct(argv, data);
 	init_philo(data);
-	clean_up(data);
+	//clean_up(data);
 	return (0);
 }

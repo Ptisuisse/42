@@ -42,6 +42,7 @@ typedef struct s_init
 	int				time_to_sleep;
 	int				number_of_times_each_philosopher_must_eat;
 	long			start_time;
+	pthread_t		supervisor;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
 	t_philo			*philo;
@@ -68,6 +69,7 @@ long				get_current_time(void);
 void				log_print(char *str, t_philo *philo);
 void				init_data_philo(t_init *data, int i);
 
-int	ft_supervisor(t_philo *philo);
+void	*ft_supervisor(void *philo);
+void				ft_join_threads(t_philo *philo);
 
 #endif
