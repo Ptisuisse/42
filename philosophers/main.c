@@ -38,34 +38,36 @@ int	check_arg_value(char **arg)
 	return (1);
 }
 
-void	clean_up(t_init *data)
-{
-	int	i;
+//void	clean_up(t_init *data)
+//{
+//	int	i;
 
-	i = 0;
-	while (i < data->number_of_philosophers)
-	{
-		pthread_mutex_destroy(&data->philo->R_fork[i]);
-		pthread_mutex_destroy(&data->philo->L_fork[i]);
-		i++;
-	}
-	i = 0;
-	while (i < data->number_of_philosophers)
-	{
-		pthread_mutex_destroy(&data->philo[i].last_meal);
-		pthread_mutex_destroy(&data->forks[i]);
-		i++;
-	}
-	pthread_mutex_destroy(&data->print);
-	free(data->forks);
-	free(data->philo);
-	free(data);
-}
+//	i = 0;
+//	while (i < data->number_of_philosophers)
+//	{
+//		pthread_mutex_destroy(&data->philo->R_fork[i]);
+//		pthread_mutex_destroy(&data->philo->L_fork[i]);
+//		i++;
+//	}
+//	i = 0;
+//	while (i < data->number_of_philosophers)
+//	{
+//		pthread_mutex_destroy(&data->philo[i].last_meal);
+//		pthread_mutex_destroy(&data->forks[i]);
+//		i++;
+//	}
+//	pthread_mutex_destroy(&data->print);
+//	free(data->forks);
+//	free(data->philo);
+//	free(data);
+//}
 
 int	main(int argc, char **argv)
 {
 	t_init	data;
+	t_philo *philo;
 
+	philo = NULL;
 	//data = malloc(sizeof(t_init));
 	if (argc < 5 || argc > 6)
 		exit(1);
@@ -75,7 +77,7 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	init_struct(argv, &data);
-	init_philo(&data);
+	init_philo(&data, philo);
 	//clean_up(data);
 	return (0);
 }

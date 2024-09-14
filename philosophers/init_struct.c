@@ -14,9 +14,7 @@
 
 void	init_struct(char **arg, t_init *data)
 {
-	data->stop = 1;
 	data->number_of_philosophers = ft_atoi(arg[1]);
-	data->philo = malloc(sizeof(t_philo) * data->number_of_philosophers);
 	data->forks = malloc(sizeof(pthread_mutex_t)
 			* data->number_of_philosophers);
 	data->time_to_die = ft_atoi(arg[2]);
@@ -24,47 +22,49 @@ void	init_struct(char **arg, t_init *data)
 	data->time_to_sleep = ft_atoi(arg[4]);
 	if (arg[5])
 		data->number_of_times_each_philosopher_must_eat = ft_atoi(arg[5]);
+	data->stop = 1;
+	pthread_mutex_init(&data->print, NULL);
 }
 
-void	init_philo(t_init *data)
+void	init_philo(t_init *data, t_philo *philo)
 {
 	int	i;
 
 	i = 0;
+	philo = malloc(sizeof(t_philo) * data->number_of_philosophers);
+	//data->philo = malloc(sizeof(t_philo) * data->number_of_philosophers);
 	data->start_time = get_current_time();
-	pthread_mutex_init(&data->print, NULL);
+	data->philo = philo;
 	while (i < data->number_of_philosophers)
 	{
 		pthread_mutex_init(&data->forks[i], NULL);
-		pthread_mutex_init(&data->philo[i].last_meal, NULL);
-		init_data_philo(data, i);
-		data->philo[i].l_meal = get_current_time();
+		init_data_philo(data, philo, i);
+		data->philo[i] = philo[i];
 		i++;
 	}
-	if (pthread_create(&data->supervisor, NULL, ft_supervisor, &data) != 0)
+	if (pthread_create(&data->supervisor, NULL, (void *)ft_supervisor, (void *)data) != 0)
 		return ;
 	i = 0;
 	while (i < data->number_of_philosophers)
 	{
-		if (pthread_join(data->philo[i].thread, NULL) != 0)
+		if (pthread_join(philo[i].thread, NULL) != 0)
 			return ;
 		i++;
 	}
-//	if (pthread_join(data->supervisor, NULL) != 0)
-//		return ;
+	if (pthread_join(data->supervisor, NULL) != 0)
+		return ;
 }
 
-void	init_data_philo(t_init *data, int i)
+void	init_data_philo(t_init *data, t_philo *philo, int i)
 {
-	//	pthread_mutex_init(&data->print, NULL);
-	data->start_time = get_current_time();
-	data->philo[i].id = i + 1;
-	data->philo[i].R_fork = &data->forks[i];
-	data->philo[i].L_fork = &data->forks[(i + 1)
-		% data->number_of_philosophers];
-	data->philo[i].meals_eaten = 0;
-	data->philo[i].data = data;
-	if (pthread_create(&data->philo[i].thread, NULL, routine,
-			&data->philo[i]) != 0)
+	pthread_mutex_init(&philo[i].last_meal, NULL);
+	philo[i].id = i + 1;
+	philo[i].R_fork = i;
+	philo[i].L_fork = ((i + 1) % data->number_of_philosophers);
+	philo[i].meals_eaten = 0;
+	philo[i].data = data;
+	if (pthread_create(&philo[i].thread, NULL, (void *)routine,
+			(void *)&philo[i]) != 0)
 		return ;
+	philo[i].l_meal = get_current_time();
 }

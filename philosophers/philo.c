@@ -16,29 +16,35 @@ int	ft_died(t_philo *philo)
 {
 	long	current_time;
 	long	elapsed_time;
+	int		i;
 
-	current_time = get_current_time();
-	pthread_mutex_lock(&philo->last_meal);
-	elapsed_time = current_time - philo->l_meal;
-	pthread_mutex_unlock(&philo->last_meal);
-	if (elapsed_time > philo->data->time_to_die)
+	i = 0;
+	while (i < philo->data->number_of_philosophers)
 	{
-		log_print("died", philo);
-		philo->data->stop = 0;
-		return (0);
+		current_time = get_current_time();
+		pthread_mutex_lock(&philo[i].last_meal);
+		elapsed_time = current_time - philo[i].l_meal;
+		pthread_mutex_unlock(&philo[i].last_meal);
+		// printf("C>>>>>>>>>>>>>>%ld\n", current_time);
+		// printf("111>>>>>>>>>>>>>>%ld\n", philo[i].l_meal);
+		// printf("E>>>>>>>>>>>>>>%ld\n", elapsed_time);
+		if (elapsed_time > philo->data->time_to_die)
+		{
+			log_print("died", &philo[i]);
+			pthread_mutex_lock(&philo->data->print);
+			philo->data->stop = 0;
+			return (0);
+		}
+		i++;
 	}
 	return (1);
 }
 
-void	*ft_supervisor(void *arg)
+void	*ft_supervisor(t_init *data)
 {
-	t_philo	*philo;
-
-	philo = (t_philo *)arg;
 	while (1)
 	{
-		usleep(5000);
-		if (ft_died(philo) == 0)
+		if (!ft_died(data->philo))
 		{
 			break ;
 		}
@@ -46,11 +52,8 @@ void	*ft_supervisor(void *arg)
 	return (NULL);
 }
 
-void	*routine(void *arg)
+void	*routine(t_philo *philo)
 {
-	t_philo	*philo;
-
-	philo = (t_philo *)arg;
 	if (philo->id % 2 == 0)
 	{
 		log_print("is thinking", philo);
@@ -74,22 +77,24 @@ void	ft_is_sleeping(t_philo *philo)
 
 void	ft_is_eating(t_philo *philo)
 {
+	printf("00000000------%d\n", philo->id);
+	printf("111>>>>>>>>>>>>>>%ld\n", philo->l_meal);
 	log_print("is eating", philo);
 	ft_sleep(philo->data->time_to_eat);
 	pthread_mutex_lock(&philo->last_meal);
 	philo->l_meal = get_current_time();
 	pthread_mutex_unlock(&philo->last_meal);
 	philo->meals_eaten++;
-	pthread_mutex_unlock(philo->L_fork);
-	pthread_mutex_unlock(philo->R_fork);
+	pthread_mutex_unlock(&philo->data->forks[philo->L_fork]);
+	pthread_mutex_unlock(&philo->data->forks[philo->R_fork]);
 }
 
 int	take_fork(t_philo *philo)
 {
-	if (pthread_mutex_lock(philo->R_fork) == 0)
+	if (pthread_mutex_lock(&philo->data->forks[philo->R_fork]) == 0)
 	{
 		log_print("has taken a fork", philo);
-		if (pthread_mutex_lock(philo->L_fork) == 0)
+		if (pthread_mutex_lock(&philo->data->forks[philo->L_fork]) == 0)
 		{
 			log_print("has taken a fork", philo);
 			return (1);
