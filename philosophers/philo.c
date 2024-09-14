@@ -25,9 +25,6 @@ int	ft_died(t_philo *philo)
 		pthread_mutex_lock(&philo[i].last_meal);
 		elapsed_time = current_time - philo[i].l_meal;
 		pthread_mutex_unlock(&philo[i].last_meal);
-		// printf("C>>>>>>>>>>>>>>%ld\n", current_time);
-		// printf("111>>>>>>>>>>>>>>%ld\n", philo[i].l_meal);
-		// printf("E>>>>>>>>>>>>>>%ld\n", elapsed_time);
 		if (elapsed_time > philo->data->time_to_die)
 		{
 			log_print("died", &philo[i]);
@@ -77,13 +74,11 @@ void	ft_is_sleeping(t_philo *philo)
 
 void	ft_is_eating(t_philo *philo)
 {
-	printf("00000000------%d\n", philo->id);
-	printf("111>>>>>>>>>>>>>>%ld\n", philo->l_meal);
 	log_print("is eating", philo);
-	ft_sleep(philo->data->time_to_eat);
 	pthread_mutex_lock(&philo->last_meal);
 	philo->l_meal = get_current_time();
 	pthread_mutex_unlock(&philo->last_meal);
+	ft_sleep(philo->data->time_to_eat);
 	philo->meals_eaten++;
 	pthread_mutex_unlock(&philo->data->forks[philo->L_fork]);
 	pthread_mutex_unlock(&philo->data->forks[philo->R_fork]);
