@@ -26,15 +26,18 @@ typedef struct s_philo
 	int				id;
 	long			l_meal;
 	int				meals_eaten;
-	int				L_fork;
-	int				R_fork;
-	pthread_mutex_t	last_meal;
+	int				is_full;
+	int				l_fork;
+	int				r_fork;
 	pthread_t		thread;
+	pthread_mutex_t	last_meal;
 	struct s_init	*data;
 }					t_philo;
 
 typedef struct s_init
 {
+	int				eat_prog;
+	int				num_full_philos;
 	int				stop;
 	int				number_of_philosophers;
 	int				time_to_die;
@@ -45,39 +48,13 @@ typedef struct s_init
 	pthread_t		supervisor;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
+	pthread_mutex_t full_mutex;
 	t_philo			*philo;
 }					t_init;
 
-// typedef struct s_philo
-//{
-//	int				id;
-//	long			l_meal;
-//	int				meals_eaten;
-//	pthread_mutex_t	*L_fork;
-//	pthread_mutex_t	*R_fork;
-//	pthread_mutex_t	last_meal;
-//	pthread_t		thread;
-//	struct s_init	*data;
-//}					t_philo;
-
-// typedef struct s_init
-//{
-//	int	stop;
-//	int				number_of_philosophers;
-//	int				time_to_die;
-//	int				time_to_eat;
-//	int				time_to_sleep;
-//	int				number_of_times_each_philosopher_must_eat;
-//	long			start_time;
-//	pthread_t		supervisor;
-//	pthread_mutex_t	*forks;
-//	pthread_mutex_t	print;
-//	t_philo			*philo;
-//}					t_init;
-
 /*main.c*/
 int					check_arg_value(char **arg);
-//void				clean_up(t_init *data);
+void				cleanup(t_init *data);
 /*error.c*/
 void				ft_exit(int i);
 /*init_struct.c*/
@@ -85,19 +62,17 @@ void				init_struct(char **arg, t_init *data);
 void				init_philo(t_init *data, t_philo *philo);
 /*philo.c*/
 void				*routine(t_philo *philo);
-//void				ft_is_eating(t_init *data);
 void				ft_is_eating(t_philo *philo);
 int					take_fork(t_philo *philo);
 void				ft_is_sleeping(t_philo *philo);
-// int					has_died(t_philo *philo, t_init *data);
+int					ft_died(t_philo *philo);
 /*time.c*/
 void				ft_sleep(long sleep_time_ms);
 long				get_current_time(void);
 /*utils.c*/
 void				log_print(char *str, t_philo *philo);
 void				init_data_philo(t_init *data, t_philo *philo, int i);
-
 void				*ft_supervisor(t_init *philo);
-// void				ft_join_threads(t_philo *philo);
+
 
 #endif

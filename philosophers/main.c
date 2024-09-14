@@ -38,29 +38,22 @@ int	check_arg_value(char **arg)
 	return (1);
 }
 
-//void	clean_up(t_init *data)
-//{
-//	int	i;
+void cleanup(t_init *data)
+{
+	int	i;
 
-//	i = 0;
-//	while (i < data->number_of_philosophers)
-//	{
-//		pthread_mutex_destroy(&data->philo->R_fork[i]);
-//		pthread_mutex_destroy(&data->philo->L_fork[i]);
-//		i++;
-//	}
-//	i = 0;
-//	while (i < data->number_of_philosophers)
-//	{
-//		pthread_mutex_destroy(&data->philo[i].last_meal);
-//		pthread_mutex_destroy(&data->forks[i]);
-//		i++;
-//	}
-//	pthread_mutex_destroy(&data->print);
-//	free(data->forks);
-//	free(data->philo);
-//	free(data);
-//}
+	i = 0;
+	while (i++ < data->number_of_philosophers)
+	{
+		pthread_mutex_destroy(&data->philo[i].last_meal);	
+		pthread_mutex_destroy(&data->forks[i]);
+		i++;
+	}
+    pthread_mutex_destroy(&data->full_mutex);
+	pthread_mutex_destroy(&data->print);
+	free(data->forks);
+    free(data->philo);
+}
 
 int	main(int argc, char **argv)
 {
@@ -68,7 +61,6 @@ int	main(int argc, char **argv)
 	t_philo *philo;
 
 	philo = NULL;
-	//data = malloc(sizeof(t_init));
 	if (argc < 5 || argc > 6)
 		exit(1);
 	if (!check_arg_value(argv))
@@ -78,6 +70,7 @@ int	main(int argc, char **argv)
 	}
 	init_struct(argv, &data);
 	init_philo(&data, philo);
+	cleanup(&data);
 	//clean_up(data);
 	return (0);
 }
