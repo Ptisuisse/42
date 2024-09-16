@@ -40,15 +40,7 @@ int	check_arg_value(char **arg)
 
 void cleanup(t_init *data)
 {
-	int	i;
-
-	i = 0;
-	while (i++ < data->number_of_philosophers)
-	{
-		pthread_mutex_destroy(&data->philo[i].last_meal);	
-		pthread_mutex_destroy(&data->forks[i]);
-		i++;
-	}
+	pthread_mutex_destroy(data->forks);
     pthread_mutex_destroy(&data->full_mutex);
 	pthread_mutex_destroy(&data->print);
 	free(data->forks);
@@ -71,6 +63,5 @@ int	main(int argc, char **argv)
 	init_struct(argv, &data);
 	init_philo(&data, philo);
 	cleanup(&data);
-	//clean_up(data);
 	return (0);
 }

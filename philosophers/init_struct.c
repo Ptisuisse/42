@@ -15,7 +15,8 @@
 void	init_struct(char **arg, t_init *data)
 {
 	data->num_full_philos = 0;
-    pthread_mutex_init(&data->full_mutex, NULL);
+	pthread_mutex_init(&data->full_mutex, NULL);
+	//pthread_mutex_init(&data->end_prog, NULL);
 	data->number_of_philosophers = ft_atoi(arg[1]);
 	data->forks = malloc(sizeof(pthread_mutex_t)
 			* data->number_of_philosophers);
@@ -24,8 +25,9 @@ void	init_struct(char **arg, t_init *data)
 	data->time_to_sleep = ft_atoi(arg[4]);
 	if (arg[5])
 		data->number_of_times_each_philosopher_must_eat = ft_atoi(arg[5]);
-	data->stop = 1;
-	data->stop = 1;
+	else
+		data->number_of_times_each_philosopher_must_eat = -1;
+	data->end_prog = 1;
 	pthread_mutex_init(&data->print, NULL);
 }
 
@@ -44,7 +46,8 @@ void	init_philo(t_init *data, t_philo *philo)
 		data->philo[i] = philo[i];
 		i++;
 	}
-	if (pthread_create(&data->supervisor, NULL, (void *)ft_supervisor, (void *)data) != 0)
+	if (pthread_create(&data->supervisor, NULL, (void *)ft_supervisor,
+			(void *)data) != 0)
 		return ;
 	i = 0;
 	while (i < data->number_of_philosophers)

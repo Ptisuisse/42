@@ -36,9 +36,8 @@ typedef struct s_philo
 
 typedef struct s_init
 {
-	int				eat_prog;
 	int				num_full_philos;
-	int				stop;
+	int				end_prog;
 	int				number_of_philosophers;
 	int				time_to_die;
 	int				time_to_eat;
@@ -47,8 +46,9 @@ typedef struct s_init
 	long			start_time;
 	pthread_t		supervisor;
 	pthread_mutex_t	*forks;
+	//pthread_mutex_t	end_prog;
 	pthread_mutex_t	print;
-	pthread_mutex_t full_mutex;
+	pthread_mutex_t	full_mutex;
 	t_philo			*philo;
 }					t_init;
 
@@ -73,6 +73,6 @@ long				get_current_time(void);
 void				log_print(char *str, t_philo *philo);
 void				init_data_philo(t_init *data, t_philo *philo, int i);
 void				*ft_supervisor(t_init *philo);
-
+//int					ft_end_prog(t_init *data);
 
 #endif
