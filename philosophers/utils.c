@@ -14,14 +14,10 @@
 
 void	log_print(char *str, t_philo *philo)
 {
-	if (philo->data->end_prog)
-	{
 		pthread_mutex_lock(&philo->data->print);
 		printf("%ld %d %s\n", (get_current_time() - (philo->data->start_time)),
 			philo->id, str);
 		pthread_mutex_unlock(&philo->data->print);
-	}
-	return ;
 }
 
 void	ft_sleep(long sleep_time_ms)

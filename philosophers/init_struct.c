@@ -14,9 +14,9 @@
 
 void	init_struct(char **arg, t_init *data)
 {
+	int	i;
+
 	data->num_full_philos = 0;
-	pthread_mutex_init(&data->full_mutex, NULL);
-	//pthread_mutex_init(&data->end_prog, NULL);
 	data->number_of_philosophers = ft_atoi(arg[1]);
 	data->forks = malloc(sizeof(pthread_mutex_t)
 			* data->number_of_philosophers);
@@ -28,7 +28,17 @@ void	init_struct(char **arg, t_init *data)
 	else
 		data->number_of_times_each_philosopher_must_eat = -1;
 	data->end_prog = 1;
+	i = 0;
 	pthread_mutex_init(&data->print, NULL);
+	pthread_mutex_init(&data->full_mutex, NULL);
+	pthread_mutex_init(&data->time_die, NULL);
+	pthread_mutex_init(&data->nbr_of_philo, NULL);
+	pthread_mutex_init(&data->end_of_prog, NULL);
+	while (i < ft_atoi(arg[1]))
+	{
+		pthread_mutex_init(&data->forks[i], NULL);
+		i++;
+	}
 }
 
 void	init_philo(t_init *data, t_philo *philo)
@@ -41,9 +51,17 @@ void	init_philo(t_init *data, t_philo *philo)
 	data->philo = philo;
 	while (i < data->number_of_philosophers)
 	{
-		pthread_mutex_init(&data->forks[i], NULL);
-		init_data_philo(data, philo, i);
-		data->philo[i] = philo[i];
+		pthread_mutex_init(&philo[i].last_meal, NULL);
+		philo[i].id = i + 1;
+		philo[i].is_full = 0;
+		philo[i].r_fork = i;
+		philo[i].l_fork = ((i + 1) % data->number_of_philosophers);
+		philo[i].meals_eaten = 0;
+		philo[i].data = data;
+		philo[i].l_meal = get_current_time();
+		if (pthread_create(&philo[i].thread, NULL, (void *)routine,
+				(void *)&philo[i]) != 0)
+			return ;
 		i++;
 	}
 	if (pthread_create(&data->supervisor, NULL, (void *)ft_supervisor,
@@ -58,19 +76,4 @@ void	init_philo(t_init *data, t_philo *philo)
 	}
 	if (pthread_join(data->supervisor, NULL) != 0)
 		return ;
-}
-
-void	init_data_philo(t_init *data, t_philo *philo, int i)
-{
-	pthread_mutex_init(&philo[i].last_meal, NULL);
-	philo[i].id = i + 1;
-	philo[i].is_full = 0;
-	philo[i].r_fork = i;
-	philo[i].l_fork = ((i + 1) % data->number_of_philosophers);
-	philo[i].meals_eaten = 0;
-	philo[i].data = data;
-	if (pthread_create(&philo[i].thread, NULL, (void *)routine,
-			(void *)&philo[i]) != 0)
-		return ;
-	philo[i].l_meal = get_current_time();
 }

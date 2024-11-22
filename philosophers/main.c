@@ -38,19 +38,30 @@ int	check_arg_value(char **arg)
 	return (1);
 }
 
-void cleanup(t_init *data)
+void	cleanup(t_init *data)
 {
-	pthread_mutex_destroy(data->forks);
-    pthread_mutex_destroy(&data->full_mutex);
+	int	i;
+
+	i = 0;
+	while (i < data->number_of_philosophers)
+	{
+		pthread_mutex_destroy(&data->philo[i].last_meal);
+		pthread_mutex_destroy(&data->forks[i]);
+		i++;
+	}
 	pthread_mutex_destroy(&data->print);
+	pthread_mutex_destroy(&data->time_die);
+	pthread_mutex_destroy(&data->nbr_of_philo);
+	pthread_mutex_destroy(&data->full_mutex);
+	pthread_mutex_destroy(&data->end_of_prog);
+	free(data->philo);
 	free(data->forks);
-    free(data->philo);
 }
 
 int	main(int argc, char **argv)
 {
 	t_init	data;
-	t_philo *philo;
+	t_philo	*philo;
 
 	philo = NULL;
 	if (argc < 5 || argc > 6)
