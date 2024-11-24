@@ -15,6 +15,6 @@
 void	ft_exit(int status)
 {
 	(void)status;
-	ft_printf("Error\n");
+	printf("Error\n");
 	return ;
 }

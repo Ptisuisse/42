@@ -21,7 +21,7 @@ int	check_arg_value(char **arg)
 	i = 1;
 	while (arg[i])
 	{
-		if (i == 6 /*&& !arg[i]*/)
+		if (i == 6)
 			break ;
 		j = 0;
 		while (arg[i][j])
@@ -30,8 +30,8 @@ int	check_arg_value(char **arg)
 				return (0);
 			j++;
 		}
-		if ((nb = ft_atoi(arg[i])) <= 0 || (nb > 2147483647)
-			|| (ft_strlen(arg[i]) > 10))
+		nb = ft_atoi(arg[i]);
+		if (nb <= 0 || (nb > 2147483647) || (ft_strlen(arg[i]) > 10))
 			return (0);
 		i++;
 	}
@@ -52,7 +52,6 @@ void	cleanup(t_init *data)
 	pthread_mutex_destroy(&data->print);
 	pthread_mutex_destroy(&data->time_die);
 	pthread_mutex_destroy(&data->nbr_of_philo);
-	pthread_mutex_destroy(&data->full_mutex);
 	pthread_mutex_destroy(&data->end_of_prog);
 	free(data->philo);
 	free(data->forks);
@@ -68,7 +67,7 @@ int	main(int argc, char **argv)
 		exit(1);
 	if (!check_arg_value(argv))
 	{
-		ft_printf("ERROR\n");
+		printf("ERROR\n");
 		return (1);
 	}
 	init_struct(argv, &data);

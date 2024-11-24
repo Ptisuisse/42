@@ -12,28 +12,54 @@
 
 #include "philosophers.h"
 
-void	log_print(char *str, t_philo *philo)
+int	ft_atoi(const char *str)
 {
-    pthread_mutex_lock(&philo->data->end_of_prog);
-    if (philo->data->end_prog)
-    {
-        pthread_mutex_lock(&philo->data->print);
-        printf("%ld %d %s\n", (get_current_time() - (philo->data->start_time)),
-            philo->id, str);
-        pthread_mutex_unlock(&philo->data->print);
-    }
-    pthread_mutex_unlock(&philo->data->end_of_prog);
+	int	i;
+	int	j;
+	int	k;
+
+	i = 0;
+	j = 1;
+	k = 0;
+	while (str[i] != '\0')
+	{
+		while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
+			i++;
+		if (str[i] == 43 || str[i] == 45)
+		{
+			if (str[i] == 45)
+				j *= -1;
+			i++;
+		}
+		while (str[i] >= '0' && str[i] <= '9')
+		{
+			k = k * 10 + (str[i] - '0');
+			i++;
+		}
+		return (k * j);
+	}
+	return (0);
 }
 
-void	ft_sleep(long sleep_time_ms)
+size_t	ft_strlen(const char *str)
 {
-	usleep(sleep_time_ms * 1000);
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str)
+			i++;
+		else
+			break ;
+	}
+	return (i);
 }
 
-long	get_current_time(void)
+int	ft_isdigit(int c)
 {
-	struct timeval tv;
-
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+	if (c >= 48 && c <= 57)
+		return (1);
+	else
+		return (0);
 }

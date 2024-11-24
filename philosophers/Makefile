@@ -3,6 +3,8 @@ SRCS =	main.c \
 		init_struct.c \
 		philo.c \
 		utils.c \
+		ft_supervisor.c \
+		time_and_print.c \
 
 OBJS = $(SRCS:.c=.o)
 CC = cc
@@ -11,18 +13,15 @@ EXEC = philo
 NAME = $(EXEC)
 
 $(NAME): $(OBJS)
-	$(MAKE) -j -C libft/ -s
-	$(CC) $(CFLAGS) -o $(EXEC) $(OBJS) -Llibft -lft -I./libft
+	$(CC) $(CFLAGS) -o $(EXEC) $(OBJS)
 
 all : $(NAME)
 
 clean :
 	rm -f $(OBJS)
-	$(MAKE) clean -C libft/ -s
 
 fclean : clean
 	rm -f $(NAME)
-	$(MAKE) fclean -C libft/ -s
 
 re : fclean all
 

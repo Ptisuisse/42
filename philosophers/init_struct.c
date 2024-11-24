@@ -30,7 +30,6 @@ void	init_struct(char **arg, t_init *data)
 	data->end_prog = 1;
 	i = 0;
 	pthread_mutex_init(&data->print, NULL);
-	pthread_mutex_init(&data->full_mutex, NULL);
 	pthread_mutex_init(&data->time_die, NULL);
 	pthread_mutex_init(&data->nbr_of_philo, NULL);
 	pthread_mutex_init(&data->end_of_prog, NULL);
@@ -59,6 +58,23 @@ void	init_philo(t_init *data, t_philo *philo)
 		philo[i].meals_eaten = 0;
 		philo[i].data = data;
 		philo[i].l_meal = get_current_time();
+		i++;
+	}
+	create_threads(data, philo);
+}
+
+void	create_threads(t_init *data, t_philo *philo)
+{
+	int	i;
+
+	i = 0;
+	if (data->number_of_philosophers == 1)
+	{
+		only_one_philo(data, philo);
+		return ;
+	}
+	while (i < data->number_of_philosophers)
+	{
 		if (pthread_create(&philo[i].thread, NULL, (void *)routine,
 				(void *)&philo[i]) != 0)
 			return ;
@@ -67,6 +83,13 @@ void	init_philo(t_init *data, t_philo *philo)
 	if (pthread_create(&data->supervisor, NULL, (void *)ft_supervisor,
 			(void *)data) != 0)
 		return ;
+	join_threads(data, philo);
+}
+
+void	join_threads(t_init *data, t_philo *philo)
+{
+	int	i;
+
 	i = 0;
 	while (i < data->number_of_philosophers)
 	{

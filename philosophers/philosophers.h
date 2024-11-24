@@ -13,13 +13,13 @@
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
-# include "libft/libft.h"
 # include <pthread.h>
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
 # include <time.h>
+# include <unistd.h>
 
 typedef struct s_philo
 {
@@ -47,13 +47,14 @@ typedef struct s_init
 	pthread_t		supervisor;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
-	pthread_mutex_t	full_mutex;
 	pthread_mutex_t	time_die;
 	pthread_mutex_t	nbr_of_philo;
 	pthread_mutex_t	end_of_prog;
 	t_philo			*philo;
 }					t_init;
 
+void				create_threads(t_init *data, t_philo *philo);
+void				only_one_philo(t_init *data, t_philo *philo);
 /*main.c*/
 int					check_arg_value(char **arg);
 void				cleanup(t_init *data);
@@ -62,19 +63,24 @@ void				ft_exit(int i);
 /*init_struct.c*/
 void				init_struct(char **arg, t_init *data);
 void				init_philo(t_init *data, t_philo *philo);
+void				join_threads(t_init *data, t_philo *philo);
 /*philo.c*/
 void				*routine(t_philo *philo);
 void				ft_is_eating(t_philo *philo);
 int					take_fork(t_philo *philo);
 void				ft_is_sleeping(t_philo *philo);
+int					check_end_prog(t_philo *philo);
+/*ft_supervisor.c*/
+int					ft_is_full(t_philo *philo);
 int					ft_died(t_philo *philo);
-/*time.c*/
-void				ft_sleep(long sleep_time_ms);
-long				get_current_time(void);
-/*utils.c*/
-void				log_print(char *str, t_philo *philo);
-void				init_data_philo(t_init *data, t_philo *philo, int i);
 void				*ft_supervisor(t_init *data);
-// int					ft_end_prog(t_init *data);
+/*time_and_print.c*/
+long				get_current_time(void);
+void				log_print(char *str, t_philo *philo);
+void				ft_sleep(long sleep_time_ms);
+/*utils.c*/
+int					ft_atoi(const char *str);
+size_t				ft_strlen(const char *str);
+int					ft_isdigit(int c);
 
 #endif
