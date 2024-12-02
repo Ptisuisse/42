@@ -64,7 +64,10 @@ int	main(int argc, char **argv)
 
 	philo = NULL;
 	if (argc < 5 || argc > 6)
+	{
+		printf("ERROR\n");
 		return (1);
+	}
 	if (!check_arg_value(argv))
 	{
 		printf("ERROR\n");
