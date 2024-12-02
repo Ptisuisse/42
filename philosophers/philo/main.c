@@ -50,7 +50,7 @@ void	cleanup(t_init *data)
 		i++;
 	}
 	pthread_mutex_destroy(&data->print);
-	pthread_mutex_destroy(&data->time_die);
+	pthread_mutex_destroy(&data->must_eat);
 	pthread_mutex_destroy(&data->nbr_of_philo);
 	pthread_mutex_destroy(&data->end_of_prog);
 	free(data->philo);

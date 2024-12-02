@@ -28,12 +28,7 @@ int	full_check(t_philo *philo, int nb_philos, int nbr_of_meals)
 		i++;
 	}
 	if (full_count == nb_philos)
-	{
-		// pthread_mutex_lock(&philo->data->end_of_prog);
-		// philo->data->end_prog = 0;
-		// pthread_mutex_unlock(&philo->data->end_of_prog);
 		return (0);
-	}
 	return (1);
 }
 
@@ -47,26 +42,17 @@ int	ft_is_full(t_philo *philo)
 	pthread_mutex_lock(&philo->data->nbr_of_philo);
 	nb_philos = philo->data->number_of_philosophers;
 	pthread_mutex_unlock(&philo->data->nbr_of_philo);
-	pthread_mutex_lock(&philo->data->time_die);
+	pthread_mutex_lock(&philo->data->must_eat);
 	if (philo->data->number_of_times_each_philosopher_must_eat <= 0)
 	{
-		pthread_mutex_unlock(&philo->data->time_die);
+		pthread_mutex_unlock(&philo->data->must_eat);
 		return (1);
 	}
 	nbr_of_meals = philo->data->number_of_times_each_philosopher_must_eat;
-	pthread_mutex_unlock(&philo->data->time_die);
+	pthread_mutex_unlock(&philo->data->must_eat);
 	if (!full_check(philo, nb_philos, nbr_of_meals))
 		return (0);
 	return (1);
-}
-
-int	end_prog_died(t_philo *philo, int i)
-{
-	log_print("died", &philo[i]);
-	pthread_mutex_lock(&philo->data->end_of_prog);
-	philo->data->end_prog = 0;
-	pthread_mutex_unlock(&philo->data->end_of_prog);
-	return (0);
 }
 
 int	ft_died(t_philo *philo)
@@ -87,8 +73,9 @@ int	ft_died(t_philo *philo)
 		elapsed_time = current_time - philo[i].l_meal;
 		if (elapsed_time > philo->data->time_to_die)
 		{
-			end_prog_died(philo, i);
-			// pthread_mutex_unlock(&philo[i].last_meal);
+			log_print("died", &philo[i]);
+			pthread_mutex_unlock(&philo[i].last_meal);
+			return (0);
 		}
 		pthread_mutex_unlock(&philo[i].last_meal);
 		i++;

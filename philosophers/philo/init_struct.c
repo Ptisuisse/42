@@ -31,7 +31,7 @@ void	init_struct(char **arg, t_init *data)
 	data->end_prog = 1;
 	i = 0;
 	pthread_mutex_init(&data->print, NULL);
-	pthread_mutex_init(&data->time_die, NULL);
+	pthread_mutex_init(&data->must_eat, NULL);
 	pthread_mutex_init(&data->nbr_of_philo, NULL);
 	pthread_mutex_init(&data->end_of_prog, NULL);
 	while (i < ft_atoi(arg[1]))

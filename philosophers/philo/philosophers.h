@@ -14,7 +14,7 @@
 # define PHILOSOPHERS_H
 
 # include <pthread.h>
-# include <stdbool.h>
+//# include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
@@ -46,7 +46,7 @@ typedef struct s_init
 	pthread_t		supervisor;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
-	pthread_mutex_t	time_die;
+	pthread_mutex_t	must_eat;
 	pthread_mutex_t	nbr_of_philo;
 	pthread_mutex_t	end_of_prog;
 	t_philo			*philo;
