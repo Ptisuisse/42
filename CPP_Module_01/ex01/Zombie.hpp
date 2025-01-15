@@ -1,47 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
+/*   Zombie.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvan-slu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/11 10:42:18 by lvan-slu          #+#    #+#             */
-/*   Updated: 2024/12/11 10:42:19 by lvan-slu         ###   ########.fr       */
+/*   Created: 2025/01/15 10:19:24 by lvan-slu          #+#    #+#             */
+/*   Updated: 2025/01/15 10:19:26 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONEBOOK_HPP
-# define PHONEBOOK_HPP
+#ifndef ZOMBIE_HPP
+# define ZOMBIE_HPP
 # include <iostream>
 
-class Contact
+class Zombie
 {
   public:
-	Contact(void);
-	~Contact(void);
-	std::string last_name;
-	std::string first_name;
-	std::string nickname;
-	std::string phone_number;
-	std::string dark_secret;
+	Zombie();
+	~Zombie(void);
+	Zombie(std::string name);
+	void announce(void);
+	void setName(std::string name);
+
+  private:
+	std::string name;
 };
 
-class PhoneBook
-{
-  public:
-	PhoneBook(std::string str);
-	~PhoneBook(void);
-	std::string entry;
-	int contact[8];
-};
-
-class Search
-{
-  public:
-	Search(void);
-	~Search(void);
-	std::string last_name;
-	std::string first_name;
-};
+Zombie	*newZombie(std::string name);
+void	randomChump(std::string name);
+Zombie *zombieHorde(int N, std::string name);
 
 #endif
