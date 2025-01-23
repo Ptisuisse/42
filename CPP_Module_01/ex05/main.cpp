@@ -16,11 +16,9 @@ int main(int argc, char **argv)
 {
 
     Harl	harl;
-
-    harl.complain("ERROR");
-    harl.complain("WARNING");
-    harl.complain("INFO");
-    harl.complain("DEBUG");
-    harl.complain("INVALID");
+    if (!argv[1] || argc != 2)
+        return 1;
+    std::string entry = argv[1];
+    harl.complain(entry);
     return (0);
 }
