@@ -8,17 +8,6 @@ Contact::~Contact(void)
 {
 }
 
-
-// std::string	Contact::get_entry(void)
-// {
-// 	return (this->entry);
-// }
-
-// void	Contact::set_entry(std::string entry)
-// {
-// 	this->entry = entry;
-// }
-
 std::string Contact::get_first_name(void)
 {
 	return (first_name);
@@ -42,11 +31,6 @@ std::string Contact::get_phone(void)
 std::string Contact::get_dark(void)
 {
 	return (darkest_secret);
-}
-
-void    Contact::set_index(int index)
-{
-    this->index = index;
 }
 
 void    Contact::set_first_name(std::string f_name)

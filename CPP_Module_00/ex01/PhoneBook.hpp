@@ -22,11 +22,11 @@ class PhoneBook
   public:
 	PhoneBook(void);
 	~PhoneBook(void);
-	std::string entry;
 	int index;
 	void	search_contact(void);
 	void	add_contact(void);
 	void	print_list(void);
+	std::string truncate(std::string str) const;
 	Contact contact[8];
 };
 
