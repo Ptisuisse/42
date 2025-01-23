@@ -14,7 +14,18 @@
 
 void	Harl::complain(std::string level)
 {
-
+	void	(Harl::*ptr[4])() = {&Harl::error, &Harl::warning, &Harl::info, &Harl::debug};
+	std::string	level_list[4] = {"ERROR", "WARNING", "INFO", "DEBUG"};
+	if (level == "ERROR" || level == "WARNING" || level == "INFO" || level == "DEBUG")
+		std::cout << "Complaining about " << level << std::endl;
+	for (int i = 0; i < 4; i++)
+	{
+		if (level == level_list[i])
+			(this->*ptr[i])();
+	}
+	if (level != "ERROR" && level != "WARNING" && level != "INFO" && level != "DEBUG")
+		std::cout << "Invalid level" << std::endl;
+	return ;
 }
 
 void	Harl::error()

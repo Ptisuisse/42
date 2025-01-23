@@ -15,4 +15,12 @@
 int main(int argc, char **argv)
 {
 
+    Harl	harl;
+
+    harl.complain("ERROR");
+    harl.complain("WARNING");
+    harl.complain("INFO");
+    harl.complain("DEBUG");
+    harl.complain("INVALID");
+    return (0);
 }
