@@ -13,35 +13,21 @@
 #ifndef PHONEBOOK_HPP
 # define PHONEBOOK_HPP
 # include <iostream>
+# include <iomanip>
 
-class Contact
-{
-  public:
-	Contact(void);
-	~Contact(void);
-	std::string last_name;
-	std::string first_name;
-	std::string nickname;
-	std::string phone_number;
-	std::string dark_secret;
-};
+# include "Contact.hpp"
 
 class PhoneBook
 {
   public:
-	PhoneBook(std::string str);
+	PhoneBook(void);
 	~PhoneBook(void);
 	std::string entry;
-	int contact[8];
-};
-
-class Search
-{
-  public:
-	Search(void);
-	~Search(void);
-	std::string last_name;
-	std::string first_name;
+	int index;
+	void	search_contact(void);
+	void	add_contact(void);
+	void	print_list(void);
+	Contact contact[8];
 };
 
 #endif
