@@ -25,6 +25,7 @@ void	Harl::complain(std::string level)
 	}
 	if (level != "ERROR" && level != "WARNING" && level != "INFO" && level != "DEBUG")
 		std::cout << "Invalid level" << std::endl;
+	return ;
 }
 
 void	Harl::error()
