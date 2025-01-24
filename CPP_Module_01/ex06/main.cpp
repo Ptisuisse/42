@@ -25,7 +25,7 @@ int get_option(std::string str)
 
 int main(int argc, char **argv)
 {
-    Harl harl_instance;
+    Harl harl;
     if (!argv[1] || argc != 2)
         return 1;
     std::string option = argv[1];
@@ -33,17 +33,16 @@ int main(int argc, char **argv)
     switch (get_option(option))
     {
         case 0:
-            harl_instance.complain("DEBUG");
+            harl.complain("DEBUG");
         case 1:
-            harl_instance.complain("INFO");
+            harl.complain("INFO");
         case 2:
-            harl_instance.complain("WARNING");
-        case 3: 
-            harl_instance.complain("ERROR");
+            harl.complain("WARNING");
+        case 3:
+            harl.complain("ERROR");
             break;
-        case 4:
-            harl_instance.complain(option);
-            break;
+        default :
+            harl.complain(option);
     }
     return (0);
 }
