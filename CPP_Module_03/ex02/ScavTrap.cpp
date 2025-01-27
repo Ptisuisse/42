@@ -12,23 +12,6 @@
 
 #include "ScavTrap.hpp"
 
-void	ScavTrap::attack(std::string const & target)
-{
-	if (getEnergy() == 0)
-	{
-		std::cout << "Not enough energy" << std::endl;
-		return ;
-	}
-	if (getHealthPoints() == 0)
-	{
-		std::cout << "Sorry to tell you but ..." << name << " is dead" << std::endl;
-		return ;
-	}
-	std::cout << name << " attack " << target << ", causing " << _attackDamage << " points of Scav_damage!" << std::endl;
-	setEnergy(_energyPoints);
-	std::cout << "Energy: " << getEnergy() << std::endl;
-}
-
 void	ScavTrap::guardGate()
 {
 	if (getHealthPoints() == 0)
@@ -36,33 +19,21 @@ void	ScavTrap::guardGate()
 		std::cout << "Sorry to tell you but ..." << name << " is dead" << std::endl;
 		return ;
 	}
-	if (_guardMode == true)
-	{
-		std::cout << "ScavTrap have enterred in Gate keeper mode" << std::endl;
-		_guardMode = false;
-	}
-	else
-		std::cout << "ScavTrap is already in Gate keeper mode" << std::endl;
+	std::cout << "ScavTrap have enterred in Gate keeper mode" << std::endl;
 }
 
-ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
+ScavTrap::ScavTrap(std::string name) : ClapTrap(name, 100, 50, 20)
 {
 	if (name == "")
 	{
 		this->name = "ScavTrap";
 		return ;
 	}
-	_hitPoints = 100;
-	_energyPoints = 50;
-	_attackDamage = 20;
 	std::cout << name << " is ready to fight!" << std::endl;
 }
 
-ScavTrap::ScavTrap() : ClapTrap()
+ScavTrap::ScavTrap()
 {
-	_hitPoints = 100;
-	_energyPoints = 50;
-	_attackDamage = 20;
 }
 
 ScavTrap::~ScavTrap()

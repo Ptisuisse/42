@@ -15,7 +15,11 @@
 
 int	main()
 {
-	ScavTrap scav("Scav");
-	scav.attack("Clap");
+	ScavTrap scav("ScavTrap");
+	scav.attack("ClapTrap");
+	scav.guardGate();
+	scav.attack("ClapTrap");
+	scav.guardGate();
+
 	return (0);
 }
