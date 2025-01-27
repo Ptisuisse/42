@@ -16,15 +16,16 @@
 
 class	ClapTrap
 {
-  private:
-	ClapTrap();
-	unsigned int _hitPoints = 10;
-	unsigned int _energyPoints = 10;
-	unsigned int _attackDamage = 0;
+  protected :
+	unsigned int _hitPoints;
+	unsigned int _energyPoints;
+	unsigned int _attackDamage;
 	std::string name;
 
   public :
+	ClapTrap();
 	ClapTrap(std::string name);
+	ClapTrap(std::string name, unsigned int hitPoints, unsigned int energyPoints, unsigned int attackDamage);
 	void	attack(std::string const & target);
 	void	takeDamage(int amount);
 	void	beRepaired(int amount);

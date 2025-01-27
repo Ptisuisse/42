@@ -12,6 +12,14 @@
 
 #include "ClapTrap.hpp"
 
+ClapTrap::ClapTrap(std::string name, unsigned int hitPoints, unsigned int energyPoints, unsigned int attackDamage)
+{
+	this->name = name;
+	_hitPoints = hitPoints;
+	_energyPoints = energyPoints;
+	_attackDamage = attackDamage;
+}
+
 void	ClapTrap::setDamage(int damage)
 {
 	_attackDamage = damage;
@@ -117,6 +125,9 @@ void	ClapTrap::attack(const std::string &target)
 ClapTrap::ClapTrap(std::string name)
 {
 	this->name = name;
+	this->_hitPoints = 10;
+	this->_energyPoints = 10;
+	this->_attackDamage = 0;
 }
 
 ClapTrap::ClapTrap()

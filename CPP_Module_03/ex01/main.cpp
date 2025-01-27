@@ -11,27 +11,11 @@
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
+#include "ScavTrap.hpp"
 
 int	main()
 {
-	ClapTrap robot("Pierre");
-	robot.attack("Paul");
-	robot.takeDamage(3);
-	robot.beRepaired(-15);
-	robot.attack("Paul");
-	robot.takeDamage(-10);
-	robot.beRepaired(5);
-	robot.attack("Paul");
-	robot.takeDamage(6);
-	robot.attack("Paul");
-	robot.attack("Paul");
-	robot.attack("Paul");
-	robot.attack("Paul");
-	robot.attack("Paul");
-	robot.attack("Paul");
-	robot.attack("Paul");
-	robot.attack("Paul");
-	robot.beRepaired(10);
-	robot.attack("Paul");
+	ScavTrap scav("Scav");
+	scav.attack("Clap");
 	return (0);
 }

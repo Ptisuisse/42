@@ -10,4 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ScavTrap.hpp"
+
+ScavTrap::ScavTrap(std::string name) : ClapTrap(name, 100, 50, 20)
+{
+	std::cout << name << " is ready to fight!" << std::endl;
+}
+
+ScavTrap::ScavTrap()
+{
+}
+
+ScavTrap::~ScavTrap()
+{
+	std::cout << "Destructor ScavTrap" << std::endl;
+}
+
 
