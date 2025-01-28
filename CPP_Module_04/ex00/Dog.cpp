@@ -1,51 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.cpp                                         :+:      :+:    :+:   */
+/*   Dog.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvan-slu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/28 15:12:02 by lvan-slu          #+#    #+#             */
-/*   Updated: 2025/01/28 15:12:04 by lvan-slu         ###   ########.fr       */
+/*   Created: 2025/01/28 15:15:31 by lvan-slu          #+#    #+#             */
+/*   Updated: 2025/01/28 15:15:32 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Animal.hpp"
+#include "Dog.hpp"
 
-void	Animal::setType(std::string Type)
+Dog::Dog(std::string type) : _type(type)
 {
-	_type = Type;
+	std::cout << "Dog constructor called" << std::endl;
 }
 
-std::string	Animal::getType() const
-{
-	return _type;
-}
-
-void	Animal::makeSound()
-{
-	std::cout << "sound" << std::endl;
-}
-
-Animal & Animal::operator=(Animal const & animal)
+Dog & Dog::operator=(Dog const & dog)
 {
 	std::cout << "Assignation operator called" << std::endl;
-	_type = animal._type;
+	_type = dog._type;
 	return *this;
 }
 
-Animal::Animal(Animal const & animal)
+Dog::Dog(Dog const & dog)
 {
 	std::cout << "Copy constructor called" << std::endl;
-	*this = animal;
+	*this = dog;
 }
 
-Animal::Animal()
+Dog::Dog()
 {
-	std::cout << "Animal constructor called" << std::endl;
+	std::cout << "Dog constructor called" << std::endl;
 }
 
-Animal::~Animal()
+Dog::~Dog()
 {
-	std::cout << "Animal destructor called" << std::endl;
+	std::cout << "Dog destructor called" << std::endl;
 }

@@ -1,51 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.cpp                                         :+:      :+:    :+:   */
+/*   Cat.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvan-slu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/28 15:12:02 by lvan-slu          #+#    #+#             */
-/*   Updated: 2025/01/28 15:12:04 by lvan-slu         ###   ########.fr       */
+/*   Created: 2025/01/28 15:15:25 by lvan-slu          #+#    #+#             */
+/*   Updated: 2025/01/28 15:15:28 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Animal.hpp"
+#include "Cat.hpp"
 
-void	Animal::setType(std::string Type)
+Cat::Cat(std::string type) : _type(type)
 {
-	_type = Type;
+	std::cout << "Cat constructor called" << std::endl;
+	_type = "Cat";
 }
 
-std::string	Animal::getType() const
-{
-	return _type;
-}
-
-void	Animal::makeSound()
-{
-	std::cout << "sound" << std::endl;
-}
-
-Animal & Animal::operator=(Animal const & animal)
+Cat & Cat::operator=(Cat const & cat)
 {
 	std::cout << "Assignation operator called" << std::endl;
-	_type = animal._type;
+	_type = cat._type;
 	return *this;
 }
 
-Animal::Animal(Animal const & animal)
+Cat::Cat(Cat const & cat)
 {
 	std::cout << "Copy constructor called" << std::endl;
-	*this = animal;
+	*this = cat;
 }
 
-Animal::Animal()
+Cat::Cat()
 {
-	std::cout << "Animal constructor called" << std::endl;
+	std::cout << "Cat constructor called" << std::endl;
 }
 
-Animal::~Animal()
+Cat::~Cat()
 {
-	std::cout << "Animal destructor called" << std::endl;
+	std::cout << "Cat destructor called" << std::endl;
 }
