@@ -16,27 +16,28 @@
 
 class	ClapTrap
 {
-  protected :
+  protected:
+	ClapTrap();
+	ClapTrap(ClapTrap const & src);
+	ClapTrap & operator=(ClapTrap const & src);
 	unsigned int _hitPoints;
 	unsigned int _energyPoints;
 	unsigned int _attackDamage;
 	std::string _name;
+	unsigned int _baseLife = 10;
 
   public :
-	ClapTrap();
-	ClapTrap(ClapTrap const & src);
-	ClapTrap & operator=(ClapTrap const & src);
 	ClapTrap(std::string name);
 	void	attack(std::string const & target);
 	void	takeDamage(int amount);
 	void	beRepaired(int amount);
 
 	unsigned int	getEnergy(void);
-	void	setEnergy(int energy);
-	unsigned int getHealthPoints(void);
 	void setHealthPoints(int heatlh);
-	unsigned int getDamage(void);
+	unsigned int getHealthPoints(void);
 	void setDamage(int damage);
+	unsigned int getDamage(void);
+	void	setEnergy();
 
 	~ClapTrap();
 };

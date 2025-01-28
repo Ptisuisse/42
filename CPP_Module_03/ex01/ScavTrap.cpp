@@ -24,8 +24,8 @@ void	ScavTrap::attack(std::string const & target)
 		std::cout << "Sorry to tell you but ..." << _name << " is dead" << std::endl;
 		return ;
 	}
-	std::cout << _name << " attack " << target << ", causing " << _attackDamage << " points of Scav_damage!" << std::endl;
-	setEnergy(_energyPoints);
+	setEnergy();
+	std::cout << "ScaveTrap : "<< _name << " attack " << target << ", causing " << _attackDamage << " points of damage!" << std::endl;
 	std::cout << "Energy: " << getEnergy() << std::endl;
 }
 
@@ -55,7 +55,8 @@ ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
 	_hitPoints = 100;
 	_energyPoints = 50;
 	_attackDamage = 20;
-	std::cout << _name << " is ready to fight!" << std::endl;
+	_baseLife = 100;
+	std::cout << "ScavTrap : " << _name << " is ready to fight!" << std::endl;
 }
 
 ScavTrap::ScavTrap() : ClapTrap()
@@ -63,6 +64,7 @@ ScavTrap::ScavTrap() : ClapTrap()
 	_hitPoints = 100;
 	_energyPoints = 50;
 	_attackDamage = 20;
+	_baseLife = 100;
 }
 
 ScavTrap::~ScavTrap()
@@ -79,6 +81,7 @@ ScavTrap & ScavTrap::operator=(ScavTrap const & src)
 		_energyPoints = src._energyPoints;
 		_attackDamage = src._attackDamage;
 		_name = src._name;
+		_baseLife = src._baseLife;
 	}
 	return *this;
 }

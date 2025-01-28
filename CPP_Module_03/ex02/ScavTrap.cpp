@@ -25,7 +25,7 @@ void	ScavTrap::attack(std::string const & target)
 		return ;
 	}
 	std::cout << _name << " attack " << target << ", causing " << _attackDamage << " points of Scav_damage!" << std::endl;
-	setEnergy(_energyPoints);
+	setEnergy();
 	std::cout << "Energy: " << getEnergy() << std::endl;
 }
 
@@ -55,7 +55,7 @@ ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
 	_hitPoints = 100;
 	_energyPoints = 50;
 	_attackDamage = 20;
-	std::cout << _name << " is ready to fight!" << std::endl;
+	std::cout << "ScavTrap " << _name << " is ready to fight!" << std::endl;
 }
 
 ScavTrap::ScavTrap() : ClapTrap()

@@ -15,11 +15,18 @@
 
 int	main()
 {
-	ScavTrap scav("BILOUTE");
-	scav.attack("ENNEMY");
-	scav.guardGate();
-	scav.attack("ENNEMY");
-	scav.guardGate();
-
+	ScavTrap scav("SCAV");
+	ClapTrap clap("CLAP");
+	scav.beRepaired(1);
+	scav.takeDamage(1);
+	scav.beRepaired(2);
+	scav.beRepaired(1);
+	scav.attack("CLAP");
+	std::cout << "----------------" << std::endl;
+	clap.beRepaired(1);
+	clap.takeDamage(1);
+	clap.beRepaired(2);
+	clap.beRepaired(1);
+	clap.attack("SCAV");
 	return (0);
 }

@@ -17,22 +17,10 @@ int	main()
 	ClapTrap robot("Pierre");
 
 	robot.attack("Paul");
-	robot.takeDamage(3);
-	robot.beRepaired(-15);
-	robot.attack("Paul");
-	robot.takeDamage(-10);
+	//robot.takeDamage(3);
 	robot.beRepaired(5);
-	robot.attack("Paul");
-	robot.takeDamage(6);
-	robot.attack("Paul");
-	robot.attack("Paul");
-	robot.attack("Paul");
-	robot.attack("Paul");
-	robot.attack("Paul");
-	robot.attack("Paul");
-	robot.attack("Paul");
-	robot.attack("Paul");
-	robot.beRepaired(10);
-	robot.attack("Paul");
+	robot.beRepaired(1);
+	robot.beRepaired(-15);
+	robot.beRepaired(150);
 	return (0);
 }

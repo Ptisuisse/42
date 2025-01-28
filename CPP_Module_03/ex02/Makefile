@@ -18,7 +18,7 @@ SRCS =	main.cpp \
 OBJS = $(SRCS:.cpp=.o)
 CC = c++
 CFLAGS = -Wall -Werror -Wextra -std=c++98
-EXEC = scavtrap
+EXEC = fragtrap
 NAME = $(EXEC)
 
 $(NAME): $(OBJS)
