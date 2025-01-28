@@ -69,7 +69,7 @@ ScavTrap::ScavTrap() : ClapTrap()
 
 ScavTrap::~ScavTrap()
 {
-	std::cout << "Destructor ScavTrap" << std::endl;
+	std::cout << "ScavTrap Destructor Called" << std::endl;
 }
 
 ScavTrap & ScavTrap::operator=(ScavTrap const & src)

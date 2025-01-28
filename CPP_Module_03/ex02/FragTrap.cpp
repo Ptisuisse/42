@@ -29,7 +29,7 @@ FragTrap::FragTrap()
 
 FragTrap::~FragTrap()
 {
-	std::cout << "Destructor FragTrap" << std::endl;
+	std::cout << " FragTrap Destructor Called" << std::endl;
 }
 
 FragTrap::FragTrap(FragTrap const & src)
