@@ -20,22 +20,23 @@ class	ClapTrap
 	unsigned int _hitPoints;
 	unsigned int _energyPoints;
 	unsigned int _attackDamage;
-	std::string name;
+	std::string _name;
 
   public :
 	ClapTrap();
+	ClapTrap(ClapTrap const & src);
+	ClapTrap & operator=(ClapTrap const & src);
 	ClapTrap(std::string name);
-	ClapTrap(std::string name, unsigned int hitPoints, unsigned int energyPoints, unsigned int attackDamage);
 	void	attack(std::string const & target);
 	void	takeDamage(int amount);
 	void	beRepaired(int amount);
 
 	unsigned int	getEnergy(void);
-	void setHealthPoints(int heatlh);
-	unsigned int getHealthPoints(void);
-	void setDamage(int damage);
-	unsigned int getDamage(void);
 	void	setEnergy(int energy);
+	unsigned int getHealthPoints(void);
+	void setHealthPoints(int heatlh);
+	unsigned int getDamage(void);
+	void setDamage(int damage);
 
 	~ClapTrap();
 };

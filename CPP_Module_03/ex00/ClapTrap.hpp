@@ -18,10 +18,12 @@ class	ClapTrap
 {
   private:
 	ClapTrap();
+	ClapTrap(ClapTrap const & src);
+	ClapTrap & operator=(ClapTrap const & src);
 	unsigned int _hitPoints = 10;
 	unsigned int _energyPoints = 10;
 	unsigned int _attackDamage = 0;
-	std::string name;
+	std::string _name;
 
   public :
 	ClapTrap(std::string name);

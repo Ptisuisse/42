@@ -16,7 +16,8 @@
 
 int	main()
 {
-	FragTrap	frag("FragTrap");
+	FragTrap	frag("BILOUTE");
 	frag.attack("ScavTrap");
+	frag.highFivesGuys();
 	return (0);
 }
