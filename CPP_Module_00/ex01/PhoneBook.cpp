@@ -42,32 +42,6 @@ void	PhoneBook::print_list(void)
 	}
 }
 
-void	PhoneBook::search_contact(void)
-{
-	int i = 0;
-	if (index == 0)
-	{
-		std::cout << "No contacts in the phonebook" << std::endl;
-		return ;
-	}
-	this->print_list();
-	std::cout << "Enter index of the contact you want to see: ";
-	std::cin >> i;
-	if (std::cin.fail() || i < 0 || i >= this->index)
-	{
-		std::cin.clear();
-		std::cin.ignore(10000, '\n');
-		std::cout << "Invalid index" << std::endl;
-		return ;
-	}
-	std::cout << "First name: " << this->contact[i].get_first_name() << std::endl;
-	std::cout << "Last name: " << this->contact[i].get_last_name() << std::endl;
-	std::cout << "Nickname: " << this->contact[i].get_nickname() << std::endl;
-	std::cout << "Phone number: " << this->contact[i].get_phone() << std::endl;
-	std::cout << "Darkest secret: " << this->contact[i].get_dark() << std::endl;
-
-}
-
 std::string getValidInput(const std::string& prompt)
 {
 	std::string input;
@@ -91,6 +65,35 @@ std::string getValidInput(const std::string& prompt)
 	}
 	return input;
 }
+
+void	PhoneBook::search_contact(void)
+{
+	std::string input;
+	int i = 0;
+	if (index == 0)
+	{
+		std::cout << "No contacts in the phonebook" << std::endl;
+		return ;
+	}
+	this->print_list();
+	//std::cout << "Enter index of the contact you want to see: ";
+	input = getValidInput("Enter index of the contact you want to see: ");
+	std::cin >> i;
+	if (std::cin.fail() || i < 0 || i >= this->index)
+	{
+		std::cin.clear();
+		std::cin.ignore(10000, '\n');
+		std::cout << "Invalid index" << std::endl;
+		return ;
+	}
+	std::cout << "First name: " << this->contact[i].get_first_name() << std::endl;
+	std::cout << "Last name: " << this->contact[i].get_last_name() << std::endl;
+	std::cout << "Nickname: " << this->contact[i].get_nickname() << std::endl;
+	std::cout << "Phone number: " << this->contact[i].get_phone() << std::endl;
+	std::cout << "Darkest secret: " << this->contact[i].get_dark() << std::endl;
+
+}
+
 
 
 void	PhoneBook::add_contact()
