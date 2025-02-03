@@ -23,9 +23,9 @@ PhoneBook::~PhoneBook(void)
 
 std::string PhoneBook::truncate(std::string str) const
 {
-    if (str.length() > 10)
-        return str.substr(0, 9) + ".";
-    return str;
+	if (str.length() > 10)
+		return str.substr(0, 9) + ".";
+	return str;
 }
 
 void	PhoneBook::print_list(void)
@@ -42,10 +42,30 @@ void	PhoneBook::print_list(void)
 	}
 }
 
-std::string getValidInput(const std::string& prompt)
+int	check_digit(const std::string& prompt, int ref)
+{
+	int i = 0;
+ while (prompt[i])
+	{
+		if (ref == 1)
+		{
+			if (!std::isdigit(prompt[i]))
+				return (0);
+		}
+		else if (ref == 0)
+		{
+			if (std::isdigit(prompt[i]))
+				return (0);
+		}
+		i++;
+	}
+	return 1;
+}
+
+std::string getValidInput(const std::string& prompt, int ref)
 {
 	std::string input;
-	bool firstTry = true;
+
 	while (true)
 	{
 		std::cout << prompt;
@@ -54,16 +74,27 @@ std::string getValidInput(const std::string& prompt)
 			if (std::cin.eof())
 			{
 				std::cin.clear();
+				std::clearerr(stdin);
 				std::cout << "\nEOF detected. Please try again." << std::endl;
-				return "";
+				continue;
 			}
 			return "";
 		}
-		if (!input.empty())
-			break ;
-		firstTry = false;
+		if (input.empty())
+		{
+			std::cout << "Empty input not allowed. Please try again." << std::endl;
+			continue;
+		}
+		if (!check_digit(input, ref))
+		{
+			if (ref == 0)
+				std::cout << "Error: Only letters allowed. Please try again." << std::endl;
+			else
+				std::cout << "Error: Only numbers allowed. Please try again." << std::endl;
+			continue;
+		}
+		return input;
 	}
-	return input;
 }
 
 void	PhoneBook::search_contact(void)
@@ -76,8 +107,7 @@ void	PhoneBook::search_contact(void)
 		return ;
 	}
 	this->print_list();
-	//std::cout << "Enter index of the contact you want to see: ";
-	input = getValidInput("Enter index of the contact you want to see: ");
+	input = getValidInput("Enter index of the contact you want to see: ", 1);
 	std::cin >> i;
 	if (std::cin.fail() || i < 0 || i >= this->index)
 	{
@@ -104,23 +134,23 @@ void	PhoneBook::add_contact()
 			this->contact[i] = this->contact[i + 1];
 		this->index = 7;
 	}
-	std::string firstName = getValidInput("Enter first name: ");
+	std::string firstName = getValidInput("Enter first name: ", 0);
 	if (firstName.empty())
 		return;
 	this->contact[this->index].set_first_name(firstName);
-	std::string lastName = getValidInput("Enter last name: ");
+	std::string lastName = getValidInput("Enter last name: ", 0);
 	if (lastName.empty())
 		return;
 	this->contact[this->index].set_last_name(lastName);
-	std::string nickname = getValidInput("Enter nickname: ");
+	std::string nickname = getValidInput("Enter nickname: ", 0);
 	if (nickname.empty())
 		return;
 	this->contact[this->index].set_nickname(nickname);
-	std::string phone = getValidInput("Enter phone number: ");
+	std::string phone = getValidInput("Enter phone number: ", 1);
 	if (phone.empty())
 		return;
 	this->contact[this->index].set_phone_number(phone);
-	std::string dark = getValidInput("Enter darkest secret: ");
+	std::string dark = getValidInput("Enter darkest secret: ", 0);
 	if (dark.empty())
 		return;
 	this->contact[this->index].set_dark(dark);
