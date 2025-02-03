@@ -64,34 +64,63 @@ void	PhoneBook::search_contact(void)
 	std::cout << "Last name: " << this->contact[i].get_last_name() << std::endl;
 	std::cout << "Nickname: " << this->contact[i].get_nickname() << std::endl;
 	std::cout << "Phone number: " << this->contact[i].get_phone() << std::endl;
-	std::cout
-		<< "Darkest secret: " << this->contact[i].get_dark() << std::endl;
+	std::cout << "Darkest secret: " << this->contact[i].get_dark() << std::endl;
 
 }
 
-void	PhoneBook::add_contact()
+std::string getValidInput(const std::string& prompt)
 {
 	std::string input;
+	bool firstTry = true;
+	while (true)
+	{
+		std::cout << prompt;
+		if (!std::getline(std::cin, input))
+		{
+			if (std::cin.eof())
+			{
+				std::cin.clear();
+				std::cout << "\nEOF detected. Please try again." << std::endl;
+				return "";
+			}
+			return "";
+		}
+		if (!input.empty())
+			break ;
+		firstTry = false;
+	}
+	return input;
+}
+
+
+void	PhoneBook::add_contact()
+{
 	if (this->index == 8)
 	{
-        for (int i = 0; i < 7; i++)
-            this->contact[i] = this->contact[i + 1];
-        this->index = 7;
+		for (int i = 0; i < 7; i++)
+			this->contact[i] = this->contact[i + 1];
+		this->index = 7;
 	}
-	std::cout << "Enter first name: ";
-	std::cin >> input;
-	this->contact[this->index].set_first_name(input);
-	std::cout << "Enter last name: ";
-	std::cin >> input;
-	this->contact[this->index].set_last_name(input);
-	std::cout << "Enter nickname: ";
-	std::cin >> input;
-	this->contact[this->index].set_nickname(input);
-	std::cout << "Enter phone number: ";
-	std::cin >> input;
-	this->contact[this->index].set_phone_number(input);
-	std::cout << "Enter darkest secret: ";
-	std::cin >> input;
-	this->contact[this->index].set_dark(input);
+	std::string firstName = getValidInput("Enter first name: ");
+	if (firstName.empty())
+		return;
+	this->contact[this->index].set_first_name(firstName);
+	std::string lastName = getValidInput("Enter last name: ");
+	if (lastName.empty())
+		return;
+	this->contact[this->index].set_last_name(lastName);
+	std::string nickname = getValidInput("Enter nickname: ");
+	if (nickname.empty())
+		return;
+	this->contact[this->index].set_nickname(nickname);
+	std::string phone = getValidInput("Enter phone number: ");
+	if (phone.empty())
+		return;
+	this->contact[this->index].set_phone_number(phone);
+	std::string dark = getValidInput("Enter darkest secret: ");
+	if (dark.empty())
+		return;
+	this->contact[this->index].set_dark(dark);
+	std::cout << "Contact added" << std::endl;
 	this->index++;
 }
