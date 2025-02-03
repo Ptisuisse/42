@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Cat.hpp                                            :+:      :+:    :+:   */
+/*   Brain.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvan-slu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/28 15:15:05 by lvan-slu          #+#    #+#             */
-/*   Updated: 2025/01/28 15:15:07 by lvan-slu         ###   ########.fr       */
+/*   Created: 2025/02/03 11:36:48 by lvan-slu          #+#    #+#             */
+/*   Updated: 2025/02/03 11:36:49 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CAT_HPP
-# define CAT_HPP
+#ifndef BRAIN_HPP
+# define BRAIN_HPP
 # include <iostream>
-# include "Animal.hpp"
 
-class Cat : public Animal
+class Brain
 {
-	public :
-		Cat();
-		~Cat();
-		Cat(Cat const & cat);
-		Cat & operator=(Cat const & cat);
-		virtual void makeSound() const;
+	private:
+	public:
+		Brain();
+		Brain(Brain const & brain);
+		Brain & operator=(Brain const & brain);
+		~Brain();
 };
 
 #endif

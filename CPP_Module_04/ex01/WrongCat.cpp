@@ -1,41 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Cat.cpp                                            :+:      :+:    :+:   */
+/*   WrongCat.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lvan-slu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/28 15:15:25 by lvan-slu          #+#    #+#             */
-/*   Updated: 2025/01/28 15:15:28 by lvan-slu         ###   ########.fr       */
+/*   Created: 2025/02/03 10:29:55 by lvan-slu          #+#    #+#             */
+/*   Updated: 2025/02/03 10:29:56 by lvan-slu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Cat.hpp"
+#include "WrongCat.hpp"
 
-void Cat::makeSound() const
+WrongCat::WrongCat(WrongCat const & cat)
 {
-	std::cout << "Miaouuuuu" << std::endl;
+	std::cout << "WrongCat copy constructor called" << std::endl;
+	*this = cat;
 }
 
-Cat::Cat(void) : Animal("Cat")
+WrongCat & WrongCat::operator=(WrongCat const & cat)
 {
-	std::cout << "Cat constructor called" << std::endl;
-}
-
-Cat & Cat::operator=(Cat const & cat)
-{
-	std::cout << "Assignation operator called" << std::endl;
+	std::cout << "WrongCat assignation operator called" << std::endl;
 	_type = cat._type;
 	return *this;
 }
 
-Cat::Cat(Cat const & cat)
+WrongCat::WrongCat(void) : WrongAnimal("WrongCat")
 {
-	std::cout << "Copy constructor called" << std::endl;
-	*this = cat;
+	std::cout << "WrongCat constructor called" << std::endl;
 }
 
-Cat::~Cat()
+WrongCat::~WrongCat()
 {
-	std::cout << "Cat destructor called" << std::endl;
+	std::cout << "WrongCat destructor called" << std::endl;
 }
