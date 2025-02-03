@@ -75,7 +75,7 @@ std::string getValidInput(const std::string& prompt, int ref)
 			{
 				std::cin.clear();
 				std::clearerr(stdin);
-				std::cout << "\nEOF detected. Please try again." << std::endl;
+				std::cout << std::endl;
 				continue;
 			}
 			return "";
@@ -107,7 +107,7 @@ void	PhoneBook::search_contact(void)
 		return ;
 	}
 	this->print_list();
-	input = getValidInput("Enter index of the contact you want to see: ", 1);
+	std::cout << "Enter index of the contact you want to see: " << std::endl;
 	std::cin >> i;
 	if (std::cin.fail() || i < 0 || i >= this->index)
 	{

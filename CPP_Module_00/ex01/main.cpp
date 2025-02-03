@@ -18,14 +18,18 @@ int main(void)
 {
 	PhoneBook   book;
 	std::string command;
+
 	while (true)
 	{
 		std::cout << "Enter command (ADD, SEARCH or EXIT): ";
-		if (!std::getline(std::cin >> std::ws, command))
+
+		if (!std::getline(std::cin, command))
 		{
 			std::cout << "\nGoodbye!" << std::endl;
 			break;
 		}
+		if (command.empty())
+			continue;
 		if (command == "ADD")
 			book.add_contact();
 		else if (command == "SEARCH")
@@ -37,7 +41,10 @@ int main(void)
 		}
 		else
 			std::cout << "Invalid command. Please use ADD, SEARCH or EXIT." << std::endl;
-		std::cin.clear();
+		if (std::cin.fail())
+		{
+			std::cin.clear();
+		}
 	}
 	return (0);
 }
