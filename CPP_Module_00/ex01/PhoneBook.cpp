@@ -124,8 +124,6 @@ void	PhoneBook::search_contact(void)
 
 }
 
-
-
 void	PhoneBook::add_contact()
 {
 	if (this->index == 8)
