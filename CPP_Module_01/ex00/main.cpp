@@ -14,6 +14,11 @@
 
 int	main(void)
 {
-	randomChump("Zomb1");
+	randomChump("Zombie");
+	Zombie	Zomb("Eric");
+	Zomb.announce();
+	Zombie *zomb2 = newZombie("Bob");
+	zomb2->announce();
+	delete zomb2;
 	return (0);
 }

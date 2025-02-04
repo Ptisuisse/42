@@ -14,6 +14,7 @@
 # define DOG_HPP
 # include <iostream>
 #include "Animal.hpp"
+#include "Brain.hpp"
 
 class Dog : public Animal
 {
@@ -23,6 +24,8 @@ class Dog : public Animal
 		Dog(Dog const & dog);
 		Dog & operator=(Dog const & dog);
 		virtual void makeSound() const;
+	private :
+		Brain *brain;
 };
 
 #endif

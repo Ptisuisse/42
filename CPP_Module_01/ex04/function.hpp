@@ -15,6 +15,6 @@
 # include <iostream>
 # include <fstream>
 
-void	create_file(std::string const filename, std::string line);
+void	ft_replace(std::ifstream &filename, std::string s1, std::string s2, std::string file);
 
 #endif

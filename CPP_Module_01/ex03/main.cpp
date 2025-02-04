@@ -27,6 +27,10 @@ int	main()
 	jim.attack();
 	weapon.setType("hammer");
 	jim.attack();
-	bob.attack();
+
+	HumanB Rene("Rene");
+	Rene.attack();
+	Rene.setWeapon(&weapon);
+	Rene.attack();
 	return (0);
 }

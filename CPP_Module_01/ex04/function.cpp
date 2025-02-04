@@ -12,9 +12,28 @@
 
 #include "function.hpp"
 
-void	create_file(std::string const filename, std::string line)
+void	ft_replace(std::ifstream &files, std::string s1, std::string s2, std::string file)
 {
-	std::ofstream	output ((filename + ".replace").c_str());
-	output << line;
-	output.close();
+    std::string output_file = file + ".replace";
+    std::ofstream outfile(output_file);
+
+    if (!outfile.is_open())
+    {
+        std::cout << "Error: could not create output file" << std::endl;
+        return;
+    }
+
+    std::string line;
+    while (getline(files, line))
+    {
+        size_t pos = 0;
+        while ((pos = line.find(s1, pos)) != std::string::npos)
+        {
+            line.erase(pos, s1.length());
+            line.insert(pos, s2);
+            pos += s2.length();
+        }
+        outfile << line << std::endl;
+    }
+    outfile.close();
 }

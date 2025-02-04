@@ -14,7 +14,10 @@
 
 void	HumanB::attack()
 {
-	std::cout << name << " attacks with his " << weapon->getType() << std::endl;
+	if (weapon == NULL)
+		std::cout << name << " attacks with their hands" << std::endl;
+	else
+		std::cout << name << " attacks with their " << weapon->getType() << std::endl;
 }
 
 void	HumanB::setWeapon(Weapon *weapon)
@@ -24,6 +27,7 @@ void	HumanB::setWeapon(Weapon *weapon)
 
 HumanB::HumanB(std::string name)
 {
+	weapon = NULL;
 	this->name = name;
 }
 

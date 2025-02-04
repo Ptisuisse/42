@@ -17,12 +17,12 @@ SRCS =	main.cpp \
 
 OBJS = $(SRCS:.cpp=.o)
 CC = c++
-CFLAGS = -Wall -Werror -Wextra -std=c++98
+CXXFLAGS = -Wall -Werror -Wextra -std=c++98
 EXEC = zombie
 NAME = $(EXEC)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -o $(EXEC) $(OBJS)
+	$(CC) -o $(EXEC) $(OBJS)
 
 all : $(NAME)
 
