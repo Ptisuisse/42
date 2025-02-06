@@ -18,12 +18,12 @@
 class Fixed
 {
   public :
-	Fixed(void); //constructeur par defaut
-	Fixed(Fixed const & src); // constructeur par copie
+	Fixed(void);
+	Fixed(Fixed const & src);
 	Fixed(int const Integer);
 	Fixed(float const Float);
-	~Fixed(void); // destructeur
-	Fixed & operator=(Fixed const & src); // surchage d operateur
+	~Fixed(void);
+	Fixed & operator=(Fixed const & src);
 	float toFloat( void ) const;
 	int toInt( void ) const;
 	int getRawBits( void ) const;

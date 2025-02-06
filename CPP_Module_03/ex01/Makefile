@@ -15,13 +15,13 @@ SRCS =	main.cpp \
 		ScavTrap.cpp \
 
 OBJS = $(SRCS:.cpp=.o)
-CC = c++
+CXX = c++
 CXXFLAGS = -Wall -Werror -Wextra -std=c++98
 EXEC = scavtrap
 NAME = $(EXEC)
 
 $(NAME): $(OBJS)
-	$(CC) -o $(EXEC) $(OBJS)
+	$(CXX) -o $(EXEC) $(OBJS)
 
 all : $(NAME)
 

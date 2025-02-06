@@ -16,13 +16,13 @@ SRCS =	main.cpp \
 		FragTrap.cpp \
 
 OBJS = $(SRCS:.cpp=.o)
-CC = c++
+CXX = c++
 CXXFLAGS = -Wall -Werror -Wextra -std=c++98
 EXEC = fragtrap
 NAME = $(EXEC)
 
 $(NAME): $(OBJS)
-	$(CC) -o $(EXEC) $(OBJS)
+	$(CXX) -o $(EXEC) $(OBJS)
 
 all : $(NAME)
 

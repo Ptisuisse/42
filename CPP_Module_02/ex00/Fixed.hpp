@@ -17,10 +17,10 @@
 class Fixed
 {
   public :
-	Fixed(void); //constructeur par defaut
-	Fixed(Fixed const & src); // constructeur par copie
-	~Fixed(void); // destructeur
-	Fixed & operator=(Fixed const & src); // surchage d operateur
+	Fixed(void);
+	Fixed(Fixed const & src);
+	~Fixed(void);
+	Fixed & operator=(Fixed const & src);
 	int getRawBits( void ) const;
 	void setRawBits( int const raw );
   private :
