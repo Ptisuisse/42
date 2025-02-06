@@ -14,13 +14,13 @@ SRCS =	main.cpp \
 		Fixed.cpp \
 
 OBJS = $(SRCS:.cpp=.o)
-CC = c++
+CXX = c++
 CXXFLAGS = -Wall -Werror -Wextra -std=c++98
 EXEC = canon
 NAME = $(EXEC)
 
 $(NAME): $(OBJS)
-	$(CC) -o $(EXEC) $(OBJS)
+	$(CXX) -o $(EXEC) $(OBJS)
 
 all : $(NAME)
 
