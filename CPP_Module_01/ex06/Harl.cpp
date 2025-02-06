@@ -24,7 +24,7 @@ void	Harl::complain(std::string level)
 			(this->*ptr[i])();
 	}
 	if (level != "ERROR" && level != "WARNING" && level != "INFO" && level != "DEBUG")
-		std::cout << "Invalid level" << std::endl;
+		std::cout << "Complains again but we don't know what" << std::endl;
 	return ;
 }
 
