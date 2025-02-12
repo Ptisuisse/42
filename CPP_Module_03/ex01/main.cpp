@@ -17,6 +17,7 @@ int	main()
 {
 	ScavTrap scav("SCAV");
 	ClapTrap clap("CLAP");
+	std::cout << "-------CONSTRUCTOR--------" << std::endl;
 	scav.beRepaired(1);
 	scav.takeDamage(1);
 	scav.beRepaired(2);
@@ -28,5 +29,6 @@ int	main()
 	clap.beRepaired(2);
 	clap.beRepaired(1);
 	clap.attack("SCAV");
+	std::cout << "-------DESTRUCTOR--------" << std::endl;
 	return (0);
 }

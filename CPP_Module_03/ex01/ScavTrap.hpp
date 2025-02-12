@@ -22,10 +22,12 @@ class ScavTrap : public ClapTrap
 	ScavTrap(std::string name);
 	ScavTrap();
 	~ScavTrap();
+	void	setGuardmode(bool mode);
+	bool	getGuardmode();
 	void	guardGate();
 	void	attack(std::string const & target);
   private :
-	bool _guardMode = false;
+	bool _guardMode;
 };
 
 #endif

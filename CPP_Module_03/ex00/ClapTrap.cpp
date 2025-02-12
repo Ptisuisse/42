@@ -24,7 +24,7 @@ unsigned int	ClapTrap::getDamage()
 
 void	ClapTrap::setHealthPoints(int health)
 {
-	if (health >= _hitPoints)
+	if ((unsigned)health >= _hitPoints)
 	{
 		_hitPoints = 0;
 		return ;
@@ -126,6 +126,7 @@ ClapTrap::ClapTrap(std::string name)
 	this->_hitPoints = 10;
 	this->_energyPoints = 10;
 	this->_attackDamage = 0;
+	this->_baseLife = 10;
 	std::cout << "ClapTrap :" << _name << " is ready to fight!" << std::endl;
 }
 
@@ -135,6 +136,7 @@ ClapTrap::ClapTrap()
 	this->_hitPoints = 10;
 	this->_energyPoints = 10;
 	this->_attackDamage = 0;
+	this->_baseLife = 10;
 	std::cout << "ClapTrap constructor called" << std::endl;
 }
 

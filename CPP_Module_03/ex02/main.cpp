@@ -19,7 +19,7 @@ int	main()
 	FragTrap	frag("BILOUTE");
 	ScavTrap	scav("RENE");
 	ClapTrap	clap("CLAP");
-	std::cout << "----------------------" << std::endl;
+	std::cout << "----------CONSTRUCTOR------------" << std::endl;
 	clap.attack("ScavTrap");
 	clap.attack("ScavTrap");
 	clap.takeDamage(10);
@@ -32,6 +32,7 @@ int	main()
 	frag.attack("ScavTrap");
 	frag.highFivesGuys();
 	frag.attack("ScavTrap");
+	std::cout << "--------DESTRUCTOR---------" << std::endl;
 
 	return (0);
 }

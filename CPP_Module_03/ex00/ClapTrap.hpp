@@ -24,7 +24,7 @@ class	ClapTrap
 	unsigned int _energyPoints;
 	unsigned int _attackDamage;
 	std::string _name;
-	unsigned int _baseLife = 10;
+	unsigned int _baseLife;
 
   public :
 	ClapTrap(std::string name);

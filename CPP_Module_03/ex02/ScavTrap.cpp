@@ -12,6 +12,16 @@
 
 #include "ScavTrap.hpp"
 
+bool	ScavTrap::getGuardmode()
+{
+	return _guardMode;
+}
+
+void	ScavTrap::setGuardmode(bool mode)
+{
+	_guardMode = mode;
+}
+
 void	ScavTrap::attack(std::string const & target)
 {
 	if (getEnergy() == 0)
@@ -36,10 +46,10 @@ void	ScavTrap::guardGate()
 		std::cout << "Sorry to tell you but ..." << _name << " is dead" << std::endl;
 		return ;
 	}
-	if (_guardMode == false)
+	if (_guardMode == true)
 	{
 		std::cout << _name <<" enter in Gate keeper mode" << std::endl;
-		_guardMode = true;
+		_guardMode = false;
 	}
 	else
 		std::cout << _name <<" is already in Gate keeper mode" << std::endl;
@@ -52,9 +62,11 @@ ScavTrap::ScavTrap(std::string name) : ClapTrap(name)
 		this->_name = "ScavTrap";
 		return ;
 	}
+	setGuardmode(true);
 	_hitPoints = 100;
 	_energyPoints = 50;
 	_attackDamage = 20;
+	_baseLife = 100;
 	std::cout << "ScavTrap " << _name << " is ready to fight!" << std::endl;
 }
 
@@ -63,6 +75,8 @@ ScavTrap::ScavTrap() : ClapTrap()
 	_hitPoints = 100;
 	_energyPoints = 50;
 	_attackDamage = 20;
+	_baseLife = 100;
+	setGuardmode(true);
 }
 
 ScavTrap::~ScavTrap()
@@ -79,6 +93,7 @@ ScavTrap & ScavTrap::operator=(ScavTrap const & src)
 		_energyPoints = src._energyPoints;
 		_attackDamage = src._attackDamage;
 		_name = src._name;
+		_guardMode = src._guardMode;
 	}
 	return *this;
 }
