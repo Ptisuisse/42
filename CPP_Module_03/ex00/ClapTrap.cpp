@@ -49,14 +49,14 @@ unsigned int ClapTrap::getEnergy()
 
 void	ClapTrap::takeDamage(int amount)
 {
-	if (amount < 0)
-	{
-		std::cout << "You can't heal your enemy with your weapon" << std::endl;
-		return ;
-	}
 	if (getHealthPoints() == 0)
 	{
 		std::cout << "No need to insist, " << _name << " is dead" << std::endl;
+		return ;
+	}
+	if (amount < 0)
+	{
+		std::cout << "You can't heal your enemy with your weapon" << std::endl;
 		return ;
 	}
 	setHealthPoints(amount);
@@ -71,6 +71,11 @@ void	ClapTrap::takeDamage(int amount)
 
 void	ClapTrap::beRepaired(int amount)
 {
+	if (getHealthPoints() <= 0)
+	{
+		std::cout << "It's too late... " << _name << " is dead" << std::endl;
+		return ;
+	}
 	if (amount < 0)
 	{
 		std::cout << "You can't repair yourself by giving damage" << std::endl;
@@ -79,11 +84,6 @@ void	ClapTrap::beRepaired(int amount)
 	if (getEnergy() == 0)
 	{
 		std::cout << "Not enough energy" << std::endl;
-		return ;
-	}
-	if (getHealthPoints() <= 0)
-	{
-		std::cout << "It's too late... " << _name << " is dead" << std::endl;
 		return ;
 	}
 	else if (amount + getHealthPoints() > _baseLife)
@@ -100,14 +100,14 @@ void	ClapTrap::beRepaired(int amount)
 
 void	ClapTrap::attack(const std::string &target)
 {
-	if (getEnergy() == 0)
-	{
-		std::cout << "Not enough energy" << std::endl;
-		return ;
-	}
 	if (getHealthPoints() <= 0)
 	{
 		std::cout << "Sorry to tell you but ..." << _name << " is dead" << std::endl;
+		return ;
+	}
+	if (getEnergy() == 0)
+	{
+		std::cout << "Not enough energy" << std::endl;
 		return ;
 	}
 	setEnergy();

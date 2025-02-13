@@ -50,14 +50,14 @@ unsigned int ClapTrap::getEnergy()
 
 void	ClapTrap::takeDamage(int amount)
 {
-	if (amount < 0)
-	{
-		std::cout << "You can't heal your enemy with your weapon" << std::endl;
-		return ;
-	}
 	if (getHealthPoints() == 0)
 	{
 		std::cout << "No need to insist, " << _name << " is dead" << std::endl;
+		return ;
+	}
+	if (amount < 0)
+	{
+		std::cout << "You can't heal your enemy with your weapon" << std::endl;
 		return ;
 	}
 	setHealthPoints(amount);
@@ -67,24 +67,24 @@ void	ClapTrap::takeDamage(int amount)
 		std::cout << _name << " is dead" << std::endl;
 		return ;
 	}
-	std::cout << getHealthPoints() << " remaining life points"<<std::endl;
+	std::cout << getHealthPoints() << " remaining hit points"<<std::endl;
 }
 
 void	ClapTrap::beRepaired(int amount)
 {
+	if (getHealthPoints() <= 0)
+	{
+		std::cout << "It's too late... " << _name << " is dead" << std::endl;
+		return ;
+	}
 	if (amount < 0)
 	{
 		std::cout << "You can't repair yourself by giving damage" << std::endl;
 		return ;
 	}
-	else if (getEnergy() == 0)
+	if (getEnergy() == 0)
 	{
 		std::cout << "Not enough energy" << std::endl;
-		return ;
-	}
-	else if (getHealthPoints() <= 0)
-	{
-		std::cout << "It's too late... " << _name << " is dead" << std::endl;
 		return ;
 	}
 	else if (amount + getHealthPoints() > _baseLife)
@@ -95,20 +95,20 @@ void	ClapTrap::beRepaired(int amount)
 	else
 		_hitPoints += amount;
 	setEnergy();
-	std::cout << _name << " is repaired for " << amount << " points. Hit points remaining : " << _hitPoints << std::endl;
+	std::cout << _name << " is repaired for " << amount << " points" << std::endl;
 	std::cout << "Energy: " << getEnergy() << std::endl;
 }
 
 void	ClapTrap::attack(const std::string &target)
 {
-	if (getEnergy() == 0)
-	{
-		std::cout << "Not enough energy" << std::endl;
-		return ;
-	}
 	if (getHealthPoints() <= 0)
 	{
 		std::cout << "Sorry to tell you but ..." << _name << " is dead" << std::endl;
+		return ;
+	}
+	if (getEnergy() == 0)
+	{
+		std::cout << "Not enough energy" << std::endl;
 		return ;
 	}
 	setEnergy();

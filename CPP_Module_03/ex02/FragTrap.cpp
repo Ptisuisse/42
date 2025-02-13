@@ -32,6 +32,7 @@ FragTrap::FragTrap(std::string name) : ClapTrap(name)
 	_hitPoints = 100;
 	_energyPoints = 100;
 	_attackDamage = 30;
+	_baseLife = 100;
 	std::cout << "FragTrap : "<< _name << " is ready to fight!" << std::endl;
 }
 
